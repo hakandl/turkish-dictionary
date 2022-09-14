@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/feature/detail/view/tabbar/detail_tabbar_view.dart';
+import 'package:turkce_sozluk/product/widgets/button/text_button.dart';
 
 import '../../../../product/widgets/input/textfield.dart';
 import '../../../../product/widgets/svg.dart';
@@ -37,7 +39,6 @@ class _SearchViewState extends SearchViewModel {
                       height: 50,
                       padding: context.onlyLeftPaddingNormal,
                       child: NormalTextField(
-                        onTap: () {},
                         controller: searchTextField,
                         title: 'Türkçe Sözlükte Ara',
                         style: context.textTheme.bodyMedium?.copyWith(
@@ -46,8 +47,8 @@ class _SearchViewState extends SearchViewModel {
                         radius: context.lowRadius.x,
                         icon: Padding(
                           padding: context.paddingNormal,
-                          child: const SvgWidget(
-                            icon: 'ic_search',
+                          child: SvgWidget(
+                            icon: IconNameEnum.search.value,
                             color: Colors.red,
                           ),
                         ),
@@ -60,8 +61,8 @@ class _SearchViewState extends SearchViewModel {
                                   onPressed: () {
                                     setState(() => searchTextField.clear());
                                   },
-                                  icon: const SvgWidget(
-                                    icon: 'ic_x',
+                                  icon: SvgWidget(
+                                    icon: IconNameEnum.x.value,
                                     color: Colors.red,
                                   ),
                                 ))
@@ -70,13 +71,16 @@ class _SearchViewState extends SearchViewModel {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const TurkceSozlukTextButton(
+                    text: 'Vazgeç',
+                  )
+                  /* TextButton(
                     onPressed: () => context.pop(),
                     child: Padding(
                       padding: context.horizontalPaddingLow,
                       child: const Text('Vazgeç'),
                     ),
-                  )
+                  ) */
                 ],
               ),
             ),
@@ -95,8 +99,8 @@ class _SearchViewState extends SearchViewModel {
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SvgWidget(
-                          icon: 'ic_book',
+                        SvgWidget(
+                          icon: IconNameEnum.book.value,
                           height: 48,
                           color: Colors.grey,
                         ),
@@ -138,7 +142,7 @@ class _SearchViewState extends SearchViewModel {
                                 elevation: 0,
                                 child: ListTile(
                                   trailing: SvgWidget(
-                                    icon: 'ic_right',
+                                    icon: IconNameEnum.right.value,
                                     color: searchTextField.text == filteredData[index].madde ? Colors.red : Colors.grey,
                                   ),
                                   shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
@@ -155,6 +159,9 @@ class _SearchViewState extends SearchViewModel {
                                       ],
                                     ),
                                   ),
+                                  onTap: () => context.navigateToPage(DetailTabBarView(
+                                    word: filteredData[index].madde ?? '',
+                                  )),
                                 ),
                               ),
                             );

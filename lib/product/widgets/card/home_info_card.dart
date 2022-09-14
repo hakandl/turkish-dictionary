@@ -18,30 +18,32 @@ class HomeInfoCard extends StatelessWidget {
               color: Colors.grey,
               margin: EdgeInsets.only(
                 left: context.onlyLeftPaddingNormal.left,
-                top: context.onlyTopPaddingMedium.top,
-                bottom: context.onlyBottomPaddingMedium.bottom,
+                top: context.onlyTopPaddingNormal.top,
+                bottom: context.onlyBottomPaddingNormal.bottom,
               ),
             ),
             Expanded(
-                child: Padding(
-              padding: context.paddingMedium,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: context.onlyBottomPaddingLow,
-                    child: Text(
-                      'data' * 2,
-                      style: context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+              child: Padding(
+                padding: context.paddingNormal,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: context.onlyBottomPaddingLow,
+                      child: Text(
+                        'data' * 2,
+                        style:
+                            context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'data' * 5,
-                    style: context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),
-                  ),
-                ],
+                    Text(
+                      'data' * 5,
+                      style: context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),
+                    ),
+                  ],
+                ),
               ),
-            ))
+            )
           ],
         ),
       ),

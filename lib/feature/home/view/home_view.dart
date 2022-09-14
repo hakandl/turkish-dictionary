@@ -5,6 +5,7 @@ import 'package:turkce_sozluk/product/widgets/card/home_info_card.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../product/widgets/bg.dart';
+import '../../../product/widgets/button/icon_button.dart';
 import '../../../product/widgets/svg.dart';
 import 'package:kartal/kartal.dart';
 
@@ -53,10 +54,13 @@ class _HomeViewState extends State<HomeView> {
                               Positioned(
                                 right: 0,
                                 top: 0,
-                                child: IconButton(onPressed: () {}, icon: const SvgWidget(icon: 'ic_more')),
+                                child: TurkceSozlukIconButton(
+                                  child: SvgWidget(icon: IconNameEnum.more.value),
+                                  onPressed: () {},
+                                ),
                               ),
-                              const SvgWidget(
-                                icon: 'ic_logo',
+                              SvgWidget(
+                                icon: IconNameEnum.logo.value,
                                 height: 40,
                                 width: 85,
                               ),
@@ -81,8 +85,8 @@ class _HomeViewState extends State<HomeView> {
                                 children: [
                                   Padding(
                                     padding: context.paddingNormal,
-                                    child: const SvgWidget(
-                                      icon: 'ic_search',
+                                    child: SvgWidget(
+                                      icon: IconNameEnum.search.value,
                                       color: Colors.red,
                                     ),
                                   ),
@@ -120,10 +124,7 @@ class _HomeViewState extends State<HomeView> {
       margin: EdgeInsets.only(
         top: context.onlyTopPaddingNormal.top,
       ),
-      padding: EdgeInsets.only(
-        left: context.onlyLeftPaddingNormal.left,
-        right: context.onlyRightPaddingNormal.right,
-      ),
+      padding: context.horizontalPaddingNormal,
       color: Colors.grey.shade50,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

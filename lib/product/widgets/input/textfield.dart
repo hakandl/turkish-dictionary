@@ -9,13 +9,11 @@ class NormalTextField extends TextField {
       Widget? icon,
       Widget? suffixIcon,
       double? radius,
-      void Function()? onTap,
       void Function(String)? onChanged,
       bool autofocus = true})
       : super(
           key: key,
           controller: controller,
-          onTap: onTap,
           onChanged: onChanged,
           autofocus: autofocus,
           decoration: InputDecoration(
