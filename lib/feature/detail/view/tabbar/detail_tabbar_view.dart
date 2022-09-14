@@ -3,6 +3,8 @@ import 'package:turkce_sozluk/feature/detail/view/detail_view.dart';
 import 'package:turkce_sozluk/product/widgets/button/icon_button.dart';
 
 import '../../../../product/widgets/svg.dart';
+import '../../compound/view/compound_view.dart';
+import '../../proverb/view/proverb_view.dart';
 
 class DetailTabBarView extends StatelessWidget {
   const DetailTabBarView({super.key, required this.word});
@@ -22,17 +24,17 @@ class DetailTabBarView extends StatelessWidget {
             ),
           ),
           title: Text(word),
-          bottom: const TabBar(
+          bottom: TabBar(
             isScrollable: true,
             tabs: [
               Tab(
-                text: 'Açıklama',
+                text: TabBarPageEnum.detail.name,
               ),
               Tab(
-                text: 'Atasözleri & Deyimler',
+                text: TabBarPageEnum.proverb.name,
               ),
               Tab(
-                text: 'Birleşik Kelimeler',
+                text: TabBarPageEnum.compound.name,
               ),
             ],
           ),
@@ -50,10 +52,11 @@ class DetailTabBarView extends StatelessWidget {
 }
 
 enum TabBarPageEnum {
-  detail(DetailView()),
-  proverb(DetailView()),
-  compound(DetailView());
+  detail(DetailView(), 'Açıklama'),
+  proverb(ProverbView(), 'Atasözleri & Deyimler'),
+  compound(CompoundView(), 'Birleşik Kelimeler');
 
   final Widget page;
-  const TabBarPageEnum(this.page);
+  final String name;
+  const TabBarPageEnum(this.page, this.name);
 }

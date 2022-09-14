@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/feature/detail/compound/view/compound_detail_view.dart';
 import 'package:turkce_sozluk/product/widgets/button/icon_text_button.dart';
 import 'package:turkce_sozluk/product/widgets/button/material_button.dart';
+import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
 
-import '../../../product/widgets/card/detail_word_info_card.dart';
-
-class DetailView extends StatefulWidget {
-  const DetailView({super.key});
+class CompoundView extends StatefulWidget {
+  const CompoundView({super.key});
 
   @override
-  State<DetailView> createState() => _DetailViewState();
+  State<CompoundView> createState() => _CompoundViewState();
 }
 
-class _DetailViewState extends State<DetailView> {
+class _CompoundViewState extends State<CompoundView> {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -90,19 +90,16 @@ class DetailWordList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: context.lowBorderRadius,
-      child: ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return const DetailWordInfoCard();
-        },
-        separatorBuilder: (context, index) {
-          return Container(color: Colors.white, child: const Divider());
-        },
-      ),
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 10,
+      itemBuilder: (BuildContext context, int index) {
+        return DetailWordCard(
+          text: 'data',
+          onTap: () => context.navigateToPage(const CompoundDetailView()),
+        );
+      },
     );
   }
 }

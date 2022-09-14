@@ -29,6 +29,7 @@ class TurkceSozlukIconTextButton extends StatelessWidget {
         ),
         icon: icon,
         style: TextButton.styleFrom(
+          primary: Colors.transparent,
           fixedSize: const Size(156, 48),
           shape: RoundedRectangleBorder(borderRadius: context.highBorderRadius),
         ),
