@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/feature/home/view/home_view.dart';
+import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/core/constants/app/app_constants.dart';
 
-void main() => runApp(const MyApp());
+import 'core/init/notifier/theme_notifier.dart';
+import 'feature/home/view/home_view.dart';
+
+void main() => runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeNotifier>(
+          create: (context) => ThemeNotifier(),
+        )
+      ],
+      builder: (context, child) => const MyApp(),
+    ));
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -10,29 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        textTheme: const TextTheme(),
-        appBarTheme: AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            titleTextStyle: context.textTheme.titleLarge),
-        tabBarTheme: const TabBarTheme(
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.grey,
-          labelStyle: TextStyle(fontWeight: FontWeight.w700),
-          unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w700),
-          indicatorSize: TabBarIndicatorSize.tab,
-          indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(
-              width: 2.0,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
+      theme: context.watch<ThemeNotifier>().currentTheme,
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: ApplicationConstants.APP_NAME,
       home: const HomeView(),
     );
   }

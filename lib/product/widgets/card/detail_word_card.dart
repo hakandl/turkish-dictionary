@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
+
+import '../svg.dart';
 
 class DetailWordCard extends StatelessWidget {
   const DetailWordCard({
@@ -16,16 +17,19 @@ class DetailWordCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2,
+      elevation: 1,
       shape: RoundedRectangleBorder(
         borderRadius: context.lowBorderRadius,
       ),
       child: ListTile(
-        title: Text(text),
+        title: Text(
+          text,
+          style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
+        ),
         trailing: isRight
             ? SvgWidget(
                 icon: IconNameEnum.right.value,
-                color: Colors.red,
+                color: context.colorScheme.onSecondary,
               )
             : const SizedBox.shrink(),
         onTap: onTap,

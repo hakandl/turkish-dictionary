@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/widgets/button/icon_text_button.dart';
-import 'package:turkce_sozluk/product/widgets/button/material_button.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
 
+import '../../../product/widgets/button/icon_text_button.dart';
+import '../../../product/widgets/button/circle_elevated_button.dart';
 import '../../../product/widgets/card/detail_word_info_card.dart';
+import '../../../product/widgets/svg.dart';
 
 class DetailView extends StatefulWidget {
   const DetailView({super.key});
@@ -38,40 +38,41 @@ class DetailTop extends StatelessWidget {
       children: [
         Text(
           'title',
-          style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.headlineLarge?.copyWith(
+            color: context.colorScheme.background,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         Text(
           'subtitle',
-          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+          style: context.textTheme.bodyMedium
+              ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w500),
         ),
         Padding(
           padding: context.verticalPaddingMedium,
           child: Row(
             children: [
-              TurkceSozlukMaterialButton(
-                color: Colors.white,
+              TurkceSozlukCircleElevatedButton(
                 child: SvgWidget(
                   icon: IconNameEnum.voice.value,
-                  color: Colors.grey,
+                  color: context.colorScheme.onSecondary,
                 ),
                 onPressed: () {},
               ),
-              context.emptySizedWidthBoxLow3x,
-              TurkceSozlukMaterialButton(
-                color: Colors.white,
+              TurkceSozlukCircleElevatedButton(
                 child: SvgWidget(
                   icon: IconNameEnum.fav.value,
-                  color: Colors.grey,
+                  color: context.colorScheme.onSecondary,
                 ),
                 onPressed: () {},
               ),
               const Spacer(),
               TurkceSozlukIconTextButton(
                 text: 'Türk İşaret Dili',
-                textStyle: const TextStyle(color: Colors.grey),
+                textStyle: TextStyle(color: context.colorScheme.onSecondary),
                 icon: SvgWidget(
                   icon: IconNameEnum.hand.value,
-                  color: Colors.grey,
+                  color: context.colorScheme.onSecondary,
                 ),
                 onPressed: () {},
               )
@@ -100,7 +101,7 @@ class DetailWordList extends StatelessWidget {
           return const DetailWordInfoCard();
         },
         separatorBuilder: (context, index) {
-          return Container(color: Colors.white, child: const Divider());
+          return Container(color: context.colorScheme.primary, child: const Divider());
         },
       ),
     );

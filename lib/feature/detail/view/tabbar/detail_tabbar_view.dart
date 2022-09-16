@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/feature/detail/view/detail_view.dart';
-import 'package:turkce_sozluk/product/widgets/button/icon_button.dart';
+import 'package:kartal/kartal.dart';
 
+import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/svg.dart';
 import '../../compound/view/compound_view.dart';
 import '../../proverb/view/proverb_view.dart';
+import '../detail_view.dart';
 
 class DetailTabBarView extends StatelessWidget {
   const DetailTabBarView({super.key, required this.word});
@@ -20,7 +21,7 @@ class DetailTabBarView extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
             child: SvgWidget(
               icon: IconNameEnum.left.value,
-              color: Colors.black,
+              color: context.colorScheme.background,
             ),
           ),
           title: Text(word),

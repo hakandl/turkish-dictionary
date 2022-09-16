@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/feature/detail/view/tabbar/detail_tabbar_view.dart';
-import 'package:turkce_sozluk/product/widgets/button/text_button.dart';
+import 'package:turkce_sozluk/product/widgets/button/icon_button.dart';
 
 import '../../../../product/widgets/input/textfield.dart';
 import '../../../../product/widgets/svg.dart';
+import '../../../product/widgets/button/text_button.dart';
+import '../../detail/view/tabbar/detail_tabbar_view.dart';
 import '../viewmodel/search_viewmodel.dart';
 
 class SearchView extends StatefulWidget {
@@ -41,52 +42,38 @@ class _SearchViewState extends SearchViewModel {
                       child: NormalTextField(
                         controller: searchTextField,
                         title: 'Türkçe Sözlükte Ara',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w400,
-                        ),
                         radius: context.lowRadius.x,
                         icon: Padding(
                           padding: context.paddingNormal,
                           child: SvgWidget(
                             icon: IconNameEnum.search.value,
-                            color: Colors.red,
+                            color: context.colorScheme.background,
                           ),
                         ),
                         suffixIcon: searchTextField.text.isNotEmpty
-                            ? Padding(
-                                padding: context.paddingNormal,
-                                child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  onPressed: () {
-                                    setState(() => searchTextField.clear());
-                                  },
-                                  icon: SvgWidget(
-                                    icon: IconNameEnum.x.value,
-                                    color: Colors.red,
-                                  ),
-                                ))
+                            ? TurkceSozlukIconButton(
+                                child: SvgWidget(
+                                  icon: IconNameEnum.x.value,
+                                  color: context.colorScheme.background,
+                                ),
+                                onPressed: () => setState(() => searchTextField.clear()),
+                              )
                             : const SizedBox.shrink(),
                         onChanged: (value) => runFilter(value),
                       ),
                     ),
                   ),
-                  const TurkceSozlukTextButton(
+                  TurkceSozlukTextButton(
                     text: 'Vazgeç',
-                  )
-                  /* TextButton(
+                    textStyle: context.textTheme.titleMedium,
                     onPressed: () => context.pop(),
-                    child: Padding(
-                      padding: context.horizontalPaddingLow,
-                      child: const Text('Vazgeç'),
-                    ),
-                  ) */
+                  )
                 ],
               ),
             ),
             Container(
               margin: context.onlyTopPaddingNormal,
-              color: Colors.grey.shade300,
+              color: context.colorScheme.secondary,
               height: 48,
               child: Row(
                 children: [
@@ -102,10 +89,13 @@ class _SearchViewState extends SearchViewModel {
                         SvgWidget(
                           icon: IconNameEnum.book.value,
                           height: 48,
-                          color: Colors.grey,
+                          color: context.colorScheme.background,
                         ),
                         context.emptySizedHeightBoxLow3x,
-                        const Text('Aradığınız sözcük bulunamadı.'),
+                        Text(
+                          'Aradığınız sözcük bulunamadı.',
+                          style: context.textTheme.titleMedium,
+                        ),
                       ],
                     )
                   : searchTextField.text.isEmpty
@@ -119,7 +109,10 @@ class _SearchViewState extends SearchViewModel {
                                     left: context.onlyLeftPaddingNormal.left,
                                     top: context.onlyTopPaddingMedium.top,
                                     bottom: context.onlyBottomPaddingLow.bottom),
-                                child: const Text('Son Aramalar'),
+                                child: Text(
+                                  'Son Aramalar',
+                                  style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
+                                ),
                               );
                             }
                             return const Card(
@@ -128,6 +121,7 @@ class _SearchViewState extends SearchViewModel {
                           },
                         )
                       : ListView.builder(
+                          padding: context.verticalPaddingMedium,
                           shrinkWrap: true,
                           itemCount: filteredData.length,
                           itemBuilder: (BuildContext context, int index) {
@@ -137,31 +131,32 @@ class _SearchViewState extends SearchViewModel {
                                 vertical: context.paddingLow.top,
                               ),
                               child: Card(
-                                color: Colors.white,
                                 margin: EdgeInsets.zero,
-                                elevation: 0,
                                 child: ListTile(
-                                  trailing: SvgWidget(
-                                    icon: IconNameEnum.right.value,
-                                    color: searchTextField.text == filteredData[index].madde ? Colors.red : Colors.grey,
-                                  ),
+                                  trailing:
+                                      SvgWidget(icon: IconNameEnum.right.value, color: context.colorScheme.onSecondary),
                                   shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
                                   title: RichText(
                                     text: TextSpan(
                                       text: filteredData[index].madde!.substring(0, searchTextField.text.length),
-                                      style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                                      style: context.textTheme.titleMedium?.copyWith(
+                                          color: context.colorScheme.background, fontWeight: FontWeight.w700),
                                       children: [
                                         TextSpan(
                                           text: filteredData[index].madde!.substring(searchTextField.text.length),
-                                          style: context.textTheme.titleMedium
-                                              ?.copyWith(fontWeight: FontWeight.w500, color: Colors.grey),
+                                          style: context.textTheme.titleMedium?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: context.colorScheme.onSurface,
+                                          ),
                                         )
                                       ],
                                     ),
                                   ),
-                                  onTap: () => context.navigateToPage(DetailTabBarView(
-                                    word: filteredData[index].madde ?? '',
-                                  )),
+                                  onTap: () => context.navigateToPage(
+                                    DetailTabBarView(
+                                      word: filteredData[index].madde ?? '',
+                                    ),
+                                  ),
                                 ),
                               ),
                             );
@@ -176,12 +171,10 @@ class _SearchViewState extends SearchViewModel {
 
   Expanded specialWord(String word) {
     return Expanded(
-      child: TextButton(
+      child: TurkceSozlukTextButton(
         onPressed: () => insertSpecialWord(word, searchTextField),
-        child: Text(
-          word,
-          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-        ),
+        text: word,
+        textStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
       ),
     );
   }

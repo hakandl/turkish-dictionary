@@ -37,7 +37,9 @@ enum IconNameEnum {
   trash('ic_trash'),
   voiceSolid('ic_voice_solid'),
   voice('ic_voice'),
-  x('ic_x');
+  x('ic_x'),
+  moon('ic_moon'),
+  sun('ic_sun');
 
   const IconNameEnum(this.value);
   final String value;

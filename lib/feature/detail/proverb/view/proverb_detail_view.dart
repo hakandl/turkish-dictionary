@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/feature/detail/view/tabbar/detail_tabbar_view.dart';
 
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
 import '../../../../product/widgets/svg.dart';
-import '../../compound/view/compound_view.dart';
+import '../../view/detail_view.dart';
+import '../../view/tabbar/detail_tabbar_view.dart';
 
 class ProverbDetailView extends StatefulWidget {
   const ProverbDetailView({super.key});
@@ -23,7 +23,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
             onPressed: () => Navigator.pop(context),
             child: SvgWidget(
               icon: IconNameEnum.left.value,
-              color: Colors.black,
+              color: context.colorScheme.background,
             ),
           ),
           title: Text(TabBarPageEnum.proverb.name),

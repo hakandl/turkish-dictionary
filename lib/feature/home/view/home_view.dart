@@ -1,14 +1,15 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:turkce_sozluk/product/widgets/card/home_info_card.dart';
+import 'package:kartal/kartal.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../product/widgets/bg.dart';
+import '../../../core/init/notifier/theme_notifier.dart';
 import '../../../product/widgets/button/icon_button.dart';
+import '../../../product/widgets/button/icon_text_button.dart';
+import '../../../product/widgets/card/home_info_card.dart';
+import '../../../product/widgets/modal/bottom_modal_sheet.dart';
 import '../../../product/widgets/svg.dart';
-import 'package:kartal/kartal.dart';
-
 import '../../search/view/search_view.dart';
 import '../viewmodel/home_viewmodel.dart';
 
@@ -19,7 +20,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -29,25 +30,24 @@ class _HomeViewState extends State<HomeView> {
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(0),
             child: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.red,
-              systemOverlayStyle: SystemUiOverlayStyle.light,
-            ),
+                backgroundColor: context.colorScheme.surface,
+                elevation: 0,
+                systemOverlayStyle: context.appTheme.appBarTheme.systemOverlayStyle),
           ),
           resizeToAvoidBottomInset: false,
           body: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  color: Colors.grey.shade50,
-                  height: context.dynamicHeight(0.35),
+                SizedBox(
+                  height: context.dynamicHeight(0.3),
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
                       Positioned.fill(
                         bottom: 26,
-                        child: Background(
+                        child: ColoredBox(
+                          color: context.colorScheme.onError,
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -55,14 +55,36 @@ class _HomeViewState extends State<HomeView> {
                                 right: 0,
                                 top: 0,
                                 child: TurkceSozlukIconButton(
-                                  child: SvgWidget(icon: IconNameEnum.more.value),
-                                  onPressed: () {},
+                                  child: SvgWidget(
+                                    icon: IconNameEnum.more.value,
+                                    color: context.colorScheme.onPrimary,
+                                  ),
+                                  onPressed: () {
+                                    showTurkceSozlukModalSheet(
+                                      context,
+                                      TurkceSozlukIconTextButton(
+                                        fixedSizeWidth: context.dynamicWidth(.9),
+                                        text: 'text',
+                                        textStyle: TextStyle(
+                                          color: context.colorScheme.background,
+                                        ),
+                                        icon: SvgWidget(
+                                          icon: IconNameEnum.sun.value,
+                                          color: context.colorScheme.onBackground,
+                                        ),
+                                        onPressed: () {
+                                          context.read<ThemeNotifier>().changeTheme();
+                                        },
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                               SvgWidget(
                                 icon: IconNameEnum.logo.value,
                                 height: 40,
                                 width: 85,
+                                color: context.colorScheme.onPrimary,
                               ),
                             ],
                           ),
@@ -72,31 +94,37 @@ class _HomeViewState extends State<HomeView> {
                         bottom: 0,
                         child: OpenContainer(
                           closedElevation: 5,
+                          openColor: context.colorScheme.primary,
+                          closedColor: context.colorScheme.primary,
                           closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
                           transitionDuration: context.durationLow,
                           transitionType: ContainerTransitionType.fade,
                           closedBuilder: (context, VoidCallback action) {
-                            return Container(
-                              color: Colors.white,
-                              width: context.dynamicWidth(.9),
-                              height: 50,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: context.paddingNormal,
-                                    child: SvgWidget(
-                                      icon: IconNameEnum.search.value,
-                                      color: Colors.red,
+                            return Card(
+                              elevation: 0,
+                              margin: EdgeInsets.zero,
+                              child: SizedBox(
+                                width: context.dynamicWidth(.9),
+                                height: 50,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: context.paddingNormal,
+                                      child: SvgWidget(
+                                        icon: IconNameEnum.search.value,
+                                        color: context.colorScheme.background,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Türkçe Sözlükte Ara',
-                                    style: context.textTheme.bodyMedium?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
+                                    Text(
+                                      'Türkçe Sözlükte Ara',
+                                      style: context.textTheme.titleMedium?.copyWith(
+                                        color: context.colorScheme.background,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -125,7 +153,6 @@ class _HomeViewState extends State<HomeView> {
         top: context.onlyTopPaddingNormal.top,
       ),
       padding: context.horizontalPaddingNormal,
-      color: Colors.grey.shade50,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -147,7 +174,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       child: Text(
         title,
-        style: context.textTheme.bodySmall,
+        style: context.textTheme.bodySmall?.copyWith(color: context.colorScheme.background),
       ),
     );
   }

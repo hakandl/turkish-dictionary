@@ -7,7 +7,6 @@ class HomeInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
       child: IntrinsicHeight(
         child: Row(
@@ -15,7 +14,7 @@ class HomeInfoCard extends StatelessWidget {
             Container(
               width: 3,
               height: double.infinity,
-              color: Colors.grey,
+              color: context.colorScheme.secondary,
               margin: EdgeInsets.only(
                 left: context.onlyLeftPaddingNormal.left,
                 top: context.onlyTopPaddingNormal.top,
@@ -32,13 +31,14 @@ class HomeInfoCard extends StatelessWidget {
                       padding: context.onlyBottomPaddingLow,
                       child: Text(
                         'data' * 2,
-                        style:
-                            context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w700),
+                        style: context.textTheme.titleMedium
+                            ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Text(
                       'data' * 5,
-                      style: context.textTheme.titleMedium?.copyWith(color: Colors.black, fontWeight: FontWeight.w400),
+                      style: context.textTheme.titleMedium
+                          ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
