@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 class HomeInfoCard extends StatelessWidget {
-  const HomeInfoCard({super.key});
+  const HomeInfoCard({super.key, required this.title, required this.subtitle});
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,13 @@ class HomeInfoCard extends StatelessWidget {
                     Padding(
                       padding: context.onlyBottomPaddingLow,
                       child: Text(
-                        'data' * 2,
+                        title,
                         style: context.textTheme.titleMedium
                             ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
                       ),
                     ),
                     Text(
-                      'data' * 5,
+                      subtitle,
                       style: context.textTheme.titleMedium
                           ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
                     ),

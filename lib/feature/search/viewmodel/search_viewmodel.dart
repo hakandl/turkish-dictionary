@@ -7,6 +7,10 @@ import 'package:turkce_sozluk/feature/search/view/search_view.dart';
 import '../model/search_keyword_model.dart';
 
 abstract class SearchViewModel extends State<SearchView> {
+  late final TextEditingController searchTextField;
+  List<Word> data = [];
+  List<Word> filteredData = [];
+
   Future loadKeyword() async {
     final response = await rootBundle.loadString('assets/data/autocomplete.json');
     String jsonKeyword = response;
@@ -21,18 +25,6 @@ abstract class SearchViewModel extends State<SearchView> {
     loadKeyword();
   }
 
-  late final TextEditingController searchTextField;
-  List<Word> data = [];
-  List<Word> filteredData = [];
-  void insertSpecialWord(String word, TextEditingController insertWord) {
-    var text = insertWord.text;
-    var pos = insertWord.selection.start;
-    insertWord.value = TextEditingValue(
-      text: text.substring(0, pos) + word + text.substring(pos),
-      selection: TextSelection.collapsed(offset: pos + word.length),
-    );
-  }
-
   void runFilter(String text) {
     List<Word> results = [];
     if (text.isEmpty) {
@@ -42,6 +34,15 @@ abstract class SearchViewModel extends State<SearchView> {
     }
     setState(() => filteredData = results);
   }
+}
+
+void insertSpecialWord(String word, TextEditingController insertWord) {
+  var text = insertWord.text;
+  var pos = insertWord.selection.start;
+  insertWord.value = TextEditingValue(
+    text: text.substring(0, pos) + word + text.substring(pos),
+    selection: TextSelection.collapsed(offset: pos + word.length),
+  );
 }
 
 enum SpecialWordEnum {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
 import 'package:turkce_sozluk/product/widgets/button/icon_button.dart';
 
 import '../../../../product/widgets/input/textfield.dart';
@@ -133,31 +134,31 @@ class _SearchViewState extends SearchViewModel {
                               child: Card(
                                 margin: EdgeInsets.zero,
                                 child: ListTile(
-                                  trailing:
-                                      SvgWidget(icon: IconNameEnum.right.value, color: context.colorScheme.onSecondary),
-                                  shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-                                  title: RichText(
-                                    text: TextSpan(
-                                      text: filteredData[index].madde!.substring(0, searchTextField.text.length),
-                                      style: context.textTheme.titleMedium?.copyWith(
-                                          color: context.colorScheme.background, fontWeight: FontWeight.w700),
-                                      children: [
-                                        TextSpan(
-                                          text: filteredData[index].madde!.substring(searchTextField.text.length),
-                                          style: context.textTheme.titleMedium?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            color: context.colorScheme.onSurface,
-                                          ),
-                                        )
-                                      ],
+                                    trailing: SvgWidget(
+                                        icon: IconNameEnum.right.value, color: context.colorScheme.onSecondary),
+                                    shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
+                                    title: RichText(
+                                      text: TextSpan(
+                                        text: filteredData[index].madde!.substring(0, searchTextField.text.length),
+                                        style: context.textTheme.titleMedium?.copyWith(
+                                            color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                                        children: [
+                                          TextSpan(
+                                            text: filteredData[index].madde!.substring(searchTextField.text.length),
+                                            style: context.textTheme.titleMedium?.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              color: context.colorScheme.onSurface,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  onTap: () => context.navigateToPage(
-                                    DetailTabBarView(
-                                      word: filteredData[index].madde ?? '',
-                                    ),
-                                  ),
-                                ),
+                                    onTap: () {
+                                      DetailViewModel.word = filteredData[index].madde?.toLowerCase();
+                                      context.navigateToPage(
+                                        const DetailTabBarView(),
+                                      );
+                                    }),
                               ),
                             );
                           },

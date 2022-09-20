@@ -4,7 +4,17 @@ import 'package:kartal/kartal.dart';
 class DetailWordInfoCard extends StatelessWidget {
   const DetailWordInfoCard({
     Key? key,
+    required this.anlamSira,
+    required this.ozellikAdi,
+    required this.anlam,
+    required this.ornekAdi,
+    required this.yazarAdi,
   }) : super(key: key);
+  final String anlamSira;
+  final String ozellikAdi;
+  final String anlam;
+  final String ornekAdi;
+  final String yazarAdi;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,7 @@ class DetailWordInfoCard extends StatelessWidget {
                   Padding(
                     padding: context.onlyRightPaddingLow,
                     child: Text(
-                      '1',
+                      anlamSira,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.onSecondary,
                         fontWeight: FontWeight.w400,
@@ -32,7 +42,7 @@ class DetailWordInfoCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'İSİM',
+                    ozellikAdi,
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.onSecondary,
                       fontWeight: FontWeight.w500,
@@ -49,7 +59,7 @@ class DetailWordInfoCard extends StatelessWidget {
                 bottom: context.paddingLow.bottom,
               ),
               child: Text(
-                'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç:',
+                anlam,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colorScheme.background,
                   fontWeight: FontWeight.w600,
@@ -68,9 +78,9 @@ class DetailWordInfoCard extends StatelessWidget {
                     color: context.colorScheme.onSecondary,
                     fontWeight: FontWeight.w500,
                   ),
-                  children: const [
-                    TextSpan(text: '"Kâğıt, kalem, mürekkep, hepsi masanın üstündedir." '),
-                    TextSpan(text: '- Falih Rıfkı Atay', style: TextStyle(fontWeight: FontWeight.w700)),
+                  children: [
+                    TextSpan(text: ornekAdi),
+                    TextSpan(text: yazarAdi, style: const TextStyle(fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),

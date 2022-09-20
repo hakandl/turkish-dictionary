@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/feature/detail/compound/view/compound_detail_view.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 
+import '../../../../product/service/project_network_manager.dart';
+import '../../service/detail_service.dart';
 import '../../view/detail_view.dart';
+import '../../viewmodel/detail_viewmodel.dart';
 
 class CompoundView extends StatefulWidget {
   const CompoundView({super.key});
@@ -32,14 +36,22 @@ class DetailWordList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index) {
-        return DetailWordCard(
-          text: 'data',
-          onTap: () => context.navigateToPage(const CompoundDetailView()),
+    return ChangeNotifierProvider(
+      create: (context) => DetailViewModel(DetailService(ProjectNetworkManager.instance.service)),
+      builder: (context, child) {
+        var birlesik = context.watch<DetailViewModel>().detailList?[0].birlesikler;
+        List<String>? birlesiklerList;
+        birlesiklerList = birlesik?.split(',');
+        return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: birlesiklerList?.length ?? 0,
+          itemBuilder: (BuildContext context, int index) {
+            return DetailWordCard(
+              text: birlesiklerList?[index] ?? '',
+              onTap: () => context.navigateToPage(const CompoundDetailView()),
+            );
+          },
         );
       },
     );

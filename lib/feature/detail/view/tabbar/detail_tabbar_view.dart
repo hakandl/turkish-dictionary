@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
 
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/svg.dart';
@@ -8,8 +9,7 @@ import '../../proverb/view/proverb_view.dart';
 import '../detail_view.dart';
 
 class DetailTabBarView extends StatelessWidget {
-  const DetailTabBarView({super.key, required this.word});
-  final String word;
+  const DetailTabBarView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class DetailTabBarView extends StatelessWidget {
               color: context.colorScheme.background,
             ),
           ),
-          title: Text(word),
+          title: Text(DetailViewModel.word ?? ''),
           bottom: TabBar(
             isScrollable: true,
             tabs: [
