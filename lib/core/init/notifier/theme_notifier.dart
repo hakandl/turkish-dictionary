@@ -8,6 +8,7 @@ class ThemeNotifier extends ChangeNotifier {
   ThemeData _currentTheme = AppThemeLight.instance.theme;
   ThemeData get currentTheme => _currentTheme;
   AppThemes _currenThemeEnum = AppThemes.LIGHT;
+  bool themeIcon = false;
 
   void changeTheme() {
     if (_currenThemeEnum == AppThemes.LIGHT) {
@@ -17,6 +18,11 @@ class ThemeNotifier extends ChangeNotifier {
       _currentTheme = AppThemeLight.instance.theme;
       _currenThemeEnum = AppThemes.LIGHT;
     }
+    notifyListeners();
+  }
+
+  void changeIcon() {
+    themeIcon = !themeIcon;
     notifyListeners();
   }
 }

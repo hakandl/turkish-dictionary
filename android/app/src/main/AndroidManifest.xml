@@ -3,7 +3,9 @@
    <application
         android:label="turkce_sozluk"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,4 +33,12 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <queries>
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="https" />
+    </intent>
+    </queries>
+
 </manifest>

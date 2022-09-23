@@ -51,6 +51,7 @@ dependencies:
   # JSON
   json_serializable: ^6.3.1
   json_annotation: ^4.6.0
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:

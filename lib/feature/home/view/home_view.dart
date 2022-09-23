@@ -1,18 +1,19 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/home/service/content_service.dart';
-import 'package:turkce_sozluk/product/service/project_network_manager.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/init/notifier/theme_notifier.dart';
+import '../../../product/service/project_network_manager.dart';
 import '../../../product/widgets/button/icon_button.dart';
 import '../../../product/widgets/button/icon_text_button.dart';
 import '../../../product/widgets/card/home_info_card.dart';
+import '../../../product/widgets/card/intrinsic_height_card.dart';
+import '../../../product/widgets/card/search_card.dart';
 import '../../../product/widgets/modal/bottom_modal_sheet.dart';
+import '../../../product/widgets/string/info_card_text.dart';
 import '../../../product/widgets/svg.dart';
-import '../../search/view/search_view.dart';
+import '../service/content_service.dart';
 import '../viewmodel/home_viewmodel.dart';
 
 class HomeView extends StatefulWidget {
@@ -32,126 +33,8 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
           create: (context) => HomeViewModel(ContentService(ProjectNetworkManager.instance.service)),
           builder: (context, child) {
             return Scaffold(
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(0),
-                child: AppBar(
-                    backgroundColor: context.colorScheme.surface,
-                    elevation: 0,
-                    systemOverlayStyle: context.appTheme.appBarTheme.systemOverlayStyle),
-              ),
-              resizeToAvoidBottomInset: false,
-              body: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: context.dynamicHeight(0.3),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Positioned.fill(
-                            bottom: 26,
-                            child: ColoredBox(
-                              color: context.colorScheme.onError,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: TurkceSozlukIconButton(
-                                      child: SvgWidget(
-                                        icon: IconNameEnum.more.value,
-                                        color: context.colorScheme.onPrimary,
-                                      ),
-                                      onPressed: () {
-                                        showTurkceSozlukModalSheet(
-                                          height: 0.2,
-                                          context,
-                                          Padding(
-                                            padding: context.onlyTopPaddingMedium,
-                                            child: TurkceSozlukIconTextButton(
-                                              fixedSizeWidth: context.dynamicWidth(.9),
-                                              text: 'text',
-                                              textStyle: TextStyle(
-                                                color: context.colorScheme.background,
-                                              ),
-                                              icon: SvgWidget(
-                                                icon: IconNameEnum.sun.value,
-                                                color: context.colorScheme.onBackground,
-                                              ),
-                                              onPressed: () {
-                                                context.read<ThemeNotifier>().changeTheme();
-                                                context.pop();
-                                              },
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SvgWidget(
-                                    icon: IconNameEnum.logo.value,
-                                    height: 40,
-                                    width: 85,
-                                    color: context.colorScheme.onPrimary,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: OpenContainer(
-                              closedElevation: 5,
-                              openColor: context.colorScheme.primary,
-                              closedColor: context.colorScheme.primary,
-                              closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-                              transitionDuration: context.durationLow,
-                              transitionType: ContainerTransitionType.fade,
-                              closedBuilder: (context, VoidCallback action) {
-                                return Card(
-                                  elevation: 0,
-                                  margin: EdgeInsets.zero,
-                                  child: SizedBox(
-                                    width: context.dynamicWidth(.9),
-                                    height: 50,
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: context.paddingNormal,
-                                          child: SvgWidget(
-                                            icon: IconNameEnum.search.value,
-                                            color: context.colorScheme.background,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Türkçe Sözlükte Ara',
-                                          style: context.textTheme.titleMedium?.copyWith(
-                                            color: context.colorScheme.background,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              openBuilder: (context, action) {
-                                return const SearchView();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: wordAndProverb(context),
-                    )
-                  ],
-                ),
-              ),
+              appBar: _appBar(context),
+              body: _body(context),
             );
           },
         );
@@ -159,44 +42,153 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
     );
   }
 
-  Container wordAndProverb(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-        top: context.onlyTopPaddingNormal.top,
-      ),
-      padding: context.horizontalPaddingNormal,
+  SafeArea _body(BuildContext context) {
+    return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          homeInfoCardTitle(context, 'data'),
-          Center(
-              child: HomeInfoCard(
-            title: context.watch<HomeViewModel>().kelime?[0].madde ?? 'shimmer',
-            subtitle: context.watch<HomeViewModel>().kelime?[0].anlam ?? 'shimmer',
-          )),
-          homeInfoCardTitle(context, 'data'),
-          Center(
-            child: HomeInfoCard(
-              title: context.watch<HomeViewModel>().atasoz?[0].madde ?? 'shimmer',
-              subtitle: context.watch<HomeViewModel>().atasoz?[0].anlam ?? 'shimmer',
+          SizedBox(
+            height: context.dynamicHeight(0.2),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned.fill(
+                  bottom: _HomeViewHeightEnum.twentyFive.value,
+                  child: _bodyHeader(context),
+                ),
+                Positioned(
+                  bottom: _HomeViewHeightEnum.zero.value,
+                  child: const SearchCard(),
+                ),
+              ],
             ),
+          ),
+          Expanded(
+            child: _bodyScrollView(context),
+          )
+        ],
+      ),
+    );
+  }
+
+  PreferredSize _appBar(BuildContext context) {
+    return PreferredSize(
+        preferredSize: const Size.fromHeight(0), child: AppBar(backgroundColor: context.colorScheme.surface));
+  }
+
+  ColoredBox _bodyHeader(BuildContext context) {
+    return ColoredBox(
+      color: context.colorScheme.onError,
+      child: Align(
+        alignment: Alignment.topRight,
+        child: TurkceSozlukIconButton(
+            child: SvgWidget(
+              icon: IconNameEnum.more.value,
+              color: context.colorScheme.onPrimary,
+            ),
+            onPressed: () => _openModalSheet(context)),
+      ),
+    );
+  }
+
+  Future<dynamic> _openModalSheet(BuildContext context) {
+    return showTurkceSozlukModalSheet(
+      height: 0.2,
+      context,
+      Padding(
+        padding: context.onlyTopPaddingMedium,
+        child: TurkceSozlukIconTextButton(
+          fixedSizeWidth: context.dynamicWidth(.9),
+          text: 'text',
+          textStyle: TextStyle(
+            color: context.colorScheme.background,
+          ),
+          icon: SvgWidget(
+            icon: context.read<ThemeNotifier>().themeIcon ? IconNameEnum.sun.value : IconNameEnum.moon.value,
+            color: context.colorScheme.onBackground,
+          ),
+          onPressed: () {
+            context.read<ThemeNotifier>().changeTheme();
+            context.read<ThemeNotifier>().changeIcon();
+            context.pop();
+          },
+        ),
+      ),
+    );
+  }
+
+  SingleChildScrollView _bodyScrollView(BuildContext context) {
+    return SingleChildScrollView(
+      padding: context.paddingNormal,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const InfoCardText(title: 'data'),
+          _wordCard(context),
+          const InfoCardText(title: 'data'),
+          _proverbCard(context),
+          const InfoCardText(title: 'data'),
+          _aRuleCard(context),
+          const InfoCardText(title: 'data'),
+          IntrinsicHeightCard(
+            child: _syydCard(context),
           ),
         ],
       ),
     );
   }
 
-  Container homeInfoCardTitle(BuildContext context, String title) {
-    return Container(
-      padding: EdgeInsets.only(
-        top: context.onlyTopPaddingMedium.top,
-        bottom: context.onlyBottomPaddingLow.bottom,
-        left: context.onlyLeftPaddingLow.left,
-      ),
-      child: Text(
-        title,
-        style: context.textTheme.bodySmall?.copyWith(color: context.colorScheme.background),
+  HomeInfoCard _wordCard(BuildContext context) {
+    return HomeInfoCard(
+      title: context.watch<HomeViewModel>().kelime?[0].madde ?? 'shimmer',
+      subtitle: context.watch<HomeViewModel>().kelime?[0].anlam ?? 'shimmer',
+    );
+  }
+
+  HomeInfoCard _proverbCard(BuildContext context) {
+    return HomeInfoCard(
+      title: context.watch<HomeViewModel>().atasoz?[0].madde ?? 'shimmer',
+      subtitle: context.watch<HomeViewModel>().atasoz?[0].anlam ?? 'shimmer',
+    );
+  }
+
+  HomeInfoCard _aRuleCard(BuildContext context) {
+    return HomeInfoCard(
+      isLink: true,
+      title: context.watch<HomeViewModel>().kural?[0].adi ?? 'shimmer',
+      subtitle: context.watch<HomeViewModel>().kural?[0].url ?? 'shimmer',
+      onTap: () => context.read<HomeViewModel>().openUrl(context.read<HomeViewModel>().kural?[0].url ?? ''),
+    );
+  }
+
+  SizedBox _syydCard(BuildContext context) {
+    return SizedBox(
+      height: context.dynamicHeight(0.10),
+      child: Scrollbar(
+        controller: HomeViewModel.pageController,
+        thumbVisibility: true,
+        trackVisibility: true,
+        interactive: true,
+        child: PageView.builder(
+          controller: HomeViewModel.pageController,
+          scrollDirection: Axis.horizontal,
+          itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
+          itemBuilder: (context, index) {
+            return HomeInfoColumnCard(
+              title: context.watch<HomeViewModel>().syyd?[index].yanlisKelime ?? 'shimmer',
+              subtitle: context.watch<HomeViewModel>().syyd?[index].dogruKelime ?? 'shimmer',
+            );
+          },
+        ),
       ),
     );
   }
+}
+
+enum _HomeViewHeightEnum {
+  zero(0),
+  twentyFive(25);
+
+  final double value;
+  const _HomeViewHeightEnum(this.value);
 }
