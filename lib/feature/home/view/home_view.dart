@@ -11,6 +11,7 @@ import '../../../product/widgets/card/home_info_card.dart';
 import '../../../product/widgets/card/intrinsic_height_card.dart';
 import '../../../product/widgets/card/search_card.dart';
 import '../../../product/widgets/modal/bottom_modal_sheet.dart';
+import '../../../product/widgets/shimmer/home_card_shimmer.dart';
 import '../../../product/widgets/string/info_card_text.dart';
 import '../../../product/widgets/svg.dart';
 import '../service/content_service.dart';
@@ -29,14 +30,9 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
     return BaseView(
       viewModel: HomeViewModel(ContentService(ProjectNetworkManager.instance.service)),
       onPageBuilder: (context, value) {
-        return ChangeNotifierProvider<HomeViewModel>(
-          create: (context) => HomeViewModel(ContentService(ProjectNetworkManager.instance.service)),
-          builder: (context, child) {
-            return Scaffold(
-              appBar: _appBar(context),
-              body: _body(context),
-            );
-          },
+        return Scaffold(
+          appBar: _appBar(context),
+          body: _body(context),
         );
       },
     );
@@ -161,27 +157,31 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
     );
   }
 
-  SizedBox _syydCard(BuildContext context) {
-    return SizedBox(
-      height: context.dynamicHeight(0.10),
-      child: Scrollbar(
-        controller: HomeViewModel.pageController,
-        thumbVisibility: true,
-        trackVisibility: true,
-        interactive: true,
-        child: PageView.builder(
-          controller: HomeViewModel.pageController,
-          scrollDirection: Axis.horizontal,
-          itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
-          itemBuilder: (context, index) {
-            return HomeInfoColumnCard(
-              title: context.watch<HomeViewModel>().syyd?[index].yanlisKelime ?? 'shimmer',
-              subtitle: context.watch<HomeViewModel>().syyd?[index].dogruKelime ?? 'shimmer',
-            );
-          },
-        ),
-      ),
-    );
+  _syydCard(BuildContext context) {
+    return context.watch<HomeViewModel>().isLoading
+        ? const HomeCardShimmer(
+            isLine: false,
+          )
+        : SizedBox(
+            height: context.dynamicHeight(0.10),
+            child: Scrollbar(
+              controller: HomeViewModel.pageController,
+              thumbVisibility: true,
+              trackVisibility: true,
+              interactive: true,
+              child: PageView.builder(
+                controller: HomeViewModel.pageController,
+                scrollDirection: Axis.horizontal,
+                itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
+                itemBuilder: (context, index) {
+                  return HomeInfoColumnCard(
+                    title: context.watch<HomeViewModel>().syyd?[index].yanlisKelime ?? 'shimmer',
+                    subtitle: context.watch<HomeViewModel>().syyd?[index].dogruKelime ?? 'shimmer',
+                  );
+                },
+              ),
+            ),
+          );
   }
 }
 

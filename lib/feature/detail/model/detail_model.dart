@@ -13,6 +13,8 @@ class DetailModel {
 
   DetailModel({this.madde, this.lisan, this.telaffuz, this.birlesikler, this.anlamlarListe, this.atasozu});
 
+  List<String>? get birlesiklerList => birlesikler?.split(',');
+
   factory DetailModel.fromJson(Map<String, dynamic> json) {
     return _$DetailModelFromJson(json);
   }
@@ -76,8 +78,9 @@ class OzelliklerListe {
 @JsonSerializable(createToJson: false)
 class Atasozu {
   String? madde;
+  List<AnlamlarListe>? anlamlarListe;
 
-  Atasozu({this.madde});
+  Atasozu({this.madde, this.anlamlarListe});
 
   factory Atasozu.fromJson(Map<String, dynamic> json) {
     return _$AtasozuFromJson(json);

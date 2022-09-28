@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 
 class TurkceSozlukIconTextButton extends StatelessWidget {
   const TurkceSozlukIconTextButton({
@@ -24,7 +25,7 @@ class TurkceSozlukIconTextButton extends StatelessWidget {
       ),
       icon: icon,
       style: TextButton.styleFrom(
-        fixedSize: Size(fixedSizeWidth ?? 156, 48),
+        fixedSize: Size(fixedSizeWidth ?? context.dynamicWidth(.4), 48),
       ),
       onPressed: onPressed,
     );

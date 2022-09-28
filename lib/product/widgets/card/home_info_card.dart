@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/widgets/card/intrinsic_height_card.dart';
+import 'package:turkce_sozluk/product/widgets/shimmer/home_card_shimmer.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
+
+import '../../../feature/home/viewmodel/home_viewmodel.dart';
 
 // HOME INFO CARD
 
@@ -14,47 +18,51 @@ class HomeInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeightCard(
-      child: isLink
-          ? InkWell(
-              onTap: onTap,
-              child: Padding(
-                padding: context.paddingLow,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: context.textTheme.titleMedium
-                          ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+    return context.watch<HomeViewModel>().isLoading
+        ? const HomeCardShimmer()
+        : IntrinsicHeightCard(
+            child: isLink
+                ? InkWell(
+                    onTap: onTap,
+                    child: Padding(
+                      padding: context.paddingLow,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              title,
+                              style: context.textTheme.titleMedium
+                                  ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          SvgWidget(
+                            icon: IconNameEnum.right.value,
+                            color: context.colorScheme.background,
+                          )
+                        ],
+                      ),
                     ),
-                    SvgWidget(
-                      icon: IconNameEnum.right.value,
-                      color: context.colorScheme.background,
-                    )
-                  ],
-                ),
-              ),
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: context.onlyBottomPaddingLow,
-                  child: Text(
-                    title,
-                    style: context.textTheme.titleMedium
-                        ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                  )
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: context.onlyBottomPaddingLow,
+                        child: Text(
+                          title,
+                          style: context.textTheme.titleMedium
+                              ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      Text(
+                        subtitle,
+                        style: context.textTheme.titleMedium
+                            ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  subtitle,
-                  style: context.textTheme.titleMedium
-                      ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
-                ),
-              ],
-            ),
-    );
+          );
   }
 }
 
@@ -73,20 +81,28 @@ class HomeInfoColumnCard extends StatelessWidget {
         Row(
           children: [
             const Icon(Icons.close),
-            Text(
-              title,
-              style: context.textTheme.titleMedium
-                  ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+            Expanded(
+              child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                title,
+                style: context.textTheme.titleMedium
+                    ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         ),
         Row(
           children: [
             const Icon(Icons.verified),
-            Text(
-              subtitle,
-              style: context.textTheme.titleMedium
-                  ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+            Expanded(
+              child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                subtitle,
+                style: context.textTheme.titleMedium
+                    ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         ),

@@ -53,4 +53,7 @@ OzelliklerListe _$OzelliklerListeFromJson(Map<String, dynamic> json) =>
 
 Atasozu _$AtasozuFromJson(Map<String, dynamic> json) => Atasozu(
       madde: json['madde'] as String?,
+      anlamlarListe: (json['anlamlarListe'] as List<dynamic>?)
+          ?.map((e) => AnlamlarListe.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
