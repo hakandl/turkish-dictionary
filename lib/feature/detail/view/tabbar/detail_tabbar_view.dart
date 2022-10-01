@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
+import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/svg.dart';
@@ -24,18 +26,18 @@ class DetailTabBarView extends StatelessWidget {
               color: context.colorScheme.background,
             ),
           ),
-          title: Text(DetailViewModel.word ?? ''),
+          title: Text(DetailViewModel.word ?? LocaleKeys.not_found.tr()),
           bottom: TabBar(
             isScrollable: true,
             tabs: [
               Tab(
-                text: TabBarPageEnum.detail.name,
+                text: TabBarPageEnum.detail.name.tr(),
               ),
               Tab(
-                text: TabBarPageEnum.proverb.name,
+                text: TabBarPageEnum.proverb.name.tr(),
               ),
               Tab(
-                text: TabBarPageEnum.compound.name,
+                text: TabBarPageEnum.compound.name.tr(),
               ),
             ],
           ),
@@ -53,9 +55,9 @@ class DetailTabBarView extends StatelessWidget {
 }
 
 enum TabBarPageEnum {
-  detail(DetailView(), 'Açıklama'),
-  proverb(ProverbView(), 'Atasözleri & Deyimler'),
-  compound(CompoundView(), 'Birleşik Kelimeler');
+  detail(DetailView(), LocaleKeys.detail_detailTitle_explanation),
+  proverb(ProverbView(), LocaleKeys.detail_detailTitle_proverbAndIdioms),
+  compound(CompoundView(), LocaleKeys.detail_detailTitle_compoundWord);
 
   final Widget page;
   final String name;

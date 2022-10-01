@@ -23,7 +23,7 @@ class SvgWidget extends StatelessWidget {
 enum IconNameEnum {
   book('ic_book'),
   check('ic_check'),
-  favSolid('ic_fav_solid'),
+  favSolid('ic_fav-solid'),
   fav('ic_fav'),
   hand('ic_hand'),
   history('ic_history'),
@@ -35,11 +35,12 @@ enum IconNameEnum {
   right('ic_right'),
   search('ic_search'),
   trash('ic_trash'),
-  voiceSolid('ic_voice_solid'),
+  voiceSolid('ic_voice-solid'),
   voice('ic_voice'),
   x('ic_x'),
   moon('ic_moon'),
-  sun('ic_sun');
+  sun('ic_sun'),
+  confused('ic_confused');
 
   const IconNameEnum(this.value);
   final String value;

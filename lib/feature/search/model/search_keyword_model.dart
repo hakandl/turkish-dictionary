@@ -1,15 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'search_keyword_model.g.dart';
+
+@JsonSerializable(createToJson: false)
 class Word {
-  String? madde;
+  @JsonKey(name: 'madde')
+  final String? word;
 
-  Word({this.madde});
+  Word(this.word);
 
-  Word.fromJson(Map<String, dynamic> json) {
-    madde = json['madde'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['madde'] = madde;
-    return data;
+  factory Word.fromJson(Map<String, dynamic> json) {
+    return _$WordFromJson(json);
   }
 }

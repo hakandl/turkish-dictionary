@@ -4,16 +4,22 @@ part 'detail_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class DetailModel {
-  String? madde;
-  String? lisan;
-  String? telaffuz;
-  String? birlesikler;
-  List<AnlamlarListe>? anlamlarListe;
-  List<Atasozu>? atasozu;
+  @JsonKey(name: 'madde')
+  final String? word;
+  @JsonKey(name: 'lisan')
+  final String? language;
+  @JsonKey(name: 'telaffuz')
+  final String? pronunciation;
+  @JsonKey(name: 'birlesikler')
+  final String? compound;
+  @JsonKey(name: 'anlamlarListe')
+  final List<MeaningsList>? meaningsList;
+  @JsonKey(name: 'atasozu')
+  final List<Proverb>? proverb;
 
-  DetailModel({this.madde, this.lisan, this.telaffuz, this.birlesikler, this.anlamlarListe, this.atasozu});
+  DetailModel({this.word, this.language, this.pronunciation, this.compound, this.meaningsList, this.proverb});
 
-  List<String>? get birlesiklerList => birlesikler?.split(',');
+  List<String>? get compoundList => compound?.split(',');
 
   factory DetailModel.fromJson(Map<String, dynamic> json) {
     return _$DetailModelFromJson(json);
@@ -21,68 +27,77 @@ class DetailModel {
 }
 
 @JsonSerializable(createToJson: false)
-class AnlamlarListe {
+class MeaningsList {
   @JsonKey(name: 'anlam_sira')
-  String? anlamSira;
-  String? anlam;
-  List<OrneklerListe>? orneklerListe;
-  List<OzelliklerListe>? ozelliklerListe;
+  final String? orderMeaning;
+  @JsonKey(name: 'anlam')
+  final String? meaning;
+  @JsonKey(name: 'orneklerListe')
+  final List<ExamplesList>? examplesList;
+  @JsonKey(name: 'ozelliklerListe')
+  final List<FeaturesList>? featuresList;
 
-  AnlamlarListe({this.anlamSira, this.anlam, this.orneklerListe, this.ozelliklerListe});
+  MeaningsList({this.orderMeaning, this.meaning, this.examplesList, this.featuresList});
 
-  factory AnlamlarListe.fromJson(Map<String, dynamic> json) {
-    return _$AnlamlarListeFromJson(json);
+  factory MeaningsList.fromJson(Map<String, dynamic> json) {
+    return _$MeaningsListFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class OrneklerListe {
-  String? ornek;
+class ExamplesList {
+  @JsonKey(name: 'ornek')
+  final String? example;
   @JsonKey(name: 'yazar_id')
-  String? yazarId;
-  List<Yazar>? yazar;
+  final String? authorId;
+  @JsonKey(name: 'yazar')
+  final List<Author>? author;
 
-  OrneklerListe({this.ornek, this.yazarId, this.yazar});
+  ExamplesList({this.example, this.authorId, this.author});
 
-  factory OrneklerListe.fromJson(Map<String, dynamic> json) {
-    return _$OrneklerListeFromJson(json);
+  factory ExamplesList.fromJson(Map<String, dynamic> json) {
+    return _$ExamplesListFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Yazar {
-  String? yazarId;
+class Author {
+  @JsonKey(name: 'yazar_id')
+  final String? authorId;
   @JsonKey(name: 'tam_adi')
-  String? tamAdi;
+  final String? fullName;
 
-  Yazar({this.yazarId, this.tamAdi});
+  Author({this.authorId, this.fullName});
 
-  factory Yazar.fromJson(Map<String, dynamic> json) {
-    return _$YazarFromJson(json);
+  factory Author.fromJson(Map<String, dynamic> json) {
+    return _$AuthorFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class OzelliklerListe {
-  String? tur;
+class FeaturesList {
+  @JsonKey(name: 'tur')
+  final String? type;
   @JsonKey(name: 'tam_adi')
-  String? tamAdi;
+  final String? fullName;
 
-  OzelliklerListe({this.tur, this.tamAdi});
+  FeaturesList({this.type, this.fullName});
 
-  factory OzelliklerListe.fromJson(Map<String, dynamic> json) {
-    return _$OzelliklerListeFromJson(json);
+  factory FeaturesList.fromJson(Map<String, dynamic> json) {
+    return _$FeaturesListFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Atasozu {
-  String? madde;
-  List<AnlamlarListe>? anlamlarListe;
+class Proverb {
+  @JsonKey(name: 'madde')
+  final String? word;
+  @JsonKey(name: 'anlamlarListe')
+  final List<MeaningsList>? meaningsList;
 
-  Atasozu({this.madde, this.anlamlarListe});
+  Proverb({this.word, this.meaningsList});
 
-  factory Atasozu.fromJson(Map<String, dynamic> json) {
-    return _$AtasozuFromJson(json);
+  factory Proverb.fromJson(Map<String, dynamic> json) {
+    return _$ProverbFromJson(json);
   }
 }

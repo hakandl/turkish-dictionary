@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/init/notifier/theme_notifier.dart';
@@ -119,13 +121,13 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const InfoCardText(title: 'data'),
+          InfoCardText(title: LocaleKeys.home_aWord.tr()),
           _wordCard(context),
-          const InfoCardText(title: 'data'),
+          InfoCardText(title: LocaleKeys.home_aProverb.tr()),
           _proverbCard(context),
-          const InfoCardText(title: 'data'),
+          InfoCardText(title: LocaleKeys.home_aRule.tr()),
           _aRuleCard(context),
-          const InfoCardText(title: 'data'),
+          InfoCardText(title: LocaleKeys.home_syyd.tr()),
           IntrinsicHeightCard(
             child: _syydCard(context),
           ),
@@ -136,24 +138,24 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
 
   HomeInfoCard _wordCard(BuildContext context) {
     return HomeInfoCard(
-      title: context.watch<HomeViewModel>().kelime?[0].madde ?? 'shimmer',
-      subtitle: context.watch<HomeViewModel>().kelime?[0].anlam ?? 'shimmer',
+      title: context.watch<HomeViewModel>().word?[0].word ?? LocaleKeys.not_found.tr(),
+      subtitle: context.watch<HomeViewModel>().word?[0].meaning ?? LocaleKeys.not_found.tr(),
     );
   }
 
   HomeInfoCard _proverbCard(BuildContext context) {
     return HomeInfoCard(
-      title: context.watch<HomeViewModel>().atasoz?[0].madde ?? 'shimmer',
-      subtitle: context.watch<HomeViewModel>().atasoz?[0].anlam ?? 'shimmer',
+      title: context.watch<HomeViewModel>().proverb?[0].word ?? LocaleKeys.not_found.tr(),
+      subtitle: context.watch<HomeViewModel>().proverb?[0].meaning ?? LocaleKeys.not_found.tr(),
     );
   }
 
   HomeInfoCard _aRuleCard(BuildContext context) {
     return HomeInfoCard(
       isLink: true,
-      title: context.watch<HomeViewModel>().kural?[0].adi ?? 'shimmer',
-      subtitle: context.watch<HomeViewModel>().kural?[0].url ?? 'shimmer',
-      onTap: () => context.read<HomeViewModel>().openUrl(context.read<HomeViewModel>().kural?[0].url ?? ''),
+      title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
+      subtitle: context.watch<HomeViewModel>().rule?[0].url ?? LocaleKeys.not_found.tr(),
+      onTap: () => context.read<HomeViewModel>().openUrl(context.read<HomeViewModel>().rule?[0].url ?? ''),
     );
   }
 
@@ -175,8 +177,8 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
                 itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
                 itemBuilder: (context, index) {
                   return HomeInfoColumnCard(
-                    title: context.watch<HomeViewModel>().syyd?[index].yanlisKelime ?? 'shimmer',
-                    subtitle: context.watch<HomeViewModel>().syyd?[index].dogruKelime ?? 'shimmer',
+                    title: context.watch<HomeViewModel>().syyd?[index].wrongWord ?? LocaleKeys.not_found.tr(),
+                    subtitle: context.watch<HomeViewModel>().syyd?[index].correctWord ?? LocaleKeys.not_found.tr(),
                   );
                 },
               ),

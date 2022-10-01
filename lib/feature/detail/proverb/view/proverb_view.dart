@@ -5,6 +5,7 @@ import 'package:turkce_sozluk/feature/detail/proverb/view/proverb_detail_view.da
 import 'package:turkce_sozluk/feature/detail/proverb/viewmodel/proverb_viewmodel.dart';
 import 'package:turkce_sozluk/product/service/project_network_manager.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
+import 'package:turkce_sozluk/product/widgets/container/empty_value_view.dart';
 
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
 import '../../service/detail_service.dart';
@@ -23,12 +24,14 @@ class _ProverbViewState extends State<ProverbView> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: DetailViewModel(DetailService(ProjectNetworkManager.instance.service)),
-      child: ListView(
+      child: SingleChildScrollView(
         padding: context.paddingNormal,
-        children: const [
-          DetailTop(),
-          DetailWordList(),
-        ],
+        child: Column(
+          children: [
+            DetailTop(onPressed: () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? '')),
+            const DetailWordList(),
+          ],
+        ),
       ),
     );
   }
@@ -43,21 +46,32 @@ class DetailWordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.watch<DetailViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
-        : ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: context.watch<DetailViewModel>().detailList?[0].atasozu?.length ?? 0,
-            itemBuilder: (BuildContext context, int index) {
-              String madde = context.watch<DetailViewModel>().detailList?[0].atasozu?[index].madde ?? '';
-              return DetailWordCard(
-                  text: madde,
-                  onTap: () {
-                    ProverbViewModel.word = madde;
-                    context.navigateToPage(
-                      const ProverbDetailView(),
-                    );
-                  });
-            },
-          );
+        : context.watch<DetailViewModel>().detailList?[0].proverb?.length == null
+            ? const EmptyValueView()
+            : detailList(context);
+  }
+
+  ListView detailList(BuildContext context) {
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: context.watch<DetailViewModel>().detailList?[0].proverb?.length ?? 0,
+      itemBuilder: (BuildContext context, int index) {
+        String word = context.watch<DetailViewModel>().detailList?[0].proverb?[index].word ?? '';
+        return proverbCard(word, context);
+      },
+    );
+  }
+
+  DetailWordCard proverbCard(String word, BuildContext context) {
+    return DetailWordCard(
+      text: word,
+      onTap: () {
+        ProverbViewModel.word = word;
+        context.navigateToPage(
+          const ProverbDetailView(),
+        );
+      },
+    );
   }
 }

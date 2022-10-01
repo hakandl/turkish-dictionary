@@ -1,6 +1,8 @@
 import 'package:animations/animations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
 import '../../../feature/search/view/search_view.dart';
 import '../svg.dart';
@@ -35,7 +37,7 @@ class SearchCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Türkçe Sözlükte Ara',
+                  LocaleKeys.search_searchInTurkishDictionary.tr(),
                   style: context.textTheme.titleMedium?.copyWith(
                     color: context.colorScheme.background,
                     fontWeight: FontWeight.w400,

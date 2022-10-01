@@ -9,10 +9,10 @@ class HomeViewModel extends LoadingStateful {
   final IContentService contentService;
   static PageController? pageController = PageController();
 
-  List<Kelime>? kelime;
-  List<Atasoz>? atasoz;
+  List<Word>? word;
+  List<Proverb>? proverb;
   List<Syyd>? syyd;
-  List<Kural>? kural;
+  List<Rule>? rule;
 
   HomeViewModel(this.contentService) {
     _fetchContentList();
@@ -20,10 +20,10 @@ class HomeViewModel extends LoadingStateful {
 
   Future<void> _fetchContentList() async {
     changeLoading;
-    kelime = (await contentService.fetchContentModel())?.kelime ?? [];
-    atasoz = (await contentService.fetchContentModel())?.atasoz ?? [];
+    word = (await contentService.fetchContentModel())?.word ?? [];
+    proverb = (await contentService.fetchContentModel())?.proverb ?? [];
     syyd = (await contentService.fetchContentModel())?.syyd ?? [];
-    kural = (await contentService.fetchContentModel())?.kural ?? [];
+    rule = (await contentService.fetchContentModel())?.rule ?? [];
     changeLoading;
     notifyListeners();
   }

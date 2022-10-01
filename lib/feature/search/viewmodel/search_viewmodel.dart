@@ -30,7 +30,7 @@ abstract class SearchViewModel extends State<SearchView> {
     if (text.isEmpty) {
       results = data;
     } else {
-      results = data.where((element) => element.madde!.toLowerCase().startsWith(text.toLowerCase())).toList();
+      results = data.where((element) => element.word!.toLowerCase().startsWith(text.toLowerCase())).toList();
     }
     setState(() => filteredData = results);
   }

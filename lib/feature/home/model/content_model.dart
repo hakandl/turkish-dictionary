@@ -4,12 +4,15 @@ part 'content_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class ContentModel {
-  final List<Atasoz>? atasoz;
-  final List<Kelime>? kelime;
+  @JsonKey(name: 'atasoz')
+  final List<Proverb>? proverb;
+  @JsonKey(name: 'kelime')
+  final List<Word>? word;
   final List<Syyd>? syyd;
-  final List<Kural>? kural;
+  @JsonKey(name: 'kural')
+  final List<Rule>? rule;
 
-  ContentModel(this.atasoz, this.kelime, this.syyd, this.kural);
+  ContentModel(this.proverb, this.word, this.syyd, this.rule);
 
   factory ContentModel.fromJson(Map<String, dynamic> json) {
     return _$ContentModelFromJson(json);
@@ -17,48 +20,53 @@ class ContentModel {
 }
 
 @JsonSerializable(createToJson: false)
-class Atasoz {
-  final String? madde;
-  final String? anlam;
+class Proverb {
+  @JsonKey(name: 'madde')
+  final String? word;
+  @JsonKey(name: 'anlam')
+  final String? meaning;
 
-  Atasoz(this.madde, this.anlam);
+  Proverb(this.word, this.meaning);
 
-  factory Atasoz.fromJson(Map<String, dynamic> json) {
-    return _$AtasozFromJson(json);
+  factory Proverb.fromJson(Map<String, dynamic> json) {
+    return _$ProverbFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Kelime {
-  final String? madde;
-  final String? anlam;
+class Word {
+  @JsonKey(name: 'madde')
+  final String? word;
+  @JsonKey(name: 'anlam')
+  final String? meaning;
 
-  Kelime(this.madde, this.anlam);
+  Word(this.word, this.meaning);
 
-  factory Kelime.fromJson(Map<String, dynamic> json) {
-    return _$KelimeFromJson(json);
+  factory Word.fromJson(Map<String, dynamic> json) {
+    return _$WordFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
 class Syyd {
   @JsonKey(name: 'yanliskelime')
-  final String? yanlisKelime;
+  final String? wrongWord;
   @JsonKey(name: 'dogrukelime')
-  final String? dogruKelime;
-  Syyd(this.yanlisKelime, this.dogruKelime);
+  final String? correctWord;
+  Syyd(this.wrongWord, this.correctWord);
   factory Syyd.fromJson(Map<String, dynamic> json) {
     return _$SyydFromJson(json);
   }
 }
 
 @JsonSerializable(createToJson: false)
-class Kural {
-  final String? adi;
+class Rule {
+  @JsonKey(name: 'adi')
+  final String? name;
   final String? url;
 
-  Kural(this.adi, this.url);
-  factory Kural.fromJson(Map<String, dynamic> json) {
-    return _$KuralFromJson(json);
+  Rule(this.name, this.url);
+  factory Rule.fromJson(Map<String, dynamic> json) {
+    return _$RuleFromJson(json);
   }
 }

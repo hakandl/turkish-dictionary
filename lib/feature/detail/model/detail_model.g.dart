@@ -7,53 +7,50 @@ part of 'detail_model.dart';
 // **************************************************************************
 
 DetailModel _$DetailModelFromJson(Map<String, dynamic> json) => DetailModel(
-      madde: json['madde'] as String?,
-      lisan: json['lisan'] as String?,
-      telaffuz: json['telaffuz'] as String?,
-      birlesikler: json['birlesikler'] as String?,
-      anlamlarListe: (json['anlamlarListe'] as List<dynamic>?)
-          ?.map((e) => AnlamlarListe.fromJson(e as Map<String, dynamic>))
+      word: json['madde'] as String?,
+      language: json['lisan'] as String?,
+      pronunciation: json['telaffuz'] as String?,
+      compound: json['birlesikler'] as String?,
+      meaningsList: (json['anlamlarListe'] as List<dynamic>?)
+          ?.map((e) => MeaningsList.fromJson(e as Map<String, dynamic>))
           .toList(),
-      atasozu: (json['atasozu'] as List<dynamic>?)
-          ?.map((e) => Atasozu.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-
-AnlamlarListe _$AnlamlarListeFromJson(Map<String, dynamic> json) =>
-    AnlamlarListe(
-      anlamSira: json['anlam_sira'] as String?,
-      anlam: json['anlam'] as String?,
-      orneklerListe: (json['orneklerListe'] as List<dynamic>?)
-          ?.map((e) => OrneklerListe.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      ozelliklerListe: (json['ozelliklerListe'] as List<dynamic>?)
-          ?.map((e) => OzelliklerListe.fromJson(e as Map<String, dynamic>))
+      proverb: (json['atasozu'] as List<dynamic>?)
+          ?.map((e) => Proverb.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-OrneklerListe _$OrneklerListeFromJson(Map<String, dynamic> json) =>
-    OrneklerListe(
-      ornek: json['ornek'] as String?,
-      yazarId: json['yazar_id'] as String?,
-      yazar: (json['yazar'] as List<dynamic>?)
-          ?.map((e) => Yazar.fromJson(e as Map<String, dynamic>))
+MeaningsList _$MeaningsListFromJson(Map<String, dynamic> json) => MeaningsList(
+      orderMeaning: json['anlam_sira'] as String?,
+      meaning: json['anlam'] as String?,
+      examplesList: (json['orneklerListe'] as List<dynamic>?)
+          ?.map((e) => ExamplesList.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      featuresList: (json['ozelliklerListe'] as List<dynamic>?)
+          ?.map((e) => FeaturesList.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Yazar _$YazarFromJson(Map<String, dynamic> json) => Yazar(
-      yazarId: json['yazarId'] as String?,
-      tamAdi: json['tam_adi'] as String?,
+ExamplesList _$ExamplesListFromJson(Map<String, dynamic> json) => ExamplesList(
+      example: json['ornek'] as String?,
+      authorId: json['yazar_id'] as String?,
+      author: (json['yazar'] as List<dynamic>?)
+          ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-OzelliklerListe _$OzelliklerListeFromJson(Map<String, dynamic> json) =>
-    OzelliklerListe(
-      tur: json['tur'] as String?,
-      tamAdi: json['tam_adi'] as String?,
+Author _$AuthorFromJson(Map<String, dynamic> json) => Author(
+      authorId: json['yazar_id'] as String?,
+      fullName: json['tam_adi'] as String?,
     );
 
-Atasozu _$AtasozuFromJson(Map<String, dynamic> json) => Atasozu(
-      madde: json['madde'] as String?,
-      anlamlarListe: (json['anlamlarListe'] as List<dynamic>?)
-          ?.map((e) => AnlamlarListe.fromJson(e as Map<String, dynamic>))
+FeaturesList _$FeaturesListFromJson(Map<String, dynamic> json) => FeaturesList(
+      type: json['tur'] as String?,
+      fullName: json['tam_adi'] as String?,
+    );
+
+Proverb _$ProverbFromJson(Map<String, dynamic> json) => Proverb(
+      word: json['madde'] as String?,
+      meaningsList: (json['anlamlarListe'] as List<dynamic>?)
+          ?.map((e) => MeaningsList.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

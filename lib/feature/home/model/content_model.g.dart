@@ -8,25 +8,25 @@ part of 'content_model.dart';
 
 ContentModel _$ContentModelFromJson(Map<String, dynamic> json) => ContentModel(
       (json['atasoz'] as List<dynamic>?)
-          ?.map((e) => Atasoz.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Proverb.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['kelime'] as List<dynamic>?)
-          ?.map((e) => Kelime.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Word.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['syyd'] as List<dynamic>?)
           ?.map((e) => Syyd.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['kural'] as List<dynamic>?)
-          ?.map((e) => Kural.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Rule.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Atasoz _$AtasozFromJson(Map<String, dynamic> json) => Atasoz(
+Proverb _$ProverbFromJson(Map<String, dynamic> json) => Proverb(
       json['madde'] as String?,
       json['anlam'] as String?,
     );
 
-Kelime _$KelimeFromJson(Map<String, dynamic> json) => Kelime(
+Word _$WordFromJson(Map<String, dynamic> json) => Word(
       json['madde'] as String?,
       json['anlam'] as String?,
     );
@@ -36,7 +36,7 @@ Syyd _$SyydFromJson(Map<String, dynamic> json) => Syyd(
       json['dogrukelime'] as String?,
     );
 
-Kural _$KuralFromJson(Map<String, dynamic> json) => Kural(
+Rule _$RuleFromJson(Map<String, dynamic> json) => Rule(
       json['adi'] as String?,
       json['url'] as String?,
     );

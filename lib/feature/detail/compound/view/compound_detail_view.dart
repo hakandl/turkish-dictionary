@@ -8,6 +8,7 @@ import 'package:turkce_sozluk/product/widgets/shimmer/detail_top_view_shimmer.da
 
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
+import '../../../../product/widgets/list_view/sign_language_list_view.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
 import '../../../../product/widgets/svg.dart';
 import '../../view/detail_view.dart';
@@ -25,73 +26,56 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: TurkceSozlukIconButton(
-            onPressed: () => Navigator.pop(context),
-            child: SvgWidget(
-              icon: IconNameEnum.left.value,
-              color: context.colorScheme.background,
+      appBar: _appBar(context),
+      body: ChangeNotifierProvider.value(
+        value: CompoundViewModel(CompoundService(ProjectNetworkManager.instance.service)),
+        builder: (context, child) {
+          return Padding(
+            padding: context.paddingNormal,
+            child: Column(
+              children: [
+                _detailTop(context),
+                _compoundDetailWord(context),
+              ],
             ),
-          ),
-          title: Text(TabBarPageEnum.compound.name),
+          );
+        },
+      ),
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      leading: TurkceSozlukIconButton(
+        onPressed: () => Navigator.pop(context),
+        child: SvgWidget(
+          icon: IconNameEnum.left.value,
+          color: context.colorScheme.background,
         ),
-        body: ChangeNotifierProvider.value(
-          value: CompoundViewModel(CompoundService(ProjectNetworkManager.instance.service)),
-          builder: (context, child) {
-            return Padding(
-              padding: context.paddingNormal,
-              child: Column(
-                children: [
-                  context.watch<CompoundViewModel>().isLoading
-                      ? const DetailTopViewShimmer()
-                      : DetailTop(
-                          title: context.watch<CompoundViewModel>().detailList?[0].madde ?? '',
-                          subtitle:
-                              '${context.watch<CompoundViewModel>().detailList?[0].telaffuz ?? ''} ${context.watch<CompoundViewModel>().detailList?[0].lisan ?? ''}',
-                          handWidget: ChangeNotifierProvider.value(
-                            value: CompoundViewModel(CompoundService(ProjectNetworkManager.instance.service)),
-                            child: ListView.builder(
-                              padding: context.horizontalPaddingMedium,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: context.read<CompoundViewModel>().detailList?[0].madde?.length ?? 1,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      height: context.dynamicHeight(0.10),
-                                      child: Card(
-                                        shape: UnderlineInputBorder(
-                                            borderSide: BorderSide(color: context.colorScheme.onSecondary)),
-                                        child: Padding(
-                                          padding: context.paddingNormal,
-                                          child: Image.network(
-                                            'https://sozluk.gov.tr/assets/img/isaret/${context.watch<CompoundViewModel>().detailList?[0].madde?[index].modalStringReplace()}.gif',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    context.emptySizedHeightBoxLow3x,
-                                    Text(
-                                      context.watch<CompoundViewModel>().detailList?[0].madde?[index] ?? '',
-                                      style:
-                                          context.textTheme.headline5?.copyWith(color: context.colorScheme.background),
-                                    )
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                  context.watch<DetailViewModel>().isLoading
-                      ? const ProverbAndCompoundCardListShimmer()
-                      : DetailWordCard(
-                          text: context.watch<CompoundViewModel>().detailList?[0].anlamlarListe?[0].anlam ?? '',
-                          isRight: false),
-                ],
-              ),
-            );
-          },
-        ));
+      ),
+      title: Text(TabBarPageEnum.compound.name),
+    );
+  }
+
+  _detailTop(BuildContext context) {
+    return context.watch<CompoundViewModel>().isLoading
+        ? const DetailTopViewShimmer()
+        : DetailTop(
+            title: context.watch<CompoundViewModel>().detailList?[0].word ?? '',
+            subtitle:
+                '${context.watch<CompoundViewModel>().detailList?[0].pronunciation ?? ''} ${context.watch<CompoundViewModel>().detailList?[0].language ?? ''}',
+            onPressed: () => context.read<DetailViewModel>().speak(CompoundViewModel.word ?? ''),
+            handWidget: SignLanguageListView(
+              itemCount: context.read<CompoundViewModel>().detailList?[0].word?.length ?? 1,
+              word: context.read<CompoundViewModel>().detailList?[0].word ?? '',
+            ),
+          );
+  }
+
+  _compoundDetailWord(BuildContext context) {
+    return context.watch<CompoundViewModel>().isLoading
+        ? const ProverbAndCompoundCardListShimmer()
+        : DetailWordCard(
+            text: context.watch<CompoundViewModel>().detailList?[0].meaningsList?[0].meaning ?? '', isRight: false);
   }
 }

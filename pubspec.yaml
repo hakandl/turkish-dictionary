@@ -40,6 +40,9 @@ dependencies:
   # Network
   dio: ^4.0.6
 
+  # Localization
+  easy_localization: ^3.0.1
+
   # Animation
   animations: ^2.0.4
 
@@ -47,6 +50,7 @@ dependencies:
   kartal: ^2.4.3
   flutter_svg: ^1.1.5
   shimmer: ^2.0.0
+  flutter_tts: ^3.5.3
 
   # JSON
   json_serializable: ^6.3.1
@@ -80,6 +84,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/data/
+    - assets/translations/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,25 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/core/constants/app/app_constants.dart';
-import 'package:turkce_sozluk/feature/detail/service/detail_service.dart';
-import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
-import 'package:turkce_sozluk/feature/home/service/content_service.dart';
-import 'package:turkce_sozluk/feature/home/viewmodel/home_viewmodel.dart';
-import 'package:turkce_sozluk/product/service/project_network_manager.dart';
+import 'package:turkce_sozluk/product/init/product_init.dart';
 
 import 'core/init/notifier/theme_notifier.dart';
 import 'feature/home/view/home_view.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeNotifier>(create: (context) => ThemeNotifier()),
-        ChangeNotifierProvider<HomeViewModel>(
-            create: (context) => HomeViewModel(ContentService(ProjectNetworkManager.instance.service))),
-        ChangeNotifierProvider<DetailViewModel>(
-            create: (context) => DetailViewModel(DetailService(ProjectNetworkManager.instance.service))),
-      ],
-      builder: (context, child) => const MyApp(),
-    ));
+Future<void> main() async {
+  final productInit = ProductInit();
+  await productInit.init();
+  runApp(
+    EasyLocalization(
+      supportedLocales: productInit.localizationInit.supportedLocales,
+      path: productInit.localizationInit.path,
+      child: MultiProvider(
+        providers: productInit.providers,
+        builder: (context, child) => const MyApp(),
+      ),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: context.watch<ThemeNotifier>().currentTheme,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       title: ApplicationConstants.APP_NAME,
       home: const HomeView(),

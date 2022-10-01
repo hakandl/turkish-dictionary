@@ -1,0 +1,29 @@
+{
+    "home": {
+        "aWord": "Bir kelime",
+        "aProverb": "Bir Deyim - Atasözü",
+        "aRule": "Bir Kural",
+        "syyd": "Sıkça Yapılan Yanlışlara Doğrular"
+    },
+    "search": {
+        "searchInTurkishDictionary": "Türkçe Sözlükte Ara",
+        "lastSearch": "Son Aramalar",
+        "wordNotFound": "Aradığınız sözcük bulunamadı"
+    },
+    "detail": {
+        "detailTitle": {
+            "explanation": "Açıklama",
+            "proverbAndIdioms": "Atasözleri & Deyimler",
+            "compoundWord": "Birleşik Kelimeler"
+        },
+        "aWord": "Bir kelime",
+        "aProverb": "Bir Deyim - Atasözü",
+        "aRule": "Bir Kural",
+        "syyd": "Sıkça Yapılan Yanlışlara Doğrular"
+    },
+    "button": {
+        "changeTheme": "Tema Değiştir",
+        "turkishSignLanguage": "Türk İşaret Dili"
+    },
+    "not_found": "Değer bulunamadı"
+}
