@@ -1,21 +1,18 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
 import '../../../core/base/view/base_view.dart';
-import '../../../core/init/notifier/theme_notifier.dart';
 import '../../../product/service/project_network_manager.dart';
-import '../../../product/widgets/button/icon_button.dart';
-import '../../../product/widgets/button/icon_text_button.dart';
 import '../../../product/widgets/card/home_info_card.dart';
 import '../../../product/widgets/card/intrinsic_height_card.dart';
 import '../../../product/widgets/card/search_card.dart';
 import '../../../product/widgets/modal/bottom_modal_sheet.dart';
 import '../../../product/widgets/shimmer/home_card_shimmer.dart';
 import '../../../product/widgets/string/info_card_text.dart';
-import '../../../product/widgets/svg.dart';
 import '../service/content_service.dart';
 import '../viewmodel/home_viewmodel.dart';
 
@@ -46,7 +43,7 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: context.dynamicHeight(0.2),
+            height: context.dynamicHeight(0.15),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -69,51 +66,58 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
     );
   }
 
-  PreferredSize _appBar(BuildContext context) {
-    return PreferredSize(
-        preferredSize: const Size.fromHeight(0), child: AppBar(backgroundColor: context.colorScheme.surface));
-  }
-
-  ColoredBox _bodyHeader(BuildContext context) {
-    return ColoredBox(
-      color: context.colorScheme.onError,
-      child: Align(
-        alignment: Alignment.topRight,
-        child: TurkceSozlukIconButton(
-            child: SvgWidget(
-              icon: IconNameEnum.more.value,
-              color: context.colorScheme.onPrimary,
-            ),
-            onPressed: () => _openModalSheet(context)),
-      ),
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: context.colorScheme.onError,
+      actions: [
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                textStyle: TextStyle(
+                  color: context.colorScheme.background,
+                ),
+                child: Text(
+                  LocaleKeys.button_changeTheme.tr(),
+                ),
+                onTap: () =>
+                    Hive.box('theme').put('dark_mode', !Hive.box('theme').get('dark_mode', defaultValue: false)),
+              ),
+            ];
+          },
+        )
+      ],
     );
   }
 
-  Future<dynamic> _openModalSheet(BuildContext context) {
+  ColoredBox _bodyHeader(BuildContext context) {
+    return ColoredBox(color: context.colorScheme.onError, child: const SizedBox.shrink());
+  }
+
+  /* Future<dynamic> _openModalSheet(BuildContext context) {
     return showTurkceSozlukModalSheet(
       height: 0.2,
       context,
       Padding(
         padding: context.onlyTopPaddingMedium,
-        child: TurkceSozlukIconTextButton(
-          fixedSizeWidth: context.dynamicWidth(.9),
-          text: 'text',
-          textStyle: TextStyle(
-            color: context.colorScheme.background,
-          ),
-          icon: SvgWidget(
-            icon: context.read<ThemeNotifier>().themeIcon ? IconNameEnum.sun.value : IconNameEnum.moon.value,
-            color: context.colorScheme.onBackground,
+        child: TurkceSozlukCircleElevatedButton(
+          child: Text(
+            LocaleKeys.button_changeTheme.tr(),
+            style: TextStyle(
+              color: context.colorScheme.background,
+            ),
           ),
           onPressed: () {
-            context.read<ThemeNotifier>().changeTheme();
+            // context.read<ThemeNotifier>().changeTheme();
+            // Box kutu = Hive.box('theme');
+            Hive.box('theme').put('dark_mode', !Hive.box('theme').get('dark_mode', defaultValue: false));
             context.read<ThemeNotifier>().changeIcon();
-            context.pop();
+            // context.pop();
           },
         ),
       ),
     );
-  }
+  } */
 
   SingleChildScrollView _bodyScrollView(BuildContext context) {
     return SingleChildScrollView(

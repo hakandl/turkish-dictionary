@@ -7,7 +7,7 @@ abstract class  LocaleKeys {
   static const home_syyd = 'home.syyd';
   static const home = 'home';
   static const search_searchInTurkishDictionary = 'search.searchInTurkishDictionary';
-  static const search_lastSearch = 'search.lastSearch';
+  static const search_searchForSomething = 'search.searchForSomething';
   static const search_wordNotFound = 'search.wordNotFound';
   static const search = 'search';
   static const detail_detailTitle_explanation = 'detail.detailTitle.explanation';

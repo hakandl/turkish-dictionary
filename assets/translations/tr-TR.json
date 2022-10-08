@@ -6,8 +6,8 @@
         "syyd": "Sıkça Yapılan Yanlışlara Doğrular"
     },
     "search": {
-        "searchInTurkishDictionary": "Türkçe Sözlükte Ara",
-        "lastSearch": "Son Aramalar",
+        "searchInTurkishDictionary": "Türkçe Sözlük'te Ara",
+        "searchForSomething": "Bir şeyler ara",
         "wordNotFound": "Aradığınız sözcük bulunamadı"
     },
     "detail": {

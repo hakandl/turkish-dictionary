@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
           color: context.colorScheme.background,
         ),
       ),
-      title: Text(TabBarPageEnum.compound.name),
+      title: Text(TabBarPageEnum.compound.name.tr()),
     );
   }
 
@@ -65,7 +66,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
             subtitle:
                 '${context.watch<CompoundViewModel>().detailList?[0].pronunciation ?? ''} ${context.watch<CompoundViewModel>().detailList?[0].language ?? ''}',
             onPressed: () => context.read<DetailViewModel>().speak(CompoundViewModel.word ?? ''),
-            handWidget: SignLanguageListView(
+            signLanguageWidget: SignLanguageListView(
               itemCount: context.read<CompoundViewModel>().detailList?[0].word?.length ?? 1,
               word: context.read<CompoundViewModel>().detailList?[0].word ?? '',
             ),

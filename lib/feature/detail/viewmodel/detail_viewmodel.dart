@@ -6,13 +6,13 @@ import 'package:turkce_sozluk/product/utils/loading.dart';
 class DetailViewModel extends LoadingStateful {
   final IDetailService detailService;
   static String? word;
-
-  FlutterTts flutterTts = FlutterTts();
+  late final FlutterTts _flutterTts;
 
   List<DetailModel>? detailList;
 
   DetailViewModel(this.detailService) {
     _fetchDetailData();
+    _flutterTts = FlutterTts();
   }
 
   Future<void> _fetchDetailData() async {
@@ -23,7 +23,7 @@ class DetailViewModel extends LoadingStateful {
   }
 
   Future<void> speak(String text) async {
-    await flutterTts.setLanguage('tr-TR');
-    await flutterTts.speak(text);
+    await _flutterTts.setLanguage('tr-TR');
+    await _flutterTts.speak(text);
   }
 }

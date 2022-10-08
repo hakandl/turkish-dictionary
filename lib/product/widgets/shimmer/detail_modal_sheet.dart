@@ -16,20 +16,20 @@ class DetailModalSheetShimmer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Container80(),
-              Container80(),
-              Container80(),
-              Container80(),
+              _Container80(),
+              _Container80(),
+              _Container80(),
+              _Container80(),
             ],
           ),
           context.emptySizedHeightBoxLow,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-              Container40(),
-              Container40(),
-              Container40(),
-              Container40(),
+              _Container40(),
+              _Container40(),
+              _Container40(),
+              _Container40(),
             ],
           ),
         ],
@@ -38,8 +38,8 @@ class DetailModalSheetShimmer extends StatelessWidget {
   }
 }
 
-class Container80 extends StatelessWidget {
-  const Container80({
+class _Container80 extends StatelessWidget {
+  const _Container80({
     Key? key,
   }) : super(key: key);
 
@@ -53,8 +53,8 @@ class Container80 extends StatelessWidget {
   }
 }
 
-class Container40 extends StatelessWidget {
-  const Container40({
+class _Container40 extends StatelessWidget {
+  const _Container40({
     Key? key,
   }) : super(key: key);
 

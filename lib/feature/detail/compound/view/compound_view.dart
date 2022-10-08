@@ -1,8 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/detail/compound/view/compound_detail_view.dart';
 import 'package:turkce_sozluk/feature/detail/compound/viewmodel/compound_viewmodel.dart';
+import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 import 'package:turkce_sozluk/product/widgets/container/empty_value_view.dart';
 
@@ -66,9 +67,7 @@ class DetailWordList extends StatelessWidget {
         text: word,
         onTap: () {
           CompoundViewModel.word = word;
-          context.navigateToPage(
-            const CompoundDetailView(),
-          );
+          context.router.navigate(const CompoundDetailRoute());
         });
   }
 }

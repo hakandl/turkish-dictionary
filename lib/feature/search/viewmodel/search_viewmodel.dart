@@ -14,7 +14,7 @@ abstract class SearchViewModel extends State<SearchView> {
   Future loadKeyword() async {
     final response = await rootBundle.loadString('assets/data/autocomplete.json');
     String jsonKeyword = response;
-    final jsonResponse = json.decode(jsonKeyword) as List;
+    final jsonResponse = jsonDecode(jsonKeyword) as List;
     data = jsonResponse.map((e) => Word.fromJson(e)).toList();
   }
 

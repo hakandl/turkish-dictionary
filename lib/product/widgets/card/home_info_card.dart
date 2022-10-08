@@ -80,7 +80,7 @@ class HomeInfoColumnCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Icon(Icons.close),
+            SvgWidget(icon: IconNameEnum.x.value),
             Expanded(
               child: Text(
                 maxLines: 1,
@@ -94,7 +94,7 @@ class HomeInfoColumnCard extends StatelessWidget {
         ),
         Row(
           children: [
-            const Icon(Icons.verified),
+            SvgWidget(icon: IconNameEnum.check.value),
             Expanded(
               child: Text(
                 maxLines: 1,

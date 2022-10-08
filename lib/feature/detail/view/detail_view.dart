@@ -32,7 +32,9 @@ class _DetailViewState extends State<DetailView> {
       child: ListView(
         padding: context.paddingNormal,
         children: [
-          DetailTop(onPressed: () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? '')),
+          DetailTop(
+            onPressed: () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? ''),
+          ),
           const DetailWordList(),
         ],
       ),
@@ -45,7 +47,7 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
     Key? key,
     this.title,
     this.subtitle,
-    this.handWidget,
+    this.signLanguageWidget,
     this.handTitle,
     this.onPressed,
   }) : super(key: key);
@@ -53,7 +55,7 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
   final String? subtitle;
   final String? handTitle;
   final VoidCallback? onPressed;
-  final Widget? handWidget;
+  final Widget? signLanguageWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +88,6 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
                         color: context.colorScheme.onSecondary,
                       ),
                     ),
-                    TurkceSozlukCircleElevatedButton(
-                      child: SvgWidget(
-                        icon: IconNameEnum.fav.value,
-                        color: context.colorScheme.onSecondary,
-                      ),
-                      onPressed: () {},
-                    ),
                     const Spacer(),
                     TurkceSozlukIconTextButton(
                       text: LocaleKeys.button_turkishSignLanguage.tr(),
@@ -119,7 +114,7 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
       builder: (context, child) {
         return context.watch<DetailViewModel>().isLoading
             ? const DetailModalSheetShimmer()
-            : handWidget ??
+            : signLanguageWidget ??
                 SignLanguageListView(
                   itemCount: context.read<DetailViewModel>().detailList?[0].word?.length ?? 1,
                   word: context.read<DetailViewModel>().detailList?[0].word ?? '',

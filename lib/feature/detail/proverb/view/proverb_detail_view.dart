@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
           color: context.colorScheme.background,
         ),
       ),
-      title: Text(TabBarPageEnum.proverb.name),
+      title: Text(TabBarPageEnum.proverb.name.tr()),
     );
   }
 
@@ -65,7 +66,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
             subtitle:
                 '${context.watch<ProverbViewModel>().detailList?[0].pronunciation ?? ''} ${context.watch<ProverbViewModel>().detailList?[0].language ?? ''}',
             onPressed: () => context.read<DetailViewModel>().speak(ProverbViewModel.word ?? ''),
-            handWidget: SignLanguageListView(
+            signLanguageWidget: SignLanguageListView(
               itemCount: context.read<ProverbViewModel>().detailList?[0].word?.length ?? 1,
               word: context.read<ProverbViewModel>().detailList?[0].word ?? '',
             ),
