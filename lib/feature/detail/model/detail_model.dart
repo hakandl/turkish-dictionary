@@ -1,4 +1,3 @@
-import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'detail_model.g.dart';

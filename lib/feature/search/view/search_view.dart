@@ -2,15 +2,21 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/core/components/button/normal_icon_button.dart';
 import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
+import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 
 import '../../../../product/widgets/input/textfield.dart';
 import '../../../../product/widgets/svg.dart';
+import '../../../product/constants/enums/string_enum.dart';
 import '../../../product/init/language/locale_keys.g.dart';
+import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/widgets/button/text_button.dart';
 import '../viewmodel/search_viewmodel.dart';
+
+part '../module/widgets/word_card_list.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -19,7 +25,7 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-class _SearchViewState extends SearchViewModel {
+class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,7 +41,7 @@ class _SearchViewState extends SearchViewModel {
                   ),
                   NormalIconButton(
                     child: SvgWidget(
-                      icon: IconNameEnum.left.value,
+                      icon: SvgNameEnum.left.icon,
                       color: context.colorScheme.background,
                     ),
                     onPressed: () => context.pop(),
@@ -50,12 +56,13 @@ class _SearchViewState extends SearchViewModel {
             ),
             _specialWordContainer(context),
             Expanded(
-              child: searchTextField.text.isNotEmpty && filteredData.isEmpty
+              child: context.watch<SearchViewModel>().searchTextField.text.isNotEmpty &&
+                      context.watch<SearchViewModel>().filteredData.isEmpty
                   ? _nonWord(context)
-                  : searchTextField.text.isEmpty
+                  : context.watch<SearchViewModel>().searchTextField.text.isEmpty
                       ? _searchForSomething()
-                      : _wordList(context),
-            )
+                      : const _WordCardList(),
+            ),
           ],
         ),
       ),
@@ -73,20 +80,20 @@ class _SearchViewState extends SearchViewModel {
           ),
         ],
       ),
-      height: 50,
+      height: SizeEnum.fifty.value,
       padding: context.onlyLeftPaddingNormal,
       child: NormalTextField(
-        controller: searchTextField,
-        title: LocaleKeys.search_searchInTurkishDictionary.tr(),
+        controller: context.watch<SearchViewModel>().searchTextField,
+        // title: LocaleKeys.search_searchInTurkishDictionary.tr(),
         radius: context.lowRadius.x,
         icon: Padding(
           padding: context.paddingNormal,
           child: SvgWidget(
-            icon: IconNameEnum.search.value,
+            icon: SvgNameEnum.search.icon,
             color: context.colorScheme.background,
           ),
         ),
-        onChanged: (value) => runFilter(value),
+        onChanged: (value) => context.read<SearchViewModel>().runFilter(value),
       ),
     );
   }
@@ -95,7 +102,7 @@ class _SearchViewState extends SearchViewModel {
     return Container(
       margin: context.onlyTopPaddingNormal,
       color: context.colorScheme.secondary,
-      height: 48,
+      height: SizeEnum.fortyEight.value,
       child: Row(
         children: [
           for (int i = 0; i < SpecialWordEnum.values.length; i++) _specialWord(SpecialWordEnum.values[i].value),
@@ -107,9 +114,10 @@ class _SearchViewState extends SearchViewModel {
   Expanded _specialWord(String word) {
     return Expanded(
       child: TurkceSozlukTextButton(
-        onPressed: () => insertSpecialWord(word, searchTextField),
         text: word,
         textStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+        onPressed: () =>
+            context.read<SearchViewModel>().insertSpecialWord(word, context.read<SearchViewModel>().searchTextField),
       ),
     );
   }
@@ -119,8 +127,8 @@ class _SearchViewState extends SearchViewModel {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgWidget(
-          icon: IconNameEnum.confused.value,
-          height: 48,
+          icon: SvgNameEnum.confused.icon,
+          height: SizeEnum.fortyEight.value,
           color: context.colorScheme.onSecondary,
         ),
         context.emptySizedHeightBoxLow3x,
@@ -137,8 +145,8 @@ class _SearchViewState extends SearchViewModel {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgWidget(
-          icon: IconNameEnum.search.value,
-          height: 48,
+          icon: SvgNameEnum.search.icon,
+          height: SizeEnum.fortyEight.value,
           color: context.colorScheme.onSecondary,
         ),
         context.emptySizedHeightBoxLow3x,
@@ -147,51 +155,6 @@ class _SearchViewState extends SearchViewModel {
           style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
         ),
       ],
-    );
-  }
-
-  ListView _wordList(BuildContext context) {
-    return ListView.builder(
-      padding: context.verticalPaddingMedium,
-      shrinkWrap: true,
-      itemCount: filteredData.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.paddingLow.horizontal,
-            vertical: context.paddingLow.top,
-          ),
-          child: Card(
-            margin: EdgeInsets.zero,
-            child: ListTile(
-              trailing: SvgWidget(icon: IconNameEnum.right.value, color: context.colorScheme.onSecondary),
-              shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-              title: RichText(
-                text: TextSpan(
-                  text: filteredData[index].word!.substring(0, searchTextField.text.length),
-                  style: context.textTheme.titleMedium
-                      ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
-                  children: [
-                    TextSpan(
-                      text: filteredData[index].word!.substring(searchTextField.text.length),
-                      style: context.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: context.colorScheme.onSurface,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              onTap: () {
-                DetailViewModel.word = filteredData[index].word?.toLowerCase();
-                context.router.navigate(
-                  const DetailTabBarRoute(),
-                );
-              },
-            ),
-          ),
-        );
-      },
     );
   }
 }

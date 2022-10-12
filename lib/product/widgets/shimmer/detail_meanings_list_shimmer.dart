@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class DetailMeaningsListShimmer extends StatelessWidget {
   const DetailMeaningsListShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const int itemCount = 5;
     return Container(
       margin: context.onlyTopPaddingMedium,
       color: context.colorScheme.primary,
@@ -16,7 +19,7 @@ class DetailMeaningsListShimmer extends StatelessWidget {
         child: ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 5,
+          itemCount: itemCount,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: context.paddingNormal,
@@ -24,17 +27,18 @@ class DetailMeaningsListShimmer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   context.emptySizedHeightBoxLow3x,
-                  Container(height: 20, width: 50, color: context.colorScheme.primary),
+                  Container(
+                      height: SizeEnum.twenty.value, width: SizeEnum.fifty.value, color: context.colorScheme.primary),
                   context.emptySizedHeightBoxLow3x,
                   Container(
-                    height: 20,
-                    width: context.dynamicWidth(.8),
+                    height: SizeEnum.twenty.value,
+                    width: context.dynamicWidth(SizeEnum.zEight.value),
                     color: context.colorScheme.primary,
                   ),
                   context.emptySizedHeightBoxLow,
                   Container(
-                    height: 20,
-                    width: context.dynamicWidth(.4),
+                    height: SizeEnum.twenty.value,
+                    width: context.dynamicWidth(SizeEnum.zFour.value),
                     color: context.colorScheme.primary,
                   ),
                   context.emptySizedHeightBoxLow3x,
@@ -44,14 +48,14 @@ class DetailMeaningsListShimmer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          height: 20,
-                          width: context.dynamicWidth(.9),
+                          height: SizeEnum.twenty.value,
+                          width: context.dynamicWidth(SizeEnum.zNine.value),
                           color: context.colorScheme.primary,
                         ),
                         context.emptySizedHeightBoxLow,
                         Container(
-                          height: 20,
-                          width: context.dynamicWidth(.4),
+                          height: SizeEnum.twenty.value,
+                          width: context.dynamicWidth(SizeEnum.zFour.value),
                           color: context.colorScheme.primary,
                         ),
                         context.emptySizedHeightBoxLow3x,
@@ -63,7 +67,7 @@ class DetailMeaningsListShimmer extends StatelessWidget {
             );
           },
           separatorBuilder: (BuildContext context, int index) {
-            return Container(height: 2, color: context.colorScheme.primary);
+            return Container(height: SizeEnum.two.value, color: context.colorScheme.primary);
           },
         ),
       ),

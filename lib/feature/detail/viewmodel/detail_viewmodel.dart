@@ -1,4 +1,5 @@
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:turkce_sozluk/core/constants/enums/app_language_enums.dart';
 import 'package:turkce_sozluk/feature/detail/model/detail_model.dart';
 import 'package:turkce_sozluk/feature/detail/service/detail_service_interface.dart';
 import 'package:turkce_sozluk/product/utils/loading.dart';
@@ -23,7 +24,7 @@ class DetailViewModel extends LoadingStateful {
   }
 
   Future<void> speak(String text) async {
-    await _flutterTts.setLanguage('tr-TR');
+    await _flutterTts.setLanguage(AppLanguageEnum.tr.value);
     await _flutterTts.speak(text);
   }
 }

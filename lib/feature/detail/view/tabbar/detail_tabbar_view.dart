@@ -6,6 +6,8 @@ import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 
+import '../../../../product/constants/enums/string_enum.dart';
+import '../../../../product/constants/enums/svg_enum.dart';
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/svg.dart';
 
@@ -22,7 +24,7 @@ class DetailTabBarView extends StatelessWidget {
               leading: TurkceSozlukIconButton(
                 onPressed: () => Navigator.pop(context),
                 child: SvgWidget(
-                  icon: IconNameEnum.left.value,
+                  icon: SvgNameEnum.left.icon,
                   color: context.colorScheme.background,
                 ),
               ),
@@ -49,17 +51,6 @@ class DetailTabBarView extends StatelessWidget {
   }
 }
 
-enum TabBarPageEnum {
-  detail(LocaleKeys.detail_detailTitle_explanation),
-  proverb(LocaleKeys.detail_detailTitle_proverbAndIdioms),
-  compound(LocaleKeys.detail_detailTitle_compoundWord);
-
-  final String name;
-  const TabBarPageEnum(this.name);
-}
-
-
-
 /* 
 class DetailTabBarView extends StatelessWidget {
   const DetailTabBarView({super.key});
@@ -73,7 +64,7 @@ class DetailTabBarView extends StatelessWidget {
           leading: TurkceSozlukIconButton(
             onPressed: () => Navigator.pop(context),
             child: SvgWidget(
-              icon: IconNameEnum.left.value,
+              icon: SvgNameEnum.left.value,
               color: context.colorScheme.background,
             ),
           ),

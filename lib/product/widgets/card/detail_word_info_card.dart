@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class DetailWordInfoCard extends StatelessWidget {
   const DetailWordInfoCard({
     Key? key,
@@ -19,11 +21,10 @@ class DetailWordInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
       margin: EdgeInsets.zero,
       color: context.colorScheme.primary,
       child: SizedBox(
-        width: context.dynamicWidth(1),
+        width: context.dynamicWidth(SizeEnum.one.value),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

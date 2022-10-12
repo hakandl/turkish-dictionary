@@ -3,13 +3,13 @@ import 'package:json_annotation/json_annotation.dart';
 part 'search_keyword_model.g.dart';
 
 @JsonSerializable(createToJson: false)
-class Word {
+class WordModel {
   @JsonKey(name: 'madde')
   final String? word;
 
-  Word(this.word);
+  WordModel(this.word);
 
-  factory Word.fromJson(Map<String, dynamic> json) {
-    return _$WordFromJson(json);
+  factory WordModel.fromJson(Map<String, dynamic> json) {
+    return _$WordModelFromJson(json);
   }
 }

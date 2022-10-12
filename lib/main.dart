@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/core/constants/app/app_constants.dart';
+import 'package:turkce_sozluk/core/init/theme/dark/app_theme_dark.dart';
+import 'package:turkce_sozluk/core/init/theme/light/app_theme_light.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 import 'package:turkce_sozluk/product/init/product_init.dart';
 
 import 'core/init/main_build.dart';
-import 'core/init/theme/dark/app_theme_dark.dart';
-import 'core/init/theme/light/app_theme_light.dart';
+import 'core/init/notifier/theme_notifier.dart';
 
 Future<void> main() async {
   await _init();
@@ -28,7 +29,7 @@ Future<void> main() async {
 
 Future<void> _init() async {
   await Hive.initFlutter();
-  await Hive.openBox('theme');
+  await Hive.openBox('theme_change');
 }
 
 class MyApp extends StatefulWidget {
@@ -43,17 +44,38 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box>(
+    return ValueListenableBuilder<bool>(
+        valueListenable: context.watch<ThemeNotifier>().box,
+        builder: (_, box, __) {
+          return MaterialApp.router(
+            builder: MainBuild.build,
+            routerDelegate: _appRouter.delegate(),
+            routeInformationParser: _appRouter.defaultRouteParser(),
+            theme: box ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
+            /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)
+              ? AppThemeDark.instance.theme
+              : AppThemeLight.instance.theme, */
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            debugShowCheckedModeBanner: false,
+            title: ApplicationConstants.APP_NAME,
+          );
+        });
+  }
+}
+
+/* ValueListenableBuilder<Box>(
       valueListenable: Hive.box('theme').listenable(keys: ['dark_mode']),
       builder: (context, box, child) {
         return MaterialApp.router(
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          // theme: context.watch<ThemeNotifier>().currentTheme,
-          theme: Hive.box('theme').get('dark_mode', defaultValue: false)
+          theme: context.watch<ThemeNotifier>().currentTheme,
+          /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)
               ? AppThemeDark.instance.theme
-              : AppThemeLight.instance.theme,
+              : AppThemeLight.instance.theme, */
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
@@ -61,6 +83,4 @@ class _MyAppState extends State<MyApp> {
           title: ApplicationConstants.APP_NAME,
         );
       },
-    );
-  }
-}
+    ); */

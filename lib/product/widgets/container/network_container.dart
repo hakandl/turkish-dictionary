@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/service/network_change_manager.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class NoNetworkContainer extends StatefulWidget {
   const NoNetworkContainer({super.key});
 
@@ -41,7 +43,7 @@ class _NoNetworkContainerState extends State<NoNetworkContainer> with StateMixin
       duration: context.durationLow,
       crossFadeState: _networkResult == NetworkResult.off ? CrossFadeState.showFirst : CrossFadeState.showSecond,
       firstChild: Container(
-        height: 50,
+        height: SizeEnum.fifty.value,
         width: context.width,
         color: context.colorScheme.error,
         child: Center(

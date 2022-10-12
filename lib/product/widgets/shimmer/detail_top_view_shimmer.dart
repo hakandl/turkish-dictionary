@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class DetailTopViewShimmer extends StatelessWidget {
   const DetailTopViewShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const double radius = 24;
     return Shimmer.fromColors(
       baseColor: context.colorScheme.secondary,
       highlightColor: context.colorScheme.primary,
@@ -14,14 +17,14 @@ class DetailTopViewShimmer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 20,
-            width: MediaQuery.of(context).size.width / 3,
+            height: SizeEnum.twentyFive.value,
+            width: context.width / SizeEnum.three.value,
             color: context.colorScheme.primary,
           ),
           context.emptySizedHeightBoxLow,
           Container(
-            height: 20,
-            width: MediaQuery.of(context).size.width / 5,
+            height: SizeEnum.twenty.value,
+            width: context.width / SizeEnum.five.value,
             color: context.colorScheme.primary,
           ),
           context.emptySizedHeightBoxNormal,
@@ -29,12 +32,12 @@ class DetailTopViewShimmer extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundColor: context.colorScheme.primary,
-                radius: 24,
+                radius: radius,
               ),
               const Spacer(),
               Container(
-                height: 48,
-                width: context.dynamicWidth(0.35),
+                height: SizeEnum.fortyEight.value,
+                width: context.dynamicWidth(SizeEnum.zThirtyFive.value),
                 decoration: BoxDecoration(color: context.colorScheme.primary, borderRadius: context.highBorderRadius),
               ),
             ],

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/init/theme/dark/app_theme_dark.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../constants/enums/app_theme_enum.dart';
-import '../theme/light/app_theme_light.dart';
-
-class ThemeNotifier extends ChangeNotifier {
+/* class ThemeNotifier extends ChangeNotifier {
   ThemeData _currentTheme = AppThemeLight.instance.theme;
   ThemeData get currentTheme => _currentTheme;
-  AppThemes _currenThemeEnum = AppThemes.LIGHT;
+  AppThemes _currentThemeEnum = AppThemes.LIGHT;
   bool themeIcon = false;
 
   void changeTheme() {
-    if (_currenThemeEnum == AppThemes.LIGHT) {
+    if (_currentThemeEnum == AppThemes.LIGHT) {
       _currentTheme = AppThemeDark.instance.theme;
-      _currenThemeEnum = AppThemes.DARK;
+      _currentThemeEnum = AppThemes.DARK;
+      Hive.box('theme_change').put('dark_mode', !Hive.box('theme_change').get('dark_mode', defaultValue: false));
     } else {
-      _currentTheme = AppThemeLight.instance.theme;
-      _currenThemeEnum = AppThemes.LIGHT;
+      Hive.box('theme_change').put('dark_mode', Hive.box('theme_change').get('dark_mode', defaultValue: false));
+
+      _currentTheme = Hive.box('theme_change').get('dark_mode');
+      _currentThemeEnum = AppThemes.LIGHT;
     }
     notifyListeners();
   }
@@ -24,5 +24,15 @@ class ThemeNotifier extends ChangeNotifier {
   void changeIcon() {
     themeIcon = !themeIcon;
     notifyListeners();
+  }
+} */
+
+class ThemeNotifier extends ChangeNotifier {
+  ValueNotifier<bool> box = ValueNotifier(Hive.box('theme_change').get('darkMode') ?? false);
+
+  void themeChange() {
+    box.value = !box.value;
+
+    Hive.box('theme_change').put('darkMode', box.value);
   }
 }

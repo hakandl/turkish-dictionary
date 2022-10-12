@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
 
+import '../../../product/constants/enums/service_enum.dart';
 import '../model/detail_model.dart';
 import 'detail_service_interface.dart';
 
@@ -11,8 +12,8 @@ class DetailService extends IDetailService {
 
   @override
   Future<List<DetailModel>?> fetchDetailData() async {
-    final response = await dio
-        .get('${DetailServiceEnum.gts.withSlash + DetailServiceEnum.ara.questionMark}=${DetailViewModel.word}');
+    final response =
+        await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.ara.withQuestionMark}${DetailViewModel.word}');
     if (response.statusCode == HttpStatus.ok) {
       final jsonBody = jsonDecode(response.data);
       if (jsonBody is List) {
@@ -21,12 +22,4 @@ class DetailService extends IDetailService {
     }
     return null;
   }
-}
-
-enum DetailServiceEnum {
-  gts,
-  ara;
-
-  String get withSlash => '/$name';
-  String get questionMark => '?$name';
 }

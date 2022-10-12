@@ -9,6 +9,7 @@ import 'package:turkce_sozluk/product/service/project_network_manager.dart';
 import 'package:turkce_sozluk/product/widgets/modal/bottom_modal_sheet.dart';
 import 'package:turkce_sozluk/product/widgets/shimmer/detail_modal_sheet.dart';
 
+import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/widgets/button/icon_text_button.dart';
 import '../../../product/widgets/button/circle_elevated_button.dart';
 import '../../../product/widgets/card/detail_word_info_card.dart';
@@ -84,7 +85,7 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
                     TurkceSozlukCircleElevatedButton(
                       onPressed: onPressed,
                       child: SvgWidget(
-                        icon: IconNameEnum.voice.value,
+                        icon: SvgNameEnum.voice.icon,
                         color: context.colorScheme.onSecondary,
                       ),
                     ),
@@ -93,7 +94,7 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
                       text: LocaleKeys.button_turkishSignLanguage.tr(),
                       textStyle: TextStyle(color: context.colorScheme.onSecondary),
                       icon: SvgWidget(
-                        icon: IconNameEnum.hand.value,
+                        icon: SvgNameEnum.hand.icon,
                         color: context.colorScheme.onSecondary,
                       ),
                       onPressed: () => showTurkceSozlukModalSheet(

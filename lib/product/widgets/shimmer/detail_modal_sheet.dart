@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class DetailModalSheetShimmer extends StatelessWidget {
   const DetailModalSheetShimmer({super.key});
 
@@ -46,8 +48,8 @@ class _Container80 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
-      width: 60,
+      height: SizeEnum.sixty.value,
+      width: SizeEnum.sixty.value,
       color: context.colorScheme.primary,
     );
   }
@@ -61,8 +63,8 @@ class _Container40 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 20,
-      width: 60,
+      height: SizeEnum.twenty.value,
+      width: SizeEnum.sixty.value,
       color: context.colorScheme.primary,
     );
   }

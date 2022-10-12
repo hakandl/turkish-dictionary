@@ -1,20 +1,26 @@
+import 'package:animations/animations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
+import 'package:turkce_sozluk/product/widgets/container/open_container.dart';
 
 import '../../../core/base/view/base_view.dart';
+import '../../../core/init/notifier/theme_notifier.dart';
+import '../../../product/constants/enums/size_enum.dart';
+import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/service/project_network_manager.dart';
 import '../../../product/widgets/card/home_info_card.dart';
 import '../../../product/widgets/card/intrinsic_height_card.dart';
-import '../../../product/widgets/card/search_card.dart';
-import '../../../product/widgets/modal/bottom_modal_sheet.dart';
-import '../../../product/widgets/shimmer/home_card_shimmer.dart';
 import '../../../product/widgets/string/info_card_text.dart';
+import '../../../product/widgets/svg.dart';
+import '../../search/view/search_view.dart';
 import '../service/content_service.dart';
 import '../viewmodel/home_viewmodel.dart';
+
+part '../module/widgets/search_card.dart';
+part '../module/widgets/syyd_card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -23,7 +29,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -37,23 +43,52 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
     );
   }
 
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      backgroundColor: context.colorScheme.onError,
+      actions: [
+        PopupMenuButton(
+          itemBuilder: (context) {
+            return [
+              PopupMenuItem(
+                  textStyle: TextStyle(
+                    color: context.colorScheme.background,
+                  ),
+                  onTap: context.read<ThemeNotifier>().themeChange,
+                  child: Text(
+                    LocaleKeys.button_changeTheme.tr(),
+                  )
+                  /* () => Hive.box('theme_change')
+                    .put('dark_mode', !Hive.box('theme_change').get('dark_mode', defaultValue: false)), */
+                  ),
+            ];
+          },
+        )
+      ],
+    );
+  }
+
+  ColoredBox _bodyHeader(BuildContext context) {
+    return ColoredBox(color: context.colorScheme.onError, child: const SizedBox.shrink());
+  }
+
   SafeArea _body(BuildContext context) {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            height: context.dynamicHeight(0.15),
+            height: context.dynamicHeight(SizeEnum.zFifTeen.value),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Positioned.fill(
-                  bottom: _HomeViewHeightEnum.twentyFive.value,
+                  bottom: SizeEnum.twentyFive.value,
                   child: _bodyHeader(context),
                 ),
                 Positioned(
-                  bottom: _HomeViewHeightEnum.zero.value,
-                  child: const SearchCard(),
+                  bottom: SizeEnum.zero.value,
+                  child: const _SearchCard(),
                 ),
               ],
             ),
@@ -64,34 +99,6 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
         ],
       ),
     );
-  }
-
-  AppBar _appBar(BuildContext context) {
-    return AppBar(
-      backgroundColor: context.colorScheme.onError,
-      actions: [
-        PopupMenuButton(
-          itemBuilder: (context) {
-            return [
-              PopupMenuItem(
-                textStyle: TextStyle(
-                  color: context.colorScheme.background,
-                ),
-                child: Text(
-                  LocaleKeys.button_changeTheme.tr(),
-                ),
-                onTap: () =>
-                    Hive.box('theme').put('dark_mode', !Hive.box('theme').get('dark_mode', defaultValue: false)),
-              ),
-            ];
-          },
-        )
-      ],
-    );
-  }
-
-  ColoredBox _bodyHeader(BuildContext context) {
-    return ColoredBox(color: context.colorScheme.onError, child: const SizedBox.shrink());
   }
 
   /* Future<dynamic> _openModalSheet(BuildContext context) {
@@ -132,9 +139,7 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
           InfoCardText(title: LocaleKeys.home_aRule.tr()),
           _aRuleCard(context),
           InfoCardText(title: LocaleKeys.home_syyd.tr()),
-          IntrinsicHeightCard(
-            child: _syydCard(context),
-          ),
+          const _SyydCard(),
         ],
       ),
     );
@@ -162,39 +167,4 @@ class _HomeViewState extends State<HomeView> with TurkceSozlukModalSheet {
       onTap: () => context.read<HomeViewModel>().openUrl(context.read<HomeViewModel>().rule?[0].url ?? ''),
     );
   }
-
-  _syydCard(BuildContext context) {
-    return context.watch<HomeViewModel>().isLoading
-        ? const HomeCardShimmer(
-            isLine: false,
-          )
-        : SizedBox(
-            height: context.dynamicHeight(0.10),
-            child: Scrollbar(
-              controller: HomeViewModel.pageController,
-              thumbVisibility: true,
-              trackVisibility: true,
-              interactive: true,
-              child: PageView.builder(
-                controller: HomeViewModel.pageController,
-                scrollDirection: Axis.horizontal,
-                itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
-                itemBuilder: (context, index) {
-                  return HomeInfoColumnCard(
-                    title: context.watch<HomeViewModel>().syyd?[index].wrongWord ?? LocaleKeys.not_found.tr(),
-                    subtitle: context.watch<HomeViewModel>().syyd?[index].correctWord ?? LocaleKeys.not_found.tr(),
-                  );
-                },
-              ),
-            ),
-          );
-  }
-}
-
-enum _HomeViewHeightEnum {
-  zero(0),
-  twentyFive(25);
-
-  final double value;
-  const _HomeViewHeightEnum(this.value);
 }

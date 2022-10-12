@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class IntrinsicHeightCard extends StatelessWidget {
   const IntrinsicHeightCard({super.key, required this.child});
   final Widget child;
@@ -13,7 +15,7 @@ class IntrinsicHeightCard extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: 3,
+              width: SizeEnum.three.value,
               height: double.infinity,
               color: context.colorScheme.secondary,
               margin: EdgeInsets.only(

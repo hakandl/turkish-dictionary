@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
 
 class DetailWordCard extends StatelessWidget {
@@ -28,7 +29,7 @@ class DetailWordCard extends StatelessWidget {
         ),
         trailing: isRight
             ? SvgWidget(
-                icon: IconNameEnum.right.value,
+                icon: SvgNameEnum.right.icon,
                 color: context.colorScheme.onSecondary,
               )
             : const SizedBox.shrink(),

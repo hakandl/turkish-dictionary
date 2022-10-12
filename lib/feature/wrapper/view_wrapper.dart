@@ -28,14 +28,14 @@ class _WrapperViewState extends State<WrapperView> {
           items: [
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: IconNameEnum.search.value,
+                icon: SvgNameEnum.search.value,
                 color: context.colorScheme.background,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: IconNameEnum.history.value,
+                icon: SvgNameEnum.history.value,
                 color: context.colorScheme.background,
               ),
               label: 'History',

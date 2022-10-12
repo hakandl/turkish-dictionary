@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 mixin TurkceSozlukModalSheet {
   Future<T?> showTurkceSozlukModalSheet<T>(BuildContext context, Widget child, {double? height}) async {
     return showModalBottomSheet(
@@ -29,14 +31,14 @@ class _TurkceSozlukModalSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: SizedBox(
-        height: context.dynamicHeight(height ?? 0.3),
+        height: context.dynamicHeight(height ?? SizeEnum.zThree.value),
         child: Column(
           children: [
             Divider(
-              thickness: 4,
-              indent: context.dynamicWidth(.42),
-              endIndent: context.dynamicWidth(.42),
-              color: Colors.black26,
+              thickness: SizeEnum.four.value,
+              indent: context.dynamicWidth(SizeEnum.zFortyTwo.value),
+              endIndent: context.dynamicWidth(SizeEnum.zFortyTwo.value),
+              color: context.colorScheme.onSecondary,
             ),
             child,
           ],

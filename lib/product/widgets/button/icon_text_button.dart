@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class TurkceSozlukIconTextButton extends StatelessWidget {
   const TurkceSozlukIconTextButton({
     super.key,
@@ -25,7 +27,7 @@ class TurkceSozlukIconTextButton extends StatelessWidget {
       ),
       icon: icon,
       style: TextButton.styleFrom(
-        fixedSize: Size(fixedSizeWidth ?? context.dynamicWidth(.4), 48),
+        fixedSize: Size(fixedSizeWidth ?? context.dynamicWidth(SizeEnum.zFour.value), SizeEnum.fortyEight.value),
       ),
       onPressed: onPressed,
     );

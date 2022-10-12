@@ -1,7 +1,11 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/core/base/view/base_view.dart';
+import 'package:turkce_sozluk/feature/splash/viewmodel/splash_viewmodel.dart';
+import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
+import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
+import 'package:turkce_sozluk/product/widgets/svg.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -11,27 +15,28 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
-  Future goToHomeView() async {
-    await Future.delayed(const Duration(seconds: 1));
-    context.router.replace(const HomeRoute());
-  }
-
-  @override
-  void initState() {
-    goToHomeView();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.colorScheme.onError,
-      body: Center(
-        child: Text(
-          'Türkçe Sözlük',
-          style: context.textTheme.headline3?.copyWith(color: context.colorScheme.primary),
-        ),
-      ),
-    );
+    return BaseView<SplashViewModel>(
+        onModelReady: (model) {
+          model.setContext(context);
+          model.init();
+        },
+        viewModel: SplashViewModel(),
+        onPageBuilder: (context, value) {
+          return ChangeNotifierProvider(
+              create: (context) => value,
+              builder: (context, child) {
+                return Scaffold(
+                  backgroundColor: context.colorScheme.error,
+                  body: Center(
+                    child: AnimatedScale(
+                        scale: context.watch<SplashViewModel>().isFirstInit ? 0 : 1.5,
+                        duration: context.durationLow,
+                        child: SvgWidget(icon: SvgNameEnum.splash.icon, height: SizeEnum.oneHundredTwentyEight.value)),
+                  ),
+                );
+              });
+        });
   }
 }

@@ -1,17 +1,17 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/feature/detail/compound/viewmodel/compound_viewmodel.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 import 'package:turkce_sozluk/product/widgets/container/empty_value_view.dart';
+import 'package:turkce_sozluk/product/widgets/container/open_container.dart';
 
 import '../../../../product/service/project_network_manager.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
 import '../../service/detail_service.dart';
 import '../../view/detail_view.dart';
 import '../../viewmodel/detail_viewmodel.dart';
+import 'compound_detail_view.dart';
 
 class CompoundView extends StatefulWidget {
   const CompoundView({super.key});
@@ -62,12 +62,31 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  DetailWordCard compoundCard(String word, BuildContext context) {
-    return DetailWordCard(
-        text: word,
-        onTap: () {
-          CompoundViewModel.word = word;
-          context.router.navigate(const CompoundDetailRoute());
-        });
+  Widget compoundCard(String word, BuildContext context) {
+    return OpenContainerWidget(
+      openBuilder: (BuildContext _, VoidCallback openContainer) {
+        return CompoundDetailView(
+          title: CompoundViewModel.word = word,
+        );
+      },
+      closedBuilder: (BuildContext _, VoidCallback openContainer) {
+        return DetailWordCard(text: word, onTap: openContainer);
+      },
+    );
+
+    /* OpenContainer(
+      closedElevation: 0,
+      openColor: context.colorScheme.primary,
+      closedColor: context.colorScheme.primary,
+      closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
+      openBuilder: (BuildContext _, VoidCallback openContainer) {
+        return CompoundDetailView(
+          title: CompoundViewModel.word = word,
+        );
+      },
+      closedBuilder: (BuildContext _, VoidCallback openContainer) {
+        return DetailWordCard(text: word, onTap: openContainer);
+      },
+    ); */
   }
 }

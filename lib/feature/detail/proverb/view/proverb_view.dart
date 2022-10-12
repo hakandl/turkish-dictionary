@@ -1,17 +1,17 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/detail/proverb/viewmodel/proverb_viewmodel.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import 'package:turkce_sozluk/feature/detail/proverb/view/proverb_detail_view.dart';
 import 'package:turkce_sozluk/product/service/project_network_manager.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 import 'package:turkce_sozluk/product/widgets/container/empty_value_view.dart';
 
+import '../../../../product/widgets/container/open_container.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
 import '../../service/detail_service.dart';
 import '../../view/detail_view.dart';
 import '../../viewmodel/detail_viewmodel.dart';
+import '../viewmodel/proverb_viewmodel.dart';
 
 class ProverbView extends StatefulWidget {
   const ProverbView({super.key});
@@ -64,13 +64,59 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  DetailWordCard proverbCard(String word, BuildContext context) {
-    return DetailWordCard(
-      text: word,
-      onTap: () {
-        ProverbViewModel.word = word;
-        context.router.navigate(const ProverbDetailRoute());
+  Widget proverbCard(String word, BuildContext context) {
+    return OpenContainerWidget(
+      openBuilder: (BuildContext context, VoidCallback openContainer) {
+        return ProverbDetailView(
+          title: ProverbViewModel.word = word,
+        );
+      },
+      closedBuilder: (BuildContext context, VoidCallback openContainer) {
+        return DetailWordCard(text: word, onTap: openContainer);
       },
     );
   }
 }
+
+
+/* 
+      closedBuilder: (BuildContext _, VoidCallback openContainer) {
+        return DetailWordCard(text: word, onTap: openContainer);
+      },  */
+
+
+
+/* OpenContainer(
+        closedElevation: context.colorScheme.primary.opacity,
+        openColor: context.colorScheme.primary,
+        closedColor: context.colorScheme.primary,
+        closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
+        closedBuilder: (context, VoidCallback action) {
+          return Card(
+            margin: EdgeInsets.zero,
+            child: SizedBox(
+              width: context.dynamicWidth(SizeEnum.zNine.value),
+              height: SizeEnum.fifty.value,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: context.horizontalPaddingNormal,
+                    child: SvgWidget(
+                      icon: SvgNameEnum.search.icon,
+                      color: context.colorScheme.background,
+                    ),
+                  ),
+                  Text(
+                    LocaleKeys.search_searchInTurkishDictionary.tr(),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: context.colorScheme.background,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        },
+        openBuilder: (context, action) => const SearchView()); */

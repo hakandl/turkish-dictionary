@@ -6,6 +6,7 @@ import 'package:turkce_sozluk/product/widgets/shimmer/home_card_shimmer.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
 
 import '../../../feature/home/viewmodel/home_viewmodel.dart';
+import '../../constants/enums/svg_enum.dart';
 
 // HOME INFO CARD
 
@@ -37,7 +38,7 @@ class HomeInfoCard extends StatelessWidget {
                             ),
                           ),
                           SvgWidget(
-                            icon: IconNameEnum.right.value,
+                            icon: SvgNameEnum.right.icon,
                             color: context.colorScheme.background,
                           )
                         ],
@@ -80,7 +81,7 @@ class HomeInfoColumnCard extends StatelessWidget {
       children: [
         Row(
           children: [
-            SvgWidget(icon: IconNameEnum.x.value),
+            SvgWidget(icon: SvgNameEnum.x.icon, color: context.colorScheme.background),
             Expanded(
               child: Text(
                 maxLines: 1,
@@ -94,7 +95,7 @@ class HomeInfoColumnCard extends StatelessWidget {
         ),
         Row(
           children: [
-            SvgWidget(icon: IconNameEnum.check.value),
+            SvgWidget(icon: SvgNameEnum.check.icon, color: context.colorScheme.background),
             Expanded(
               child: Text(
                 maxLines: 1,

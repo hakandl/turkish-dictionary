@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../constants/enums/size_enum.dart';
+
 class HomeCardShimmer extends StatelessWidget {
   const HomeCardShimmer({super.key, this.isLine = true});
   final bool isLine;
@@ -18,7 +20,7 @@ class HomeCardShimmer extends StatelessWidget {
             children: [
               isLine
                   ? Container(
-                      width: 3,
+                      width: SizeEnum.three.value,
                       height: double.infinity,
                       color: context.colorScheme.primary,
                       margin: EdgeInsets.only(
@@ -37,14 +39,14 @@ class HomeCardShimmer extends StatelessWidget {
                       Padding(
                         padding: context.onlyBottomPaddingLow,
                         child: Container(
-                          height: 20,
-                          width: MediaQuery.of(context).size.width / 3,
+                          height: SizeEnum.twenty.value,
+                          width: context.width / SizeEnum.three.value,
                           color: context.colorScheme.primary,
                         ),
                       ),
                       Container(
-                        height: 20,
-                        width: MediaQuery.of(context).size.width / 1.50,
+                        height: SizeEnum.twenty.value,
+                        width: context.width / SizeEnum.oneFive.value,
                         color: context.colorScheme.primary,
                       ),
                     ],

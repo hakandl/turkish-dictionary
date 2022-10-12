@@ -2,25 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SvgWidget extends StatelessWidget {
-  const SvgWidget({Key? key, this.height = 24, this.width = 24, this.color = Colors.white, required this.icon})
-      : super(key: key);
+  const SvgWidget({Key? key, this.height = 24, this.color = Colors.white, required this.icon}) : super(key: key);
   final double? height;
-  final double? width;
   final Color? color;
   final String icon;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      iconPath,
+      icon,
       color: color,
       height: height,
-      width: width,
     );
   }
 }
 
-enum IconNameEnum {
+/* enum SvgNameEnum {
   check('ic_check'),
   hand('ic_hand'),
   left('ic_left'),
@@ -32,10 +29,10 @@ enum IconNameEnum {
   sun('ic_sun'),
   confused('ic_confused');
 
-  const IconNameEnum(this.value);
+  const SvgNameEnum(this.value);
   final String value;
 }
 
 extension AppPaths on SvgWidget {
   String get iconPath => 'assets/icons/$icon.svg';
-}
+} */

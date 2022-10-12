@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
+import '../../constants/enums/size_enum.dart';
+import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
 
 class EmptyValueView extends StatelessWidget {
@@ -14,9 +16,9 @@ class EmptyValueView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgWidget(
-          icon: IconNameEnum.confused.value,
+          icon: SvgNameEnum.confused.icon,
           color: context.colorScheme.background,
-          height: 96,
+          height: SizeEnum.ninetySix.value,
         ),
         context.emptySizedHeightBoxLow3x,
         Text(
