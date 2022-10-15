@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/core/base/view/base_view.dart';
-import 'package:turkce_sozluk/feature/splash/viewmodel/splash_viewmodel.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
-import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
+import '../../../core/base/view/base_view.dart';
+import '../viewmodel/splash_viewmodel.dart';
+import '../../../product/constants/enums/size_enum.dart';
+import '../../../product/constants/enums/svg_enum.dart';
+import '../../../product/widgets/svg.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});

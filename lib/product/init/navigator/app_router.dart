@@ -1,14 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/feature/detail/compound/view/compound_detail_view.dart';
-import 'package:turkce_sozluk/feature/detail/compound/view/compound_view.dart';
-import 'package:turkce_sozluk/feature/detail/proverb/view/proverb_detail_view.dart';
-import 'package:turkce_sozluk/feature/detail/proverb/view/proverb_view.dart';
-import 'package:turkce_sozluk/feature/detail/view/detail_view.dart';
-import 'package:turkce_sozluk/feature/detail/view/tabbar/detail_tabbar_view.dart';
-import 'package:turkce_sozluk/feature/history/view/history_view.dart';
-import 'package:turkce_sozluk/feature/home/view/home_view.dart';
-import 'package:turkce_sozluk/feature/splash/view/splash_view.dart';
+
+import '../../../feature/detail/compound/view/compound_detail_view.dart';
+import '../../../feature/detail/compound/view/compound_view.dart';
+import '../../../feature/detail/proverb/view/proverb_detail_view.dart';
+import '../../../feature/detail/proverb/view/proverb_view.dart';
+import '../../../feature/detail/view/detail_view.dart';
+import '../../../feature/detail/view/tabbar/detail_tabbar_view.dart';
+import '../../../feature/history/view/history_view.dart';
+import '../../../feature/home/view/home_view.dart';
+import '../../../feature/splash/view/splash_view.dart';
 
 part 'app_router.gr.dart';
 

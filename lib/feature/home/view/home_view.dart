@@ -1,10 +1,11 @@
-import 'package:animations/animations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
-import 'package:turkce_sozluk/product/widgets/container/open_container.dart';
+import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import '../../../product/init/language/locale_keys.g.dart';
+import '../../../product/widgets/container/open_container.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/init/notifier/theme_notifier.dart';
@@ -13,11 +14,14 @@ import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/service/project_network_manager.dart';
 import '../../../product/widgets/card/home_info_card.dart';
 import '../../../product/widgets/card/intrinsic_height_card.dart';
+import '../../../product/widgets/shimmer/home_card_shimmer.dart';
 import '../../../product/widgets/string/info_card_text.dart';
 import '../../../product/widgets/svg.dart';
+import '../../detail/viewmodel/detail_viewmodel.dart';
 import '../../search/view/search_view.dart';
 import '../service/content_service.dart';
 import '../viewmodel/home_viewmodel.dart';
+import '../../../product/extensions/string_extension.dart';
 
 part '../module/widgets/search_card.dart';
 part '../module/widgets/syyd_card.dart';
@@ -149,6 +153,10 @@ class _HomeViewState extends State<HomeView> {
     return HomeInfoCard(
       title: context.watch<HomeViewModel>().word?[0].word ?? LocaleKeys.not_found.tr(),
       subtitle: context.watch<HomeViewModel>().word?[0].meaning ?? LocaleKeys.not_found.tr(),
+      onTap: () {
+        DetailViewModel.word = context.read<HomeViewModel>().word?[0].word;
+        context.router.navigate(const DetailTabBarRoute());
+      },
     );
   }
 
@@ -156,6 +164,10 @@ class _HomeViewState extends State<HomeView> {
     return HomeInfoCard(
       title: context.watch<HomeViewModel>().proverb?[0].word ?? LocaleKeys.not_found.tr(),
       subtitle: context.watch<HomeViewModel>().proverb?[0].meaning ?? LocaleKeys.not_found.tr(),
+      onTap: () {
+        DetailViewModel.word = context.read<HomeViewModel>().proverb?[0].word;
+        context.router.navigate(const DetailTabBarRoute());
+      },
     );
   }
 

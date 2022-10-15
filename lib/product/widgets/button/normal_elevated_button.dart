@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/components/button/normal_button.dart';
+import '../../../core/components/button/normal_button.dart';
 
 class TurkceSozlukNormalElevatedButton extends StatelessWidget {
   const TurkceSozlukNormalElevatedButton({super.key, this.onPressed, required this.child, this.style});

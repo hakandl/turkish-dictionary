@@ -2,10 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/detail/compound/service/compound_service.dart';
-import 'package:turkce_sozluk/feature/detail/compound/viewmodel/compound_viewmodel.dart';
-import 'package:turkce_sozluk/product/service/project_network_manager.dart';
-import 'package:turkce_sozluk/product/widgets/shimmer/detail_top_view_shimmer.dart';
+import '../service/compound_service.dart';
+import '../viewmodel/compound_viewmodel.dart';
+import '../../../../product/service/project_network_manager.dart';
+import '../../../../product/widgets/shimmer/detail_top_view_shimmer.dart';
 
 import '../../../../product/constants/enums/string_enum.dart';
 import '../../../../product/constants/enums/svg_enum.dart';

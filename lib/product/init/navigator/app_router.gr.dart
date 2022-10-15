@@ -34,12 +34,18 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const DetailTabBarView());
     },
     ProverbDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<ProverbDetailRouteArgs>(
+          orElse: () => const ProverbDetailRouteArgs());
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const ProverbDetailView());
+          routeData: routeData,
+          child: ProverbDetailView(key: args.key, title: args.title));
     },
     CompoundDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<CompoundDetailRouteArgs>(
+          orElse: () => const CompoundDetailRouteArgs());
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const CompoundDetailView());
+          routeData: routeData,
+          child: CompoundDetailView(key: args.key, title: args.title));
     },
     DetailRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -114,20 +120,50 @@ class DetailTabBarRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ProverbDetailView]
-class ProverbDetailRoute extends PageRouteInfo<void> {
-  const ProverbDetailRoute()
-      : super(ProverbDetailRoute.name, path: 'proverbDetail');
+class ProverbDetailRoute extends PageRouteInfo<ProverbDetailRouteArgs> {
+  ProverbDetailRoute({Key? key, String? title})
+      : super(ProverbDetailRoute.name,
+            path: 'proverbDetail',
+            args: ProverbDetailRouteArgs(key: key, title: title));
 
   static const String name = 'ProverbDetailRoute';
 }
 
+class ProverbDetailRouteArgs {
+  const ProverbDetailRouteArgs({this.key, this.title});
+
+  final Key? key;
+
+  final String? title;
+
+  @override
+  String toString() {
+    return 'ProverbDetailRouteArgs{key: $key, title: $title}';
+  }
+}
+
 /// generated route for
 /// [CompoundDetailView]
-class CompoundDetailRoute extends PageRouteInfo<void> {
-  const CompoundDetailRoute()
-      : super(CompoundDetailRoute.name, path: 'compoundDetail');
+class CompoundDetailRoute extends PageRouteInfo<CompoundDetailRouteArgs> {
+  CompoundDetailRoute({Key? key, String? title})
+      : super(CompoundDetailRoute.name,
+            path: 'compoundDetail',
+            args: CompoundDetailRouteArgs(key: key, title: title));
 
   static const String name = 'CompoundDetailRoute';
+}
+
+class CompoundDetailRouteArgs {
+  const CompoundDetailRouteArgs({this.key, this.title});
+
+  final Key? key;
+
+  final String? title;
+
+  @override
+  String toString() {
+    return 'CompoundDetailRouteArgs{key: $key, title: $title}';
+  }
 }
 
 /// generated route for

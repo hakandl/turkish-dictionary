@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/constants/app/app_constants.dart';
+import '../../../constants/app/app_constants.dart';
 
 import '../app_theme.dart';
 import 'theme_dark_interface.dart';
@@ -76,7 +76,7 @@ class AppThemeDark extends AppTheme with IThemeDark {
 
   TextButtonThemeData get _textButtonTheme => TextButtonThemeData(
           style: TextButton.styleFrom(
-        primary: colorSchemeDark!.transparent,
+        foregroundColor: colorSchemeDark!.transparent,
         backgroundColor: _colorScheme.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         elevation: 2,
@@ -84,8 +84,8 @@ class AppThemeDark extends AppTheme with IThemeDark {
 
   ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-        primary: colorSchemeDark!.transparent,
-        onPrimary: _colorScheme.background,
+        backgroundColor: colorSchemeDark!.transparent,
+        foregroundColor: _colorScheme.background,
         shadowColor: _colorScheme.primary,
         elevation: 0,
       ));

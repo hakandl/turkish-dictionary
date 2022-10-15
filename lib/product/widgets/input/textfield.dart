@@ -4,6 +4,7 @@ class NormalTextField extends TextField {
   NormalTextField(
       {Key? key,
       String? title,
+      TextStyle? style,
       TextEditingController? controller,
       Widget? icon,
       Widget? suffixIcon,
@@ -15,6 +16,7 @@ class NormalTextField extends TextField {
           controller: controller,
           onChanged: onChanged,
           autofocus: autofocus,
+          style: style,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
             hintText: title,

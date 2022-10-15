@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/detail/proverb/view/proverb_detail_view.dart';
-import 'package:turkce_sozluk/product/service/project_network_manager.dart';
-import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
-import 'package:turkce_sozluk/product/widgets/container/empty_value_view.dart';
+import 'proverb_detail_view.dart';
+import '../../../../product/service/project_network_manager.dart';
+import '../../../../product/widgets/card/detail_word_card.dart';
+import '../../../../product/widgets/container/empty_value_view.dart';
 
 import '../../../../product/widgets/container/open_container.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';

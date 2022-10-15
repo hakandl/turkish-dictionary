@@ -10,7 +10,7 @@ class TurkceSozlukCircleElevatedButton extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         shape: const CircleBorder(),
-        fixedSize: const Size(48, 48),
+        minimumSize: const Size(48, 48),
       ),
       onPressed: onPressed,
       child: child,

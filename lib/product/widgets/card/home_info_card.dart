@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/widgets/card/intrinsic_height_card.dart';
-import 'package:turkce_sozluk/product/widgets/shimmer/home_card_shimmer.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
+import 'intrinsic_height_card.dart';
+import '../shimmer/home_card_shimmer.dart';
+import '../svg.dart';
 
 import '../../../feature/home/viewmodel/home_viewmodel.dart';
 import '../../constants/enums/svg_enum.dart';
-
-// HOME INFO CARD
 
 class HomeInfoCard extends StatelessWidget {
   const HomeInfoCard({super.key, required this.title, required this.subtitle, this.isLink = false, this.onTap});
@@ -22,10 +20,10 @@ class HomeInfoCard extends StatelessWidget {
     return context.watch<HomeViewModel>().isLoading
         ? const HomeCardShimmer()
         : IntrinsicHeightCard(
-            child: isLink
-                ? InkWell(
-                    onTap: onTap,
-                    child: Padding(
+            child: InkWell(
+              onTap: onTap,
+              child: isLink
+                  ? Padding(
                       padding: context.paddingLow,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,71 +41,26 @@ class HomeInfoCard extends StatelessWidget {
                           )
                         ],
                       ),
-                    ),
-                  )
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: context.onlyBottomPaddingLow,
-                        child: Text(
-                          title,
-                          style: context.textTheme.titleMedium
-                              ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: context.onlyBottomPaddingLow,
+                          child: Text(
+                            title,
+                            style: context.textTheme.titleMedium
+                                ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+                          ),
                         ),
-                      ),
-                      Text(
-                        subtitle,
-                        style: context.textTheme.titleMedium
-                            ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
+                        Text(
+                          subtitle,
+                          style: context.textTheme.titleMedium
+                              ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+            ),
           );
-  }
-}
-
-// HOME INFO COLUMN CARD
-
-class HomeInfoColumnCard extends StatelessWidget {
-  const HomeInfoColumnCard({super.key, required this.title, required this.subtitle});
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Row(
-          children: [
-            SvgWidget(icon: SvgNameEnum.x.icon, color: context.colorScheme.background),
-            Expanded(
-              child: Text(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                title,
-                style: context.textTheme.titleMedium
-                    ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            SvgWidget(icon: SvgNameEnum.check.icon, color: context.colorScheme.background),
-            Expanded(
-              child: Text(
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                subtitle,
-                style: context.textTheme.titleMedium
-                    ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }

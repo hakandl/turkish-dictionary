@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/components/button/normal_button.dart';
+import 'normal_button.dart';
 
 class NormalIconButton extends StatelessWidget {
   const NormalIconButton({super.key, required this.child, this.onPressed, this.style});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/components/button/normal_button.dart';
+import 'normal_button.dart';
 
 class TitleTextButton extends StatelessWidget {
   const TitleTextButton({super.key, required this.text, this.onPressed, this.style});

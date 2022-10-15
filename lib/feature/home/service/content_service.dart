@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:turkce_sozluk/feature/home/model/content_model.dart';
+import '../model/content_model.dart';
 
 import '../../../product/constants/enums/service_enum.dart';
 import 'content_service_interface.dart';

@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:turkce_sozluk/feature/search/viewmodel/search_viewmodel.dart';
-import 'package:turkce_sozluk/product/init/localization_init.dart';
+import '../../feature/search/viewmodel/search_viewmodel.dart';
+import 'localization_init.dart';
 
 import '../../core/init/notifier/theme_notifier.dart';
 import '../../feature/detail/service/detail_service.dart';

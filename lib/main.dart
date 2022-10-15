@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/core/constants/app/app_constants.dart';
-import 'package:turkce_sozluk/core/init/theme/dark/app_theme_dark.dart';
-import 'package:turkce_sozluk/core/init/theme/light/app_theme_light.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
-import 'package:turkce_sozluk/product/init/product_init.dart';
+import 'core/constants/app/app_constants.dart';
+import 'core/init/theme/dark/app_theme_dark.dart';
+import 'core/init/theme/light/app_theme_light.dart';
+import 'product/init/navigator/app_router.dart';
+import 'product/init/product_init.dart';
 
 import 'core/init/main_build.dart';
 import 'core/init/notifier/theme_notifier.dart';

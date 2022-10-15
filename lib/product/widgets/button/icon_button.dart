@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/core/components/button/normal_icon_button.dart';
+import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
+import '../../../core/components/button/normal_icon_button.dart';
 
 class TurkceSozlukIconButton extends StatelessWidget {
   const TurkceSozlukIconButton(
@@ -12,10 +14,10 @@ class TurkceSozlukIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return NormalIconButton(
       style: TextButton.styleFrom(
+        foregroundColor: context.colorScheme.background,
         shape: const CircleBorder(),
         backgroundColor: backgroundColor,
-        primary: Colors.black,
-        elevation: 0,
+        elevation: SizeEnum.zero.value,
       ),
       onPressed: onPressed,
       child: child,

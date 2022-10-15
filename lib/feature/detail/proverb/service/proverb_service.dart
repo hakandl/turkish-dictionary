@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:turkce_sozluk/feature/detail/proverb/service/proverb_service_interface.dart';
+import 'proverb_service_interface.dart';
 
 import '../../../../product/constants/enums/service_enum.dart';
 import '../../model/detail_model.dart';

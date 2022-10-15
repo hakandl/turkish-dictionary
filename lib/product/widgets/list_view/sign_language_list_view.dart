@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/constants/enums/service_enum.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
-import 'package:turkce_sozluk/product/extensions/string_extension.dart';
+import '../../constants/enums/service_enum.dart';
+import '../../constants/enums/string/string_constants.dart';
+import '../../extensions/string_extension.dart';
 
 import '../card/sign_language_card.dart';
 
@@ -26,7 +26,7 @@ class SignLanguageListView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SignLanguageCard(
-                word:
+                image:
                     TurkceSozlukStringConstants.signLanguageUrl + word[index].signLanguage() + ServiceEnum.gif.withDot),
             context.emptySizedHeightBoxLow3x,
             Text(

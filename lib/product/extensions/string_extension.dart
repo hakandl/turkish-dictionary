@@ -9,3 +9,9 @@ extension SignLanguageExtension on String {
         .toLowerCase();
   }
 }
+
+extension DetailWordExtension on String {
+  String detailWordColon() {
+    return replaceAll(RegExp("[:]"), '').toLowerCase();
+  }
+}

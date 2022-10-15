@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/core/base/model/base_view_model.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import '../../../core/base/model/base_view_model.dart';
+import '../../../product/init/navigator/app_router.dart';
 
 class SplashViewModel extends ChangeNotifier with BaseViewModel {
   @override

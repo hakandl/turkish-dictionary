@@ -27,7 +27,6 @@ class NetworkChangeManager extends INetworkChangeManager {
   @override
   void handleNetworkChange(NetworkCallBack onChange) {
     _subscription = _connectivity.onConnectivityChanged.listen((event) {
-      print(event);
       onChange.call(NetworkResult.checkConnectivityResult(event));
     });
   }

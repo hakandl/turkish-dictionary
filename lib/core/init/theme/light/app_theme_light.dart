@@ -76,7 +76,7 @@ class AppThemeLight extends AppTheme with IThemeLight {
 
   TextButtonThemeData get _textButtonTheme => TextButtonThemeData(
           style: TextButton.styleFrom(
-        primary: colorSchemeLight!.transparent,
+        foregroundColor: colorSchemeLight!.transparent,
         backgroundColor: _colorScheme.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         elevation: 2,
@@ -84,8 +84,8 @@ class AppThemeLight extends AppTheme with IThemeLight {
 
   ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-        primary: colorSchemeLight!.transparent,
-        onPrimary: _colorScheme.background,
+        backgroundColor: colorSchemeLight!.transparent,
+        foregroundColor: _colorScheme.background,
         shadowColor: _colorScheme.primary,
         elevation: 0,
       ));

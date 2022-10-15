@@ -3,10 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/core/components/button/normal_icon_button.dart';
-import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import '../../../core/components/button/normal_icon_button.dart';
+import '../../detail/viewmodel/detail_viewmodel.dart';
+import '../../../product/constants/enums/size_enum.dart';
+import '../../../product/init/navigator/app_router.dart';
 
 import '../../../../product/widgets/input/textfield.dart';
 import '../../../../product/widgets/svg.dart';
@@ -41,7 +41,7 @@ class _SearchViewState extends State<SearchView> {
                   ),
                   NormalIconButton(
                     child: SvgWidget(
-                      icon: SvgNameEnum.left.icon,
+                      icon: SvgNameEnum.x.icon,
                       color: context.colorScheme.background,
                     ),
                     onPressed: () => context.pop(),
@@ -71,20 +71,12 @@ class _SearchViewState extends State<SearchView> {
 
   Container _searchTextFieldContainer(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.transparent.withOpacity(0.2),
-            blurRadius: 24,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
       height: SizeEnum.fifty.value,
       padding: context.onlyLeftPaddingNormal,
       child: NormalTextField(
+        style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
         controller: context.watch<SearchViewModel>().searchTextField,
-        // title: LocaleKeys.search_searchInTurkishDictionary.tr(),
+        title: LocaleKeys.search_searchInTurkishDictionary.tr(),
         radius: context.lowRadius.x,
         icon: Padding(
           padding: context.paddingNormal,

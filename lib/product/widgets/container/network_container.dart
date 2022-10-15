@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/service/network_change_manager.dart';
+import '../../service/network_change_manager.dart';
 
 import '../../constants/enums/size_enum.dart';
 

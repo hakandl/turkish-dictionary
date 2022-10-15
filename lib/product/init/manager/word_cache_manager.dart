@@ -1,5 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:turkce_sozluk/feature/detail/model/detail_model.dart';
+import '../../../feature/detail/model/detail_model.dart';
 
 abstract class ICacheManager<T> {
   final String key;

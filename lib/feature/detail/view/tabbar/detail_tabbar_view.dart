@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/feature/detail/viewmodel/detail_viewmodel.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import '../../viewmodel/detail_viewmodel.dart';
+import '../../../../product/init/language/locale_keys.g.dart';
+import '../../../../product/init/navigator/app_router.dart';
 
 import '../../../../product/constants/enums/string_enum.dart';
 import '../../../../product/constants/enums/svg_enum.dart';

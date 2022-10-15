@@ -2,11 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/detail/proverb/service/proverb_service.dart';
-import 'package:turkce_sozluk/product/service/project_network_manager.dart';
 
 import '../../../../product/constants/enums/string_enum.dart';
 import '../../../../product/constants/enums/svg_enum.dart';
+import '../../../../product/service/project_network_manager.dart';
 import '../../../../product/widgets/button/icon_button.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
 import '../../../../product/widgets/list_view/sign_language_list_view.dart';
@@ -15,6 +14,7 @@ import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimm
 import '../../../../product/widgets/svg.dart';
 import '../../view/detail_view.dart';
 import '../../viewmodel/detail_viewmodel.dart';
+import '../service/proverb_service.dart';
 import '../viewmodel/proverb_viewmodel.dart';
 
 class ProverbDetailView extends StatefulWidget {
@@ -61,7 +61,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
     );
   }
 
-  _detailTop(BuildContext context) {
+  Widget _detailTop(BuildContext context) {
     return context.watch<ProverbViewModel>().isLoading
         ? const DetailTopViewShimmer()
         : DetailTop(
@@ -76,7 +76,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
           );
   }
 
-  _proverbDetailWord(BuildContext context) {
+  Widget _proverbDetailWord(BuildContext context) {
     return context.watch<ProverbViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : DetailWordCard(

@@ -1,5 +1,5 @@
 name: turkce_sozluk
-description: A new Flutter project.
+description: Turkish dictionary.
 publish_to: "none"
 version: 1.0.0+1
 
@@ -47,11 +47,11 @@ dev_dependencies:
   auto_route_generator: ^5.0.2
   build_runner: ^2.2.0
   hive_generator: ^1.1.3
+  flutter_launcher_icons: ^0.10.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/
     - assets/icons/
     - assets/data/
     - assets/translations/
@@ -70,3 +70,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/Bold.otf
           weight: 700
+
+flutter_icons:
+  android: "launcher_icon"
+  image_path: "assets/icons/ic_turkce_sozluk_app.png"

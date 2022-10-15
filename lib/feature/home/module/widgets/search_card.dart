@@ -7,11 +7,15 @@ class _SearchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OpenContainerWidget(closedBuilder: (BuildContext context, VoidCallback openContainer) {
-      return _card(context);
-    }, openBuilder: (BuildContext context, VoidCallback openContainer) {
-      return const SearchView();
-    });
+    return OpenContainerWidget(
+      closedElevation: SizeEnum.four.value,
+      openBuilder: (BuildContext context, VoidCallback openContainer) {
+        return const SearchView();
+      },
+      closedBuilder: (BuildContext context, VoidCallback openContainer) {
+        return _card(context);
+      },
+    );
   }
 
   Card _card(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/product/widgets/container/network_container.dart';
+import '../../product/widgets/container/network_container.dart';
 
 class MainBuild {
   MainBuild._();

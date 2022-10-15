@@ -10,10 +10,10 @@ class BaseView<T extends ChangeNotifier> extends StatefulWidget {
       : super(key: key);
 
   @override
-  _BaseViewState<T> createState() => _BaseViewState();
+  BaseViewState<T> createState() => BaseViewState();
 }
 
-class _BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
+class BaseViewState<T extends ChangeNotifier> extends State<BaseView<T>> {
   late T model;
 
   @override

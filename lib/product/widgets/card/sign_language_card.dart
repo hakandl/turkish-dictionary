@@ -4,8 +4,8 @@ import 'package:kartal/kartal.dart';
 import '../../constants/enums/size_enum.dart';
 
 class SignLanguageCard extends StatelessWidget {
-  const SignLanguageCard({super.key, required this.word});
-  final String word;
+  const SignLanguageCard({super.key, required this.image});
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class SignLanguageCard extends StatelessWidget {
         shape: UnderlineInputBorder(borderSide: BorderSide(color: context.colorScheme.onSecondary)),
         child: Padding(
           padding: context.paddingNormal,
-          child: Image.network(word),
+          child: Image.network(image),
         ),
       ),
     );

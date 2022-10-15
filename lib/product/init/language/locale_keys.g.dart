@@ -1,6 +1,8 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+// ignore_for_file: constant_identifier_names
+
+abstract class LocaleKeys {
   static const home_aWord = 'home.aWord';
   static const home_aProverb = 'home.aProverb';
   static const home_aRule = 'home.aRule';
@@ -23,5 +25,4 @@ abstract class  LocaleKeys {
   static const button_turkishSignLanguage = 'button.turkishSignLanguage';
   static const button = 'button';
   static const not_found = 'not_found';
-
 }
