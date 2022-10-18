@@ -1,8 +1,10 @@
-/* import 'package:auto_route/auto_route.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
+
+import '../../product/constants/enums/svg_enum.dart';
 
 class WrapperView extends StatefulWidget {
   const WrapperView({super.key});
@@ -16,6 +18,7 @@ class _WrapperViewState extends State<WrapperView> {
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
+        FavoritesRoute(),
         HomeRoute(),
         HistoryRoute(),
       ],
@@ -28,14 +31,21 @@ class _WrapperViewState extends State<WrapperView> {
           items: [
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: SvgNameEnum.search.value,
+                icon: SvgNameEnum.favSolid.icon,
+                color: context.colorScheme.background,
+              ),
+              label: 'Favorites',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgWidget(
+                icon: SvgNameEnum.splash.icon,
                 color: context.colorScheme.background,
               ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: SvgNameEnum.history.value,
+                icon: SvgNameEnum.sun.icon,
                 color: context.colorScheme.background,
               ),
               label: 'History',
@@ -46,4 +56,3 @@ class _WrapperViewState extends State<WrapperView> {
     );
   }
 }
- */

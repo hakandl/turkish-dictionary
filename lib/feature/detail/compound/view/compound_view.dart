@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import '../../../../product/constants/enums/string/string_constants.dart';
+import '../../../favorites/viewmodel/favorites_viewmodel.dart';
 import '../viewmodel/compound_viewmodel.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
 import '../../../../product/widgets/container/empty_value_view.dart';
@@ -25,12 +27,27 @@ class _CompoundViewState extends State<CompoundView> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: DetailViewModel(DetailService(ProjectNetworkManager.instance.service)),
-      child: ListView(
+      child: SingleChildScrollView(
         padding: context.paddingNormal,
-        children: [
-          DetailTop(onPressed: () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? '')),
-          const DetailWordList(),
-        ],
+        child: Column(
+          children: [
+            DetailTop(
+              onVoice: () =>
+                  context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
+              onFav: () {
+                if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(DetailViewModel.word)) {
+                  context.read<FavoritesViewModel>().favoriteWordBox.delete(DetailViewModel.word);
+                  return;
+                }
+                context
+                    .read<FavoritesViewModel>()
+                    .favoriteWordBox
+                    .put(DetailViewModel.word, DetailViewModel.word ?? '');
+              },
+            ),
+            const DetailWordList(),
+          ],
+        ),
       ),
     );
   }
@@ -56,7 +73,8 @@ class DetailWordList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: context.watch<DetailViewModel>().detailList?[0].compoundList?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        String word = context.watch<DetailViewModel>().detailList?[0].compoundList?[index].trim() ?? '';
+        String word = context.watch<DetailViewModel>().detailList?[0].compoundList?[index].trim() ??
+            TurkceSozlukStringConstants.empty;
         return compoundCard(word, context);
       },
     );
@@ -73,20 +91,5 @@ class DetailWordList extends StatelessWidget {
         return DetailWordCard(text: word, onTap: openContainer);
       },
     );
-
-    /* OpenContainer(
-      closedElevation: 0,
-      openColor: context.colorScheme.primary,
-      closedColor: context.colorScheme.primary,
-      closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-      openBuilder: (BuildContext _, VoidCallback openContainer) {
-        return CompoundDetailView(
-          title: CompoundViewModel.word = word,
-        );
-      },
-      closedBuilder: (BuildContext _, VoidCallback openContainer) {
-        return DetailWordCard(text: word, onTap: openContainer);
-      },
-    ); */
   }
 }

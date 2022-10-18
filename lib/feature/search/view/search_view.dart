@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import '../../../core/components/button/normal_icon_button.dart';
+import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
 import '../../detail/viewmodel/detail_viewmodel.dart';
 import '../../../product/constants/enums/size_enum.dart';
 import '../../../product/init/navigator/app_router.dart';
@@ -36,21 +36,21 @@ class _SearchViewState extends State<SearchView> {
               padding: context.onlyTopPaddingNormal,
               child: Row(
                 children: [
-                  Expanded(
-                    child: _searchTextFieldContainer(context),
+                  const Expanded(
+                    child: SearchTextFieldContainer(),
                   ),
-                  NormalIconButton(
+                  /* NormalIconButton(
                     child: SvgWidget(
                       icon: SvgNameEnum.x.icon,
                       color: context.colorScheme.background,
                     ),
                     onPressed: () => context.pop(),
-                  )
-                  /* TurkceSozlukTextButton(
+                  ) */
+                  TurkceSozlukTextButton(
                     text: 'Vazgeç',
                     textStyle: context.textTheme.titleMedium,
                     onPressed: () => context.pop(),
-                  ) */
+                  )
                 ],
               ),
             ),
@@ -65,27 +65,6 @@ class _SearchViewState extends State<SearchView> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container _searchTextFieldContainer(BuildContext context) {
-    return Container(
-      height: SizeEnum.fifty.value,
-      padding: context.onlyLeftPaddingNormal,
-      child: NormalTextField(
-        style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
-        controller: context.watch<SearchViewModel>().searchTextField,
-        title: LocaleKeys.search_searchInTurkishDictionary.tr(),
-        radius: context.lowRadius.x,
-        icon: Padding(
-          padding: context.paddingNormal,
-          child: SvgWidget(
-            icon: SvgNameEnum.search.icon,
-            color: context.colorScheme.background,
-          ),
-        ),
-        onChanged: (value) => context.read<SearchViewModel>().runFilter(value),
       ),
     );
   }
@@ -108,8 +87,7 @@ class _SearchViewState extends State<SearchView> {
       child: TurkceSozlukTextButton(
         text: word,
         textStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-        onPressed: () =>
-            context.read<SearchViewModel>().insertSpecialWord(word, context.read<SearchViewModel>().searchTextField),
+        onPressed: () => context.read<SearchViewModel>().insertSpecialWord(word),
       ),
     );
   }
@@ -147,6 +125,53 @@ class _SearchViewState extends State<SearchView> {
           style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
         ),
       ],
+    );
+  }
+}
+
+class SearchTextFieldContainer extends StatelessWidget {
+  const SearchTextFieldContainer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: SizeEnum.fifty.value,
+      padding: context.onlyLeftPaddingNormal,
+      child: NormalTextField(
+        style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
+        controller: context.watch<SearchViewModel>().searchTextField,
+        title: LocaleKeys.search_searchInTurkishDictionary.tr(),
+        radius: context.lowRadius.x,
+        icon: _searchIcon(context),
+        suffixIcon: context.watch<SearchViewModel>().searchTextField.text.isNotEmpty
+            ? _textClearButton(context)
+            : const SizedBox.shrink(),
+        onChanged: (value) => context.read<SearchViewModel>().wordFilter(value),
+      ),
+    );
+  }
+
+  Padding _searchIcon(BuildContext context) {
+    return Padding(
+      padding: context.paddingNormal,
+      child: SvgWidget(
+        icon: SvgNameEnum.search.icon,
+        color: context.colorScheme.background,
+      ),
+    );
+  }
+
+  TurkceSozlukCircleElevatedButton _textClearButton(BuildContext context) {
+    return TurkceSozlukCircleElevatedButton(
+      backgroundColor: Colors.transparent,
+      elevation: SizeEnum.zero.value,
+      child: SvgWidget(
+        icon: SvgNameEnum.x.icon,
+        color: context.colorScheme.background,
+      ),
+      onPressed: () => context.read<SearchViewModel>().clearText(),
     );
   }
 }

@@ -29,6 +29,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const HistoryView());
     },
+    WrapperRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const WrapperView());
+    },
     DetailTabBarRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const DetailTabBarView());
@@ -46,6 +50,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData,
           child: CompoundDetailView(key: args.key, title: args.title));
+    },
+    FavoritesRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const FavoritesView());
     },
     DetailRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -66,6 +74,18 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(SplashRoute.name, path: '/'),
         RouteConfig(HomeRoute.name, path: 'home'),
         RouteConfig(HistoryRoute.name, path: 'history'),
+        RouteConfig(WrapperRoute.name, path: 'wrapper', children: [
+          RouteConfig('#redirect',
+              path: '',
+              parent: WrapperRoute.name,
+              redirectTo: 'home',
+              fullMatch: true),
+          RouteConfig(FavoritesRoute.name,
+              path: 'favorites', parent: WrapperRoute.name),
+          RouteConfig(HomeRoute.name, path: 'home', parent: WrapperRoute.name),
+          RouteConfig(HistoryRoute.name,
+              path: 'history', parent: WrapperRoute.name)
+        ]),
         RouteConfig(DetailTabBarRoute.name, path: 'detailTabBar', children: [
           RouteConfig('#redirect',
               path: '',
@@ -106,6 +126,15 @@ class HistoryRoute extends PageRouteInfo<void> {
   const HistoryRoute() : super(HistoryRoute.name, path: 'history');
 
   static const String name = 'HistoryRoute';
+}
+
+/// generated route for
+/// [WrapperView]
+class WrapperRoute extends PageRouteInfo<void> {
+  const WrapperRoute({List<PageRouteInfo>? children})
+      : super(WrapperRoute.name, path: 'wrapper', initialChildren: children);
+
+  static const String name = 'WrapperRoute';
 }
 
 /// generated route for
@@ -164,6 +193,14 @@ class CompoundDetailRouteArgs {
   String toString() {
     return 'CompoundDetailRouteArgs{key: $key, title: $title}';
   }
+}
+
+/// generated route for
+/// [FavoritesView]
+class FavoritesRoute extends PageRouteInfo<void> {
+  const FavoritesRoute() : super(FavoritesRoute.name, path: 'favorites');
+
+  static const String name = 'FavoritesRoute';
 }
 
 /// generated route for

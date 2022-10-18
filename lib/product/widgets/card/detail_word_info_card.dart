@@ -6,17 +6,17 @@ import '../../constants/enums/size_enum.dart';
 class DetailWordInfoCard extends StatelessWidget {
   const DetailWordInfoCard({
     Key? key,
-    required this.anlamSira,
-    required this.ozellikAdi,
-    required this.anlam,
-    required this.ornekAdi,
-    required this.yazarAdi,
+    required this.meaningOrder,
+    required this.featuresName,
+    required this.meaning,
+    required this.exampleName,
+    required this.authorName,
   }) : super(key: key);
-  final String anlamSira;
-  final String ozellikAdi;
-  final String anlam;
-  final String ornekAdi;
-  final String yazarAdi;
+  final String meaningOrder;
+  final String featuresName;
+  final String meaning;
+  final String exampleName;
+  final String authorName;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class DetailWordInfoCard extends StatelessWidget {
                   Padding(
                     padding: context.onlyRightPaddingLow,
                     child: Text(
-                      anlamSira,
+                      meaningOrder,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.onSecondary,
                         fontWeight: FontWeight.w400,
@@ -43,7 +43,7 @@ class DetailWordInfoCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ozellikAdi,
+                    featuresName,
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.onSecondary,
                       fontWeight: FontWeight.w500,
@@ -60,7 +60,7 @@ class DetailWordInfoCard extends StatelessWidget {
                 bottom: context.paddingLow.bottom,
               ),
               child: Text(
-                anlam,
+                meaning,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colorScheme.background,
                   fontWeight: FontWeight.w600,
@@ -80,8 +80,8 @@ class DetailWordInfoCard extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   children: [
-                    TextSpan(text: ornekAdi),
-                    TextSpan(text: yazarAdi, style: const TextStyle(fontWeight: FontWeight.w700)),
+                    TextSpan(text: exampleName),
+                    TextSpan(text: authorName, style: const TextStyle(fontWeight: FontWeight.w700)),
                   ],
                 ),
               ),

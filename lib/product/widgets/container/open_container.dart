@@ -15,8 +15,7 @@ class OpenContainerWidget extends StatelessWidget {
     return OpenContainer(
         closedElevation: closedElevation ?? SizeEnum.zero.value,
         openColor: context.colorScheme.primary,
-        closedColor: context.colorScheme.primary,
-        closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
+        closedColor: Colors.transparent,
         closedBuilder: closedBuilder,
         openBuilder: openBuilder);
   }

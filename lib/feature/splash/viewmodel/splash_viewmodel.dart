@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
 import '../../../core/base/model/base_view_model.dart';
 import '../../../product/init/navigator/app_router.dart';
@@ -11,11 +12,18 @@ class SplashViewModel extends ChangeNotifier with BaseViewModel {
   void init() {
     startAnimationOnView();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      hiveInit();
       _nextView(context!.durationNormal);
     });
   }
 
   bool isFirstInit = true;
+
+  Future<void> hiveInit() async {
+    await Hive.initFlutter();
+    await Hive.openBox('theme_change');
+    await Hive.openBox('favorites_word');
+  }
 
   Future<void> startAnimationOnView() async {
     if (context == null) return;
@@ -30,6 +38,6 @@ class SplashViewModel extends ChangeNotifier with BaseViewModel {
 
   Future<void> _nextView(Duration duration) async {
     await Future.delayed(duration);
-    context!.router.replace(const HomeRoute());
+    context!.router.replace(const WrapperRoute());
   }
 }

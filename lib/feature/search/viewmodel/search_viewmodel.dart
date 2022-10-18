@@ -14,16 +14,16 @@ class SearchViewModel extends LoadingStateful {
 
   SearchViewModel() {
     searchTextField = TextEditingController();
-    _loadKeyword();
+    _loadWord();
   }
 
-  Future<void> _loadKeyword() async {
+  Future<void> _loadWord() async {
     final response = await rootBundle.loadString('assets/data/autocomplete.json');
     final jsonResponse = await compute(jsonDecode, response) as List;
     data = jsonResponse.map((e) => WordModel.fromJson(e)).toList();
   }
 
-  void runFilter(String text) {
+  void wordFilter(String text) {
     List<WordModel> results = [];
     if (text.isEmpty) {
       results = data;
@@ -34,18 +34,18 @@ class SearchViewModel extends LoadingStateful {
     notifyListeners();
   }
 
-  void insertSpecialWord(String word, TextEditingController insertWord) {
-    final pos = insertWord.selection;
-    final text = insertWord.text.replaceRange(pos.start, pos.end, word);
-
-    insertWord.value = TextEditingValue(
-      text: text,
-      selection: TextSelection.collapsed(offset: pos.baseOffset + word.length),
+  void insertSpecialWord(String word) {
+    final String text = searchTextField.text;
+    final int selection = searchTextField.selection.start;
+    searchTextField.value = TextEditingValue(
+      text: text.substring(0, selection) + word + text.substring(selection),
+      selection: TextSelection.collapsed(offset: selection + word.length),
     );
-    /* insertWord.value = TextEditingValue(
-      text: text.substring(0, pos) + word + text.substring(pos),
-      selection: TextSelection.collapsed(offset: pos + word.length),
-    ); */
+    notifyListeners();
+  }
+
+  void clearText() {
+    searchTextField.clear();
     notifyListeners();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import '../../../../product/constants/enums/string/string_constants.dart';
+import '../../../favorites/viewmodel/favorites_viewmodel.dart';
 import 'proverb_detail_view.dart';
 import '../../../../product/service/project_network_manager.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
@@ -29,7 +31,20 @@ class _ProverbViewState extends State<ProverbView> {
         padding: context.paddingNormal,
         child: Column(
           children: [
-            DetailTop(onPressed: () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? '')),
+            DetailTop(
+              onVoice: () =>
+                  context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
+              onFav: () {
+                if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(DetailViewModel.word)) {
+                  context.read<FavoritesViewModel>().favoriteWordBox.delete(DetailViewModel.word);
+                  return;
+                }
+                context
+                    .read<FavoritesViewModel>()
+                    .favoriteWordBox
+                    .put(DetailViewModel.word, DetailViewModel.word ?? '');
+              },
+            ),
             const DetailWordList(),
           ],
         ),
@@ -58,7 +73,8 @@ class DetailWordList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: context.watch<DetailViewModel>().detailList?[0].proverb?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        String word = context.watch<DetailViewModel>().detailList?[0].proverb?[index].word ?? '';
+        String word =
+            context.watch<DetailViewModel>().detailList?[0].proverb?[index].word ?? TurkceSozlukStringConstants.empty;
         return proverbCard(word, context);
       },
     );
@@ -77,46 +93,3 @@ class DetailWordList extends StatelessWidget {
     );
   }
 }
-
-
-/* 
-      closedBuilder: (BuildContext _, VoidCallback openContainer) {
-        return DetailWordCard(text: word, onTap: openContainer);
-      },  */
-
-
-
-/* OpenContainer(
-        closedElevation: context.colorScheme.primary.opacity,
-        openColor: context.colorScheme.primary,
-        closedColor: context.colorScheme.primary,
-        closedShape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-        closedBuilder: (context, VoidCallback action) {
-          return Card(
-            margin: EdgeInsets.zero,
-            child: SizedBox(
-              width: context.dynamicWidth(SizeEnum.zNine.value),
-              height: SizeEnum.fifty.value,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: context.horizontalPaddingNormal,
-                    child: SvgWidget(
-                      icon: SvgNameEnum.search.icon,
-                      color: context.colorScheme.background,
-                    ),
-                  ),
-                  Text(
-                    LocaleKeys.search_searchInTurkishDictionary.tr(),
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: context.colorScheme.background,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-        openBuilder: (context, action) => const SearchView()); */

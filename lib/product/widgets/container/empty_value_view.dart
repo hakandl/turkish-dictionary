@@ -8,24 +8,32 @@ import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
 
 class EmptyValueView extends StatelessWidget {
-  const EmptyValueView({super.key});
+  const EmptyValueView({super.key, this.icon = true});
+  final bool icon;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgWidget(
-          icon: SvgNameEnum.confused.icon,
-          color: context.colorScheme.background,
-          height: SizeEnum.ninetySix.value,
-        ),
-        context.emptySizedHeightBoxLow3x,
-        Text(
-          LocaleKeys.not_found.tr(),
-          style: context.textTheme.headline5?.copyWith(color: context.colorScheme.background),
-        )
-      ],
-    );
+    return icon
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgWidget(
+                icon: SvgNameEnum.confused.icon,
+                color: context.colorScheme.background,
+                height: SizeEnum.ninetySix.value,
+              ),
+              context.emptySizedHeightBoxLow3x,
+              Text(
+                LocaleKeys.not_found.tr(),
+                style: context.textTheme.headline5?.copyWith(color: context.colorScheme.background),
+              )
+            ],
+          )
+        : Center(
+            child: Text(
+              LocaleKeys.not_found.tr(),
+              style: context.textTheme.headline5?.copyWith(color: context.colorScheme.background),
+            ),
+          );
   }
 }

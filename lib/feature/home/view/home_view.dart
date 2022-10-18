@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/feature/home/view/a_rule_webview.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/language/locale_keys.g.dart';
 import '../../../product/widgets/container/open_container.dart';
 
@@ -58,7 +61,12 @@ class _HomeViewState extends State<HomeView> {
                   textStyle: TextStyle(
                     color: context.colorScheme.background,
                   ),
-                  onTap: context.read<ThemeNotifier>().themeChange,
+                  // onTap: context.read<ThemeNotifier>().themeChange,
+                  onTap: () async {
+                    Box kutu = Hive.box('theme_change');
+                    kutu.put('darkMode', !kutu.get('darkMode', defaultValue: false));
+                    context.read<ThemeNotifier>().changeTheme();
+                  },
                   child: Text(
                     LocaleKeys.button_changeTheme.tr(),
                   )
@@ -173,10 +181,13 @@ class _HomeViewState extends State<HomeView> {
 
   HomeInfoCard _aRuleCard(BuildContext context) {
     return HomeInfoCard(
-      isLink: true,
-      title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
-      subtitle: context.watch<HomeViewModel>().rule?[0].url ?? LocaleKeys.not_found.tr(),
-      onTap: () => context.read<HomeViewModel>().openUrl(context.read<HomeViewModel>().rule?[0].url ?? ''),
-    );
+        isLink: true,
+        title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
+        /* onTap: () => context
+          .read<HomeViewModel>()
+          .openUrl(context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty), */
+        onTap: () => context.navigateToPage(ARuleWebView(
+            title: context.read<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
+            url: context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty)));
   }
 }

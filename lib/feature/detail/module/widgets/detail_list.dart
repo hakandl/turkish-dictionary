@@ -13,24 +13,24 @@ class DetailWordList extends StatelessWidget {
   ClipRRect detailMeaningsList(BuildContext context) {
     return ClipRRect(
       borderRadius: context.lowBorderRadius,
-      child: detailsList(context),
+      child: _detailsList(context),
     );
   }
 
-  ListView detailsList(BuildContext context) {
+  ListView _detailsList(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: context.watch<DetailViewModel>().detailList?.length,
       itemBuilder: (_, detailIndex) {
         return Column(
-          children: [detailsListWord(context, detailIndex), meaningsList(context, detailIndex)],
+          children: [_detailsListWord(context, detailIndex), _meaningsList(context, detailIndex)],
         );
       },
     );
   }
 
-  Container detailsListWord(BuildContext context, int detailIndex) {
+  Container _detailsListWord(BuildContext context, int detailIndex) {
     return Container(
       margin: context.onlyBottomPaddingNormal,
       alignment: Alignment.centerLeft,
@@ -46,7 +46,7 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  ListView meaningsList(BuildContext context, int detailIndex) {
+  ListView _meaningsList(BuildContext context, int detailIndex) {
     return ListView.separated(
       padding: context.onlyBottomPaddingNormal,
       physics: const NeverScrollableScrollPhysics(),
@@ -55,7 +55,7 @@ class DetailWordList extends StatelessWidget {
           context.watch<DetailViewModel>().detailList?[detailIndex].meaningsList?.length ?? SizeEnum.zero.value.toInt(),
       itemBuilder: (_, meaningsIndex) {
         final detail = context.watch<DetailViewModel>().detailList?[detailIndex].meaningsList?[meaningsIndex];
-        return meaningsDetailCard(detail);
+        return _meaningsDetailCard(detail);
       },
       separatorBuilder: (context, index) {
         return Container(color: context.colorScheme.primary, child: const Divider());
@@ -63,17 +63,19 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  DetailWordInfoCard meaningsDetailCard(MeaningsList? detail) {
+  DetailWordInfoCard _meaningsDetailCard(MeaningsList? detail) {
     return DetailWordInfoCard(
-      anlamSira: detail?.orderMeaning ?? TurkceSozlukStringConstants.empty,
-      ozellikAdi: detail?.featuresList?.map((e) => e.fullName).join(TurkceSozlukStringConstants.comma) ??
+      meaningOrder: detail?.orderMeaning ?? TurkceSozlukStringConstants.empty,
+      featuresName: detail?.featuresList?.map((e) => e.fullName).join(TurkceSozlukStringConstants.comma) ??
           TurkceSozlukStringConstants.detailListDefaultExample,
-      anlam: detail?.meaning ?? TurkceSozlukStringConstants.empty,
-      ornekAdi: detail?.examplesList?.map((e) => e.example).join(TurkceSozlukStringConstants.separator) ??
+      meaning: detail?.meaning ?? TurkceSozlukStringConstants.empty,
+      exampleName: detail?.examplesList?.map((e) => e.example).join(TurkceSozlukStringConstants.separator) ??
           TurkceSozlukStringConstants.empty,
-      yazarAdi: detail?.examplesList?[0].authorId == null
+      authorName: detail?.examplesList == null
           ? TurkceSozlukStringConstants.empty
-          : ' ${detail?.examplesList?[0].author?[0].fullName ?? TurkceSozlukStringConstants.empty}',
+          : detail?.examplesList?[0].authorId == '0'
+              ? TurkceSozlukStringConstants.empty
+              : '${TurkceSozlukStringConstants.dash} ${detail?.examplesList?[0].author?[0].fullName}',
     );
   }
 }

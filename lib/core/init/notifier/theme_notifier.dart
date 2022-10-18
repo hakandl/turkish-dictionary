@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
-/* class ThemeNotifier extends ChangeNotifier {
+import '../../constants/enums/app_theme.dart';
+import '../theme/dark/app_theme_dark.dart';
+import '../theme/light/app_theme_light.dart';
+
+class ThemeNotifier extends ChangeNotifier {
   ThemeData _currentTheme = AppThemeLight.instance.theme;
   ThemeData get currentTheme => _currentTheme;
   AppThemes _currentThemeEnum = AppThemes.LIGHT;
@@ -11,11 +14,7 @@ import 'package:hive_flutter/hive_flutter.dart';
     if (_currentThemeEnum == AppThemes.LIGHT) {
       _currentTheme = AppThemeDark.instance.theme;
       _currentThemeEnum = AppThemes.DARK;
-      Hive.box('theme_change').put('dark_mode', !Hive.box('theme_change').get('dark_mode', defaultValue: false));
     } else {
-      Hive.box('theme_change').put('dark_mode', Hive.box('theme_change').get('dark_mode', defaultValue: false));
-
-      _currentTheme = Hive.box('theme_change').get('dark_mode');
       _currentThemeEnum = AppThemes.LIGHT;
     }
     notifyListeners();
@@ -25,9 +24,9 @@ import 'package:hive_flutter/hive_flutter.dart';
     themeIcon = !themeIcon;
     notifyListeners();
   }
-} */
+}
 
-class ThemeNotifier extends ChangeNotifier {
+/* class ThemeNotifier extends ChangeNotifier {
   ValueNotifier<bool> box = ValueNotifier(Hive.box('theme_change').get('darkMode') ?? false);
 
   void themeChange() {
@@ -35,4 +34,4 @@ class ThemeNotifier extends ChangeNotifier {
 
     Hive.box('theme_change').put('darkMode', box.value);
   }
-}
+} */

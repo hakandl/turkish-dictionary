@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
 import 'intrinsic_height_card.dart';
 import '../shimmer/home_card_shimmer.dart';
 import '../svg.dart';
@@ -9,9 +10,9 @@ import '../../../feature/home/viewmodel/home_viewmodel.dart';
 import '../../constants/enums/svg_enum.dart';
 
 class HomeInfoCard extends StatelessWidget {
-  const HomeInfoCard({super.key, required this.title, required this.subtitle, this.isLink = false, this.onTap});
+  const HomeInfoCard({super.key, required this.title, this.subtitle, this.isLink = false, this.onTap});
   final String title;
-  final String subtitle;
+  final String? subtitle;
   final bool isLink;
   final VoidCallback? onTap;
 
@@ -54,7 +55,7 @@ class HomeInfoCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          subtitle,
+                          subtitle ?? TurkceSozlukStringConstants.empty,
                           style: context.textTheme.titleMedium
                               ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
                         ),

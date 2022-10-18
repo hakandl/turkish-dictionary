@@ -6,6 +6,7 @@ import 'package:turkce_sozluk/feature/detail/model/detail_model.dart';
 import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
 import '../../../product/widgets/card/detail_word_info_card.dart';
+import '../../favorites/viewmodel/favorites_viewmodel.dart';
 import '../service/detail_service.dart';
 import '../viewmodel/detail_viewmodel.dart';
 import '../../../product/init/language/locale_keys.g.dart';
@@ -35,16 +36,27 @@ class _DetailViewState extends State<DetailView> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: DetailViewModel(DetailService(ProjectNetworkManager.instance.service)),
-      child: ListView(
-        padding: context.paddingNormal,
-        children: [
-          DetailTop(
-            onPressed: () =>
-                context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
-          ),
-          const DetailWordList(),
-        ],
-      ),
+      child: SingleChildScrollView(
+          padding: context.paddingNormal,
+          child: Column(
+            children: [
+              DetailTop(
+                onVoice: () =>
+                    context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
+                onFav: () {
+                  if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(DetailViewModel.word)) {
+                    context.read<FavoritesViewModel>().favoriteWordBox.delete(DetailViewModel.word);
+                    return;
+                  }
+                  context
+                      .read<FavoritesViewModel>()
+                      .favoriteWordBox
+                      .put(DetailViewModel.word, DetailViewModel.word ?? '');
+                },
+              ),
+              const DetailWordList(),
+            ],
+          )),
     );
   }
 }
@@ -56,12 +68,14 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
     this.subtitle,
     this.signLanguageWidget,
     this.handTitle,
-    this.onPressed,
+    this.onVoice,
+    this.onFav,
   }) : super(key: key);
   final String? title;
   final String? subtitle;
   final String? handTitle;
-  final VoidCallback? onPressed;
+  final VoidCallback? onVoice;
+  final VoidCallback? onFav;
   final Widget? signLanguageWidget;
 
   @override
@@ -88,31 +102,51 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
                 padding: context.verticalPaddingNormal,
                 child: Row(
                   children: [
-                    TurkceSozlukCircleElevatedButton(
-                      onPressed: onPressed,
-                      child: SvgWidget(
-                        icon: SvgNameEnum.voice.icon,
-                        color: context.colorScheme.onSecondary,
-                      ),
-                    ),
+                    _voiceButton(context),
+                    context.emptySizedWidthBoxLow3x,
+                    _favButton(context),
                     const Spacer(),
-                    TurkceSozlukIconTextButton(
-                      text: LocaleKeys.button_turkishSignLanguage.tr(),
-                      textStyle: TextStyle(color: context.colorScheme.onSecondary),
-                      icon: SvgWidget(
-                        icon: SvgNameEnum.hand.icon,
-                        color: context.colorScheme.onSecondary,
-                      ),
-                      onPressed: () => showTurkceSozlukModalSheet(
-                        context,
-                        Expanded(child: modalSheetList()),
-                      ),
-                    )
+                    _signLanguageButton(context),
                   ],
                 ),
               ),
             ],
           );
+  }
+
+  TurkceSozlukCircleElevatedButton _voiceButton(BuildContext context) {
+    return TurkceSozlukCircleElevatedButton(
+      onPressed: onVoice,
+      child: SvgWidget(
+        icon: SvgNameEnum.voice.icon,
+        color: context.colorScheme.onSecondary,
+      ),
+    );
+  }
+
+  TurkceSozlukCircleElevatedButton _favButton(BuildContext context) {
+    return TurkceSozlukCircleElevatedButton(
+      onPressed: onFav,
+      child: SvgWidget(
+        icon: SvgNameEnum.fav.icon,
+        color: context.colorScheme.onSecondary,
+      ),
+    );
+  }
+
+  TurkceSozlukIconTextButton _signLanguageButton(BuildContext context) {
+    return TurkceSozlukIconTextButton(
+      text: LocaleKeys.button_turkishSignLanguage.tr(),
+      textStyle: TextStyle(color: context.colorScheme.onSecondary),
+      icon: SvgWidget(
+        icon: SvgNameEnum.hand.icon,
+        color: context.colorScheme.onSecondary,
+      ),
+      onPressed: () => showTurkceSozlukModalSheet(
+        context,
+        Expanded(child: modalSheetList()),
+      ),
+    );
   }
 
   ChangeNotifierProvider<DetailViewModel> modalSheetList() {

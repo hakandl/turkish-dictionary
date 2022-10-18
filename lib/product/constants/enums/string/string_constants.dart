@@ -3,6 +3,7 @@ class TurkceSozlukStringConstants {
 
   static const detailListDefaultExample = 'isim';
   static const separator = '\n';
+  static const dash = ' - ';
   static const comma = ', ';
   static const empty = '';
 }

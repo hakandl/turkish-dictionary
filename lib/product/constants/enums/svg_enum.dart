@@ -9,7 +9,9 @@ enum SvgNameEnum {
   x('ic_x'),
   moon('ic_moon'),
   sun('ic_sun'),
-  confused('ic_confused');
+  confused('ic_confused'),
+  fav('ic_fav'),
+  favSolid('ic_fav_solid');
 
   const SvgNameEnum(this.value);
   final String value;
