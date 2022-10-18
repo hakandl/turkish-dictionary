@@ -3,7 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
 import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
+import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
 import '../../detail/viewmodel/detail_viewmodel.dart';
 import '../../../product/constants/enums/size_enum.dart';
 import '../../../product/init/navigator/app_router.dart';
@@ -110,8 +112,38 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  Column _searchForSomething() {
+  Widget _searchForSomething() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: context.paddingNormal,
+          child: Text(
+            'Son arananlar',
+            style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: context.watch<HistoryViewModel>().historyWordBox.length,
+            itemBuilder: (BuildContext context, int index) {
+              return DetailWordCard(
+                text: context.watch<HistoryViewModel>().historyWordBox.getAt(index),
+                onTap: () {
+                  DetailViewModel.word = context.read<HistoryViewModel>().historyWordBox.getAt(index)?.toLowerCase();
+                  context.router.navigate(
+                    const DetailTabBarRoute(),
+                  );
+                },
+              );
+            },
+          ),
+        ),
+      ],
+    );
+
+    /* Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SvgWidget(
@@ -125,7 +157,7 @@ class _SearchViewState extends State<SearchView> {
           style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
         ),
       ],
-    );
+    ); */
   }
 }
 

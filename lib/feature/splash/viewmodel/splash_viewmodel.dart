@@ -23,6 +23,7 @@ class SplashViewModel extends ChangeNotifier with BaseViewModel {
     await Hive.initFlutter();
     await Hive.openBox('theme_change');
     await Hive.openBox('favorites_word');
+    await Hive.openBox('history');
   }
 
   Future<void> startAnimationOnView() async {

@@ -25,13 +25,3 @@ class ThemeNotifier extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-/* class ThemeNotifier extends ChangeNotifier {
-  ValueNotifier<bool> box = ValueNotifier(Hive.box('theme_change').get('darkMode') ?? false);
-
-  void themeChange() {
-    box.value = !box.value;
-
-    Hive.box('theme_change').put('darkMode', box.value);
-  }
-} */

@@ -58,6 +58,14 @@ class _WordCardList extends StatelessWidget {
           context.router.navigate(
             const DetailTabBarRoute(),
           );
+          if (context
+              .read<HistoryViewModel>()
+              .historyWordBox
+              .containsKey(context.read<SearchViewModel>().filteredData[index].word)) {
+            context.read<HistoryViewModel>().historyWordBox.delete(DetailViewModel.word);
+            return;
+          }
+          context.read<HistoryViewModel>().historyWordBox.put(index, DetailViewModel.word ?? '');
         },
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:turkce_sozluk/feature/favorites/viewmodel/favorites_viewmodel.dart';
+import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
 import '../../feature/search/viewmodel/search_viewmodel.dart';
 import 'localization_init.dart';
 
@@ -30,6 +31,9 @@ class ProductInit {
     ),
     ChangeNotifierProvider<FavoritesViewModel>(
       create: (context) => FavoritesViewModel(),
+    ),
+    ChangeNotifierProvider<HistoryViewModel>(
+      create: (context) => HistoryViewModel(),
     ),
     ChangeNotifierProvider<DetailViewModel>(
       create: (context) => DetailViewModel(
