@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
+import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
 
 import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
@@ -8,12 +9,14 @@ import '../svg.dart';
 class DetailWordCard extends StatelessWidget {
   const DetailWordCard({
     Key? key,
-    required this.text,
+    this.child,
     this.onTap,
     this.isRight = true,
     this.onLongPress,
+    this.title,
   }) : super(key: key);
-  final String text;
+  final Widget? child;
+  final String? title;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
   final bool isRight;
@@ -28,16 +31,20 @@ class DetailWordCard extends StatelessWidget {
         borderRadius: context.lowBorderRadius,
       ),
       child: ListTile(
-        title: Text(
-          text,
-          style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
-        ),
+        title: child ??
+            Text(
+              title ?? TurkceSozlukStringConstants.empty,
+              style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
+            ),
         trailing: isRight
             ? SvgWidget(
                 icon: SvgNameEnum.right.icon,
                 color: context.colorScheme.onSecondary,
               )
             : const SizedBox.shrink(),
+        shape: RoundedRectangleBorder(
+          borderRadius: context.lowBorderRadius,
+        ),
         onTap: onTap,
         onLongPress: onLongPress,
       ),

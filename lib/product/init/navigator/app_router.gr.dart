@@ -51,9 +51,9 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData,
           child: CompoundDetailView(key: args.key, title: args.title));
     },
-    FavoritesRoute.name: (routeData) {
+    SavedRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const FavoritesView());
+          routeData: routeData, child: const SavedView());
     },
     DetailRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -80,8 +80,8 @@ class _$AppRouter extends RootStackRouter {
               parent: WrapperRoute.name,
               redirectTo: 'home',
               fullMatch: true),
-          RouteConfig(FavoritesRoute.name,
-              path: 'favorites', parent: WrapperRoute.name),
+          RouteConfig(SavedRoute.name,
+              path: 'saved', parent: WrapperRoute.name),
           RouteConfig(HomeRoute.name, path: 'home', parent: WrapperRoute.name),
           RouteConfig(HistoryRoute.name,
               path: 'history', parent: WrapperRoute.name)
@@ -196,11 +196,11 @@ class CompoundDetailRouteArgs {
 }
 
 /// generated route for
-/// [FavoritesView]
-class FavoritesRoute extends PageRouteInfo<void> {
-  const FavoritesRoute() : super(FavoritesRoute.name, path: 'favorites');
+/// [SavedView]
+class SavedRoute extends PageRouteInfo<void> {
+  const SavedRoute() : super(SavedRoute.name, path: 'saved');
 
-  static const String name = 'FavoritesRoute';
+  static const String name = 'SavedRoute';
 }
 
 /// generated route for

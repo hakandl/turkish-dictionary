@@ -6,7 +6,7 @@ import 'package:turkce_sozluk/feature/detail/model/detail_model.dart';
 import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
 import '../../../product/widgets/card/detail_word_info_card.dart';
-import '../../favorites/viewmodel/favorites_viewmodel.dart';
+import '../../saved/viewmodel/saved_viewmodel.dart';
 import '../service/detail_service.dart';
 import '../viewmodel/detail_viewmodel.dart';
 import '../../../product/init/language/locale_keys.g.dart';
@@ -44,14 +44,11 @@ class _DetailViewState extends State<DetailView> {
                 onVoice: () =>
                     context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
                 onFav: () {
-                  if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(DetailViewModel.word)) {
-                    context.read<FavoritesViewModel>().favoriteWordBox.delete(DetailViewModel.word);
+                  if (context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)) {
+                    context.read<SavedViewModel>().savedWordBox.delete(DetailViewModel.word);
                     return;
                   }
-                  context
-                      .read<FavoritesViewModel>()
-                      .favoriteWordBox
-                      .put(DetailViewModel.word, DetailViewModel.word ?? '');
+                  context.read<SavedViewModel>().savedWordBox.put(DetailViewModel.word, DetailViewModel.word ?? '');
                 },
               ),
               const DetailWordList(),

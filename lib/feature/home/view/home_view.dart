@@ -159,8 +159,8 @@ class _HomeViewState extends State<HomeView> {
 
   HomeInfoCard _wordCard(BuildContext context) {
     return HomeInfoCard(
-      title: context.watch<HomeViewModel>().word?[0].word ?? LocaleKeys.not_found.tr(),
-      subtitle: context.watch<HomeViewModel>().word?[0].meaning ?? LocaleKeys.not_found.tr(),
+      title: context.watch<HomeViewModel>().word?[0].word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: context.watch<HomeViewModel>().word?[0].meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
         DetailViewModel.word = context.read<HomeViewModel>().word?[0].word;
         context.router.navigate(const DetailTabBarRoute());
@@ -170,8 +170,8 @@ class _HomeViewState extends State<HomeView> {
 
   HomeInfoCard _proverbCard(BuildContext context) {
     return HomeInfoCard(
-      title: context.watch<HomeViewModel>().proverb?[0].word ?? LocaleKeys.not_found.tr(),
-      subtitle: context.watch<HomeViewModel>().proverb?[0].meaning ?? LocaleKeys.not_found.tr(),
+      title: context.watch<HomeViewModel>().proverb?[0].word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: context.watch<HomeViewModel>().proverb?[0].meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
         DetailViewModel.word = context.read<HomeViewModel>().proverb?[0].word;
         context.router.navigate(const DetailTabBarRoute());
@@ -182,12 +182,12 @@ class _HomeViewState extends State<HomeView> {
   HomeInfoCard _aRuleCard(BuildContext context) {
     return HomeInfoCard(
         isLink: true,
-        title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
+        title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
         /* onTap: () => context
           .read<HomeViewModel>()
           .openUrl(context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty), */
         onTap: () => context.navigateToPage(ARuleWebView(
-            title: context.read<HomeViewModel>().rule?[0].name ?? LocaleKeys.not_found.tr(),
+            title: context.read<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
             url: context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty)));
   }
 }

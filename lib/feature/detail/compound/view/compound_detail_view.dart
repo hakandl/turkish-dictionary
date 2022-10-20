@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
-import '../../../favorites/viewmodel/favorites_viewmodel.dart';
+import '../../../saved/viewmodel/saved_viewmodel.dart';
 import '../service/compound_service.dart';
 import '../viewmodel/compound_viewmodel.dart';
 import '../../../../product/service/project_network_manager.dart';
@@ -76,14 +76,11 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
             onVoice: () =>
                 context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
             onFav: () {
-              if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(CompoundViewModel.word)) {
-                context.read<FavoritesViewModel>().favoriteWordBox.delete(CompoundViewModel.word);
+              if (context.read<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)) {
+                context.read<SavedViewModel>().savedWordBox.delete(CompoundViewModel.word);
                 return;
               }
-              context
-                  .read<FavoritesViewModel>()
-                  .favoriteWordBox
-                  .put(CompoundViewModel.word, CompoundViewModel.word ?? '');
+              context.read<SavedViewModel>().savedWordBox.put(CompoundViewModel.word, CompoundViewModel.word ?? '');
             },
           );
   }
@@ -92,7 +89,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
     return context.watch<CompoundViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : DetailWordCard(
-            text: context.watch<CompoundViewModel>().detailList?[0].meaningsList?[0].meaning ??
+            title: context.watch<CompoundViewModel>().detailList?[0].meaningsList?[0].meaning ??
                 TurkceSozlukStringConstants.empty,
             isRight: false);
   }

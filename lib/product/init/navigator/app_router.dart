@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/feature/favorites/view/favorites_view.dart';
+import 'package:turkce_sozluk/feature/saved/view/saved_view.dart';
 
 import '../../../feature/detail/compound/view/compound_detail_view.dart';
 import '../../../feature/detail/compound/view/compound_view.dart';
@@ -22,7 +22,7 @@ part 'app_router.gr.dart';
     AutoRoute(page: HomeView, path: 'home', initial: true),
     AutoRoute(page: HistoryView, path: 'history'),
     AutoRoute(page: WrapperView, path: 'wrapper', children: [
-      AutoRoute(page: FavoritesView, path: 'favorites'),
+      AutoRoute(page: SavedView, path: 'saved'),
       AutoRoute(page: HomeView, path: 'home', initial: true),
       AutoRoute(page: HistoryView, path: 'history'),
     ]),

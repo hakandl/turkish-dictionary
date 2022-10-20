@@ -8,66 +8,44 @@ class _WordCardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: context.verticalPaddingMedium,
+      padding: context.paddingLow,
       shrinkWrap: true,
       itemCount: context.watch<SearchViewModel>().filteredData.length,
       itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.paddingLow.horizontal,
-            vertical: context.paddingLow.top,
+        return DetailWordCard(
+          child: RichText(
+            text: TextSpan(
+              text: context
+                  .watch<SearchViewModel>()
+                  .filteredData[index]
+                  .word!
+                  .substring(0, context.watch<SearchViewModel>().searchTextField.text.length),
+              style: context.textTheme.titleMedium
+                  ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
+              children: [
+                TextSpan(
+                  text: context
+                      .watch<SearchViewModel>()
+                      .filteredData[index]
+                      .word!
+                      .substring(context.watch<SearchViewModel>().searchTextField.text.length),
+                  style: context.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: context.colorScheme.onSurface,
+                  ),
+                )
+              ],
+            ),
           ),
-          child: _wordCard(context, index),
+          onTap: () {
+            DetailViewModel.word = context.read<SearchViewModel>().filteredData[index].word?.toLowerCase();
+            context.router.navigate(
+              const DetailTabBarRoute(),
+            );
+            context.read<HistoryViewModel>().historyWordBox.put(index, DetailViewModel.word ?? '');
+          },
         );
       },
-    );
-  }
-
-  Card _wordCard(BuildContext context, int index) {
-    return Card(
-      margin: EdgeInsets.zero,
-      child: ListTile(
-        trailing: SvgWidget(icon: SvgNameEnum.right.icon, color: context.colorScheme.onSecondary),
-        shape: RoundedRectangleBorder(borderRadius: context.lowBorderRadius),
-        title: RichText(
-          text: TextSpan(
-            text: context
-                .watch<SearchViewModel>()
-                .filteredData[index]
-                .word!
-                .substring(0, context.watch<SearchViewModel>().searchTextField.text.length),
-            style: context.textTheme.titleMedium
-                ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
-            children: [
-              TextSpan(
-                text: context
-                    .watch<SearchViewModel>()
-                    .filteredData[index]
-                    .word!
-                    .substring(context.watch<SearchViewModel>().searchTextField.text.length),
-                style: context.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: context.colorScheme.onSurface,
-                ),
-              )
-            ],
-          ),
-        ),
-        onTap: () {
-          DetailViewModel.word = context.read<SearchViewModel>().filteredData[index].word?.toLowerCase();
-          context.router.navigate(
-            const DetailTabBarRoute(),
-          );
-          if (context
-              .read<HistoryViewModel>()
-              .historyWordBox
-              .containsKey(context.read<SearchViewModel>().filteredData[index].word)) {
-            context.read<HistoryViewModel>().historyWordBox.delete(DetailViewModel.word);
-            return;
-          }
-          context.read<HistoryViewModel>().historyWordBox.put(index, DetailViewModel.word ?? '');
-        },
-      ),
     );
   }
 }

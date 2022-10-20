@@ -23,8 +23,9 @@ class _SyydCard extends StatelessWidget {
                   itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
                   itemBuilder: (context, index) {
                     return HomeInfoColumnCard(
-                      title: context.watch<HomeViewModel>().syyd?[index].wrongWord ?? LocaleKeys.not_found.tr(),
-                      subtitle: context.watch<HomeViewModel>().syyd?[index].correctWord ?? LocaleKeys.not_found.tr(),
+                      title: context.watch<HomeViewModel>().syyd?[index].wrongWord ?? LocaleKeys.info_notFound.tr(),
+                      subtitle:
+                          context.watch<HomeViewModel>().syyd?[index].correctWord ?? LocaleKeys.info_notFound.tr(),
                       onTap: () {
                         DetailViewModel.word =
                             context.read<HomeViewModel>().syyd?[index].correctWord?.detailWordColon();

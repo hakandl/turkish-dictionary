@@ -28,7 +28,7 @@ class DetailTabBarView extends StatelessWidget {
                   color: context.colorScheme.background,
                 ),
               ),
-              title: Text(DetailViewModel.word ?? LocaleKeys.not_found.tr()),
+              title: Text(DetailViewModel.word ?? LocaleKeys.info_notFound.tr()),
               bottom: TabBar(
                 controller: tabController,
                 isScrollable: true,

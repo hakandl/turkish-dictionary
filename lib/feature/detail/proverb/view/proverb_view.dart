@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import '../../../../product/constants/enums/string/string_constants.dart';
-import '../../../favorites/viewmodel/favorites_viewmodel.dart';
+import '../../../saved/viewmodel/saved_viewmodel.dart';
 import 'proverb_detail_view.dart';
 import '../../../../product/service/project_network_manager.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
@@ -35,14 +37,11 @@ class _ProverbViewState extends State<ProverbView> {
               onVoice: () =>
                   context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
               onFav: () {
-                if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(DetailViewModel.word)) {
-                  context.read<FavoritesViewModel>().favoriteWordBox.delete(DetailViewModel.word);
+                if (context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)) {
+                  context.read<SavedViewModel>().savedWordBox.delete(DetailViewModel.word);
                   return;
                 }
-                context
-                    .read<FavoritesViewModel>()
-                    .favoriteWordBox
-                    .put(DetailViewModel.word, DetailViewModel.word ?? '');
+                context.read<SavedViewModel>().savedWordBox.put(DetailViewModel.word, DetailViewModel.word ?? '');
               },
             ),
             const DetailWordList(),
@@ -63,7 +62,10 @@ class DetailWordList extends StatelessWidget {
     return context.watch<DetailViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : context.watch<DetailViewModel>().detailList?[0].proverb?.length == null
-            ? const EmptyValueView()
+            ? EmptyValueView(
+                text:
+                    '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_proverbAndIdioms_nothing.tr()}',
+              )
             : detailList(context);
   }
 
@@ -88,7 +90,7 @@ class DetailWordList extends StatelessWidget {
         );
       },
       closedBuilder: (BuildContext context, VoidCallback openContainer) {
-        return DetailWordCard(text: word, onTap: openContainer);
+        return DetailWordCard(title: word, onTap: openContainer);
       },
     );
   }

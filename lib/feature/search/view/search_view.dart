@@ -19,6 +19,8 @@ import '../../../product/widgets/button/text_button.dart';
 import '../viewmodel/search_viewmodel.dart';
 
 part '../module/widgets/word_card_list.dart';
+part '../module/widgets/last_search_list.dart';
+part '../module/widgets/search_for_something.dart';
 
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
@@ -41,15 +43,8 @@ class _SearchViewState extends State<SearchView> {
                   const Expanded(
                     child: SearchTextFieldContainer(),
                   ),
-                  /* NormalIconButton(
-                    child: SvgWidget(
-                      icon: SvgNameEnum.x.icon,
-                      color: context.colorScheme.background,
-                    ),
-                    onPressed: () => context.pop(),
-                  ) */
                   TurkceSozlukTextButton(
-                    text: 'Vazgeç',
+                    text: LocaleKeys.button_cancel.tr(),
                     textStyle: context.textTheme.titleMedium,
                     onPressed: () => context.pop(),
                   )
@@ -62,7 +57,9 @@ class _SearchViewState extends State<SearchView> {
                       context.watch<SearchViewModel>().filteredData.isEmpty
                   ? _nonWord(context)
                   : context.watch<SearchViewModel>().searchTextField.text.isEmpty
-                      ? _searchForSomething()
+                      ? context.watch<HistoryViewModel>().historyWordBox.length >= 1
+                          ? const _LastSearchList()
+                          : const _SearchForSomething()
                       : const _WordCardList(),
             ),
           ],
@@ -110,54 +107,6 @@ class _SearchViewState extends State<SearchView> {
         ),
       ],
     );
-  }
-
-  Widget _searchForSomething() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: context.paddingNormal,
-          child: Text(
-            'Son arananlar',
-            style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: context.watch<HistoryViewModel>().historyWordBox.length,
-            itemBuilder: (BuildContext context, int index) {
-              return DetailWordCard(
-                text: context.watch<HistoryViewModel>().historyWordBox.getAt(index),
-                onTap: () {
-                  DetailViewModel.word = context.read<HistoryViewModel>().historyWordBox.getAt(index)?.toLowerCase();
-                  context.router.navigate(
-                    const DetailTabBarRoute(),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
-    );
-
-    /* Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgWidget(
-          icon: SvgNameEnum.search.icon,
-          height: SizeEnum.fortyEight.value,
-          color: context.colorScheme.onSecondary,
-        ),
-        context.emptySizedHeightBoxLow3x,
-        Text(
-          LocaleKeys.search_searchForSomething.tr(),
-          style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
-        ),
-      ],
-    ); */
   }
 }
 

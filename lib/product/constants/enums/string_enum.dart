@@ -1,9 +1,9 @@
 import '../../init/language/locale_keys.g.dart';
 
 enum TabBarPageEnum {
-  detail(LocaleKeys.detail_detailTitle_explanation),
-  proverb(LocaleKeys.detail_detailTitle_proverbAndIdioms),
-  compound(LocaleKeys.detail_detailTitle_compoundWord);
+  detail(LocaleKeys.detail_detailViews_detailTitle_explanation),
+  proverb(LocaleKeys.detail_detailViews_detailTitle_proverbAndIdioms_title),
+  compound(LocaleKeys.detail_detailViews_detailTitle_compoundWord_title);
 
   const TabBarPageEnum(this.name);
   final String name;

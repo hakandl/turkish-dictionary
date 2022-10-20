@@ -13,7 +13,7 @@ import '../../../../product/widgets/list_view/sign_language_list_view.dart';
 import '../../../../product/widgets/shimmer/detail_top_view_shimmer.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
 import '../../../../product/widgets/svg.dart';
-import '../../../favorites/viewmodel/favorites_viewmodel.dart';
+import '../../../saved/viewmodel/saved_viewmodel.dart';
 import '../../view/detail_view.dart';
 import '../../viewmodel/detail_viewmodel.dart';
 import '../service/proverb_service.dart';
@@ -77,14 +77,11 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
             onVoice: () =>
                 context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
             onFav: () {
-              if (context.read<FavoritesViewModel>().favoriteWordBox.containsKey(ProverbViewModel.word)) {
-                context.read<FavoritesViewModel>().favoriteWordBox.delete(ProverbViewModel.word);
+              if (context.read<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)) {
+                context.read<SavedViewModel>().savedWordBox.delete(ProverbViewModel.word);
                 return;
               }
-              context
-                  .read<FavoritesViewModel>()
-                  .favoriteWordBox
-                  .put(ProverbViewModel.word, ProverbViewModel.word ?? '');
+              context.read<SavedViewModel>().savedWordBox.put(ProverbViewModel.word, ProverbViewModel.word ?? '');
             },
           );
   }
@@ -93,7 +90,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
     return context.watch<ProverbViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : DetailWordCard(
-            text: context.watch<ProverbViewModel>().detailList?[0].meaningsList?[0].meaning ??
+            title: context.watch<ProverbViewModel>().detailList?[0].meaningsList?[0].meaning ??
                 TurkceSozlukStringConstants.empty,
             isRight: false);
   }
