@@ -6,6 +6,5 @@ class HistoryViewModel extends ChangeNotifier {
 
   HistoryViewModel() {
     historyWordBox = Hive.box('history');
-    // notifyListeners();
   }
 }

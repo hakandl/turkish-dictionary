@@ -63,15 +63,15 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   // onTap: context.read<ThemeNotifier>().themeChange,
                   onTap: () async {
-                    Box kutu = Hive.box('theme_change');
+                    Box kutu = Hive.box('settings');
                     kutu.put('darkMode', !kutu.get('darkMode', defaultValue: false));
                     context.read<ThemeNotifier>().changeTheme();
                   },
                   child: Text(
                     LocaleKeys.button_changeTheme.tr(),
                   )
-                  /* () => Hive.box('theme_change')
-                    .put('dark_mode', !Hive.box('theme_change').get('dark_mode', defaultValue: false)), */
+                  /* () => Hive.box('settings')
+                    .put('dark_mode', !Hive.box('settings').get('dark_mode', defaultValue: false)), */
                   ),
             ];
           },

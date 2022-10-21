@@ -2,13 +2,8 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-typedef NetworkCallBack = void Function(NetworkResult result);
-
-abstract class INetworkChangeManager {
-  Future<NetworkResult> checkNetworkFirstTime();
-  void handleNetworkChange(NetworkCallBack onChange);
-  void dispose();
-}
+import '../../constants/enums/network/network_result_enum.dart';
+import 'network_manager_interface.dart';
 
 class NetworkChangeManager extends INetworkChangeManager {
   late final Connectivity _connectivity;
@@ -34,22 +29,5 @@ class NetworkChangeManager extends INetworkChangeManager {
   @override
   void dispose() {
     _subscription?.cancel();
-  }
-}
-
-enum NetworkResult {
-  on,
-  off;
-
-  static NetworkResult checkConnectivityResult(ConnectivityResult result) {
-    switch (result) {
-      case ConnectivityResult.bluetooth:
-      case ConnectivityResult.wifi:
-      case ConnectivityResult.ethernet:
-      case ConnectivityResult.mobile:
-        return NetworkResult.on;
-      case ConnectivityResult.none:
-        return NetworkResult.off;
-    }
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import '../../service/network_change_manager.dart';
+import '../../constants/enums/network/network_result_enum.dart';
+import '../../service/network/network_manager.dart';
 
 import '../../constants/enums/size_enum.dart';
+import '../../service/network/network_manager_interface.dart';
 
 class NoNetworkContainer extends StatefulWidget {
   const NoNetworkContainer({super.key});
@@ -23,13 +25,6 @@ class _NoNetworkContainerState extends State<NoNetworkContainer> with StateMixin
       _networkChange.handleNetworkChange((result) {
         _updateView(result);
       });
-    });
-  }
-
-  Future<void> fetchFirstResult() async {
-    waitForScreen(() async {
-      final result = await _networkChange.checkNetworkFirstTime();
-      _updateView(result);
     });
   }
 

@@ -12,9 +12,10 @@ enum SvgNameEnum {
   trash('ic_trash'),
   confused('ic_confused'),
   home('ic_home'),
-  history('ic_history'),
-  fav('ic_fav'),
-  favSolid('ic_fav_solid');
+  homeSolid('ic_home_solid'),
+  saved('ic_saved'),
+  savedSolid('ic_saved_solid'),
+  history('ic_history');
 
   const SvgNameEnum(this.value);
   final String value;

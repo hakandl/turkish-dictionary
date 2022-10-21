@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
 import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
 import 'package:turkce_sozluk/product/widgets/card/detail_word_card.dart';
+import 'package:turkce_sozluk/product/widgets/container/icon_text_info_widget.dart';
 import '../../detail/viewmodel/detail_viewmodel.dart';
 import '../../../product/constants/enums/size_enum.dart';
 import '../../../product/init/navigator/app_router.dart';
@@ -91,22 +92,8 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  Column _nonWord(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgWidget(
-          icon: SvgNameEnum.confused.icon,
-          height: SizeEnum.fortyEight.value,
-          color: context.colorScheme.onSecondary,
-        ),
-        context.emptySizedHeightBoxLow3x,
-        Text(
-          LocaleKeys.search_wordNotFound.tr(),
-          style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
-        ),
-      ],
-    );
+  Widget _nonWord(BuildContext context) {
+    return IconAndTextInfoWidget(text: LocaleKeys.search_wordNotFound.tr());
   }
 }
 
@@ -139,7 +126,6 @@ class SearchTextFieldContainer extends StatelessWidget {
       padding: context.paddingNormal,
       child: SvgWidget(
         icon: SvgNameEnum.search.icon,
-        color: context.colorScheme.background,
       ),
     );
   }
@@ -150,7 +136,6 @@ class SearchTextFieldContainer extends StatelessWidget {
       elevation: SizeEnum.zero.value,
       child: SvgWidget(
         icon: SvgNameEnum.x.icon,
-        color: context.colorScheme.background,
       ),
       onPressed: () => context.read<SearchViewModel>().clearText(),
     );

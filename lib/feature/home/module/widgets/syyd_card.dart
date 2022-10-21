@@ -55,7 +55,7 @@ class HomeInfoColumnCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              SvgWidget(icon: SvgNameEnum.x.icon, color: context.colorScheme.background),
+              SvgWidget(icon: SvgNameEnum.x.icon),
               Expanded(
                 child: Text(
                   maxLines: 1,
@@ -69,7 +69,7 @@ class HomeInfoColumnCard extends StatelessWidget {
           ),
           Row(
             children: [
-              SvgWidget(icon: SvgNameEnum.check.icon, color: context.colorScheme.background),
+              SvgWidget(icon: SvgNameEnum.check.icon),
               Expanded(
                 child: Text(
                   maxLines: 1,

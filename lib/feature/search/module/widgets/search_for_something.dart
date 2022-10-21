@@ -5,20 +5,9 @@ class _SearchForSomething extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgWidget(
-          icon: SvgNameEnum.search.icon,
-          height: SizeEnum.fortyEight.value,
-          color: context.colorScheme.onSecondary,
-        ),
-        context.emptySizedHeightBoxLow3x,
-        Text(
-          LocaleKeys.search_searchForSomething.tr(),
-          style: context.textTheme.titleLarge?.copyWith(color: context.colorScheme.background),
-        ),
-      ],
+    return IconAndTextInfoWidget(
+      text: LocaleKeys.search_searchForSomething.tr(),
+      icon: SvgNameEnum.search.icon,
     );
   }
 }

@@ -54,10 +54,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
     return AppBar(
       leading: TurkceSozlukIconButton(
         onPressed: () => Navigator.pop(context),
-        child: SvgWidget(
-          icon: SvgNameEnum.left.icon,
-          color: context.colorScheme.background,
-        ),
+        child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
       title: Text(TabBarPageEnum.proverb.name.tr()),
     );
@@ -74,16 +71,21 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
               itemCount: context.read<ProverbViewModel>().detailList?[0].word?.length ?? 1,
               word: context.read<ProverbViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
             ),
+            child: SvgWidget(
+              icon: context.read<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)
+                  ? SvgNameEnum.savedSolid.icon
+                  : SvgNameEnum.saved.icon,
+              color: context.colorScheme.onSecondary,
+            ),
             onVoice: () =>
                 context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
-            onFav: () {
+            onSaved: () {
               if (context.read<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)) {
                 context.read<SavedViewModel>().savedWordBox.delete(ProverbViewModel.word);
                 return;
               }
               context.read<SavedViewModel>().savedWordBox.put(ProverbViewModel.word, ProverbViewModel.word ?? '');
-            },
-          );
+            });
   }
 
   Widget _proverbDetailWord(BuildContext context) {

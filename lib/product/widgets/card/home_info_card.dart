@@ -36,10 +36,7 @@ class HomeInfoCard extends StatelessWidget {
                                   ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.w700),
                             ),
                           ),
-                          SvgWidget(
-                            icon: SvgNameEnum.right.icon,
-                            color: context.colorScheme.background,
-                          )
+                          SvgWidget(icon: SvgNameEnum.right.icon)
                         ],
                       ),
                     )

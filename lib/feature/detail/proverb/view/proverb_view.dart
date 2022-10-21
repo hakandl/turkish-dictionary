@@ -4,11 +4,10 @@ import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import '../../../../product/constants/enums/string/string_constants.dart';
-import '../../../saved/viewmodel/saved_viewmodel.dart';
 import 'proverb_detail_view.dart';
 import '../../../../product/service/project_network_manager.dart';
 import '../../../../product/widgets/card/detail_word_card.dart';
-import '../../../../product/widgets/container/empty_value_view.dart';
+import '../../../../product/widgets/container/icon_text_info_widget.dart';
 
 import '../../../../product/widgets/container/open_container.dart';
 import '../../../../product/widgets/shimmer/proverb_and_compound_card_list_shimmer.dart';
@@ -32,19 +31,9 @@ class _ProverbViewState extends State<ProverbView> {
       child: SingleChildScrollView(
         padding: context.paddingNormal,
         child: Column(
-          children: [
-            DetailTop(
-              onVoice: () =>
-                  context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
-              onFav: () {
-                if (context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)) {
-                  context.read<SavedViewModel>().savedWordBox.delete(DetailViewModel.word);
-                  return;
-                }
-                context.read<SavedViewModel>().savedWordBox.put(DetailViewModel.word, DetailViewModel.word ?? '');
-              },
-            ),
-            const DetailWordList(),
+          children: const [
+            DetailTop(),
+            DetailWordList(),
           ],
         ),
       ),
@@ -62,7 +51,7 @@ class DetailWordList extends StatelessWidget {
     return context.watch<DetailViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : context.watch<DetailViewModel>().detailList?[0].proverb?.length == null
-            ? EmptyValueView(
+            ? IconAndTextInfoWidget(
                 text:
                     '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_proverbAndIdioms_nothing.tr()}',
               )

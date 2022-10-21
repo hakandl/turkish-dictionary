@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -17,10 +16,7 @@ class ARuleWebView extends StatelessWidget {
       appBar: AppBar(
         leading: TurkceSozlukIconButton(
           onPressed: () => Navigator.pop(context),
-          child: SvgWidget(
-            icon: SvgNameEnum.left.icon,
-            color: context.colorScheme.background,
-          ),
+          child: SvgWidget(icon: SvgNameEnum.left.icon),
         ),
         title: Text(title),
       ),

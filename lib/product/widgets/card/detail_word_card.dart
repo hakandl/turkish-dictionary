@@ -12,16 +12,12 @@ class DetailWordCard extends StatelessWidget {
     this.child,
     this.onTap,
     this.isRight = true,
-    this.onLongPress,
     this.title,
   }) : super(key: key);
   final Widget? child;
   final String? title;
   final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
   final bool isRight;
-
-  // final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +42,6 @@ class DetailWordCard extends StatelessWidget {
           borderRadius: context.lowBorderRadius,
         ),
         onTap: onTap,
-        onLongPress: onLongPress,
       ),
     );
   }

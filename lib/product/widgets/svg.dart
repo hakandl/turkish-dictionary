@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:kartal/kartal.dart';
 
 class SvgWidget extends StatelessWidget {
-  const SvgWidget({Key? key, this.height = 24, this.color = Colors.white, required this.icon}) : super(key: key);
+  const SvgWidget({Key? key, this.height = 24, this.color, required this.icon}) : super(key: key);
   final double? height;
   final Color? color;
   final String icon;
@@ -11,28 +12,8 @@ class SvgWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       icon,
-      color: color,
+      color: color ?? context.colorScheme.background,
       height: height,
     );
   }
 }
-
-/* enum SvgNameEnum {
-  check('ic_check'),
-  hand('ic_hand'),
-  left('ic_left'),
-  right('ic_right'),
-  search('ic_search'),
-  voice('ic_voice'),
-  x('ic_x'),
-  moon('ic_moon'),
-  sun('ic_sun'),
-  confused('ic_confused');
-
-  const SvgNameEnum(this.value);
-  final String value;
-}
-
-extension AppPaths on SvgWidget {
-  String get iconPath => 'assets/icons/$icon.svg';
-} */

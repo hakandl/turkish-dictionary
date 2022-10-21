@@ -33,22 +33,19 @@ class _WrapperViewState extends State<WrapperView> {
           items: [
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: SvgNameEnum.favSolid.icon,
-                color: context.colorScheme.background,
+                icon: tabsRouter.activeIndex == 0 ? SvgNameEnum.savedSolid.icon : SvgNameEnum.saved.icon,
               ),
               label: LocaleKeys.saved_saved.tr(),
             ),
             BottomNavigationBarItem(
               icon: SvgWidget(
-                icon: SvgNameEnum.home.icon,
-                color: context.colorScheme.background,
+                icon: tabsRouter.activeIndex == 1 ? SvgNameEnum.homeSolid.icon : SvgNameEnum.home.icon,
               ),
               label: LocaleKeys.home_home.tr(),
             ),
             BottomNavigationBarItem(
               icon: SvgWidget(
                 icon: SvgNameEnum.history.icon,
-                color: context.colorScheme.background,
               ),
               label: LocaleKeys.history_history.tr(),
             )

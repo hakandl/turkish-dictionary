@@ -40,15 +40,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box>(
-      valueListenable: Hive.box('theme_change').listenable(),
+      valueListenable: Hive.box('settings').listenable(),
       builder: (context, box, child) {
         return MaterialApp.router(
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          // theme: Hive.box('theme_change').get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
+          // theme: Hive.box('settings').get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
           // theme: context.watch<ThemeNotifier>().currentTheme,
-          theme: box.get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
+          theme: box.get('darkMode', defaultValue: false) ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
           /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)
                 ? AppThemeDark.instance.theme
                 : AppThemeLight.instance.theme, */
@@ -64,13 +64,13 @@ class _MyAppState extends State<MyApp> {
 }
 
 /* ValueListenableBuilder<Box>(
-      valueListenable: Hive.box('theme_change').listenable(),
+      valueListenable: Hive.box('settings').listenable(),
       builder: (context, box, child) {
         return MaterialApp.router(
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          // theme: Hive.box('theme_change').get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
+          // theme: Hive.box('settings').get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
           // theme: context.watch<ThemeNotifier>().currentTheme,
           theme: box.get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
           /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)

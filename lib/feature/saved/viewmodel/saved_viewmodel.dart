@@ -6,20 +6,5 @@ class SavedViewModel extends ChangeNotifier {
 
   SavedViewModel() {
     savedWordBox = Hive.box('saved');
-    // notifyListeners();
-  }
-
-  void savedWordClear() {
-    savedWordBox.clear();
-    // notifyListeners();
-  }
-
-  savedWordGet(int index) {
-    savedWordBox.getAt(index);
-  }
-
-  savedWordDelete(int index) {
-    savedWordBox.deleteAt(index);
-    // notifyListeners();
   }
 }

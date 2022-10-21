@@ -29,10 +29,7 @@ class _SearchCard extends StatelessWidget {
           children: [
             Padding(
               padding: context.horizontalPaddingNormal,
-              child: SvgWidget(
-                icon: SvgNameEnum.search.icon,
-                color: context.colorScheme.background,
-              ),
+              child: SvgWidget(icon: SvgNameEnum.search.icon),
             ),
             Text(
               LocaleKeys.search_searchInTurkishDictionary.tr(),

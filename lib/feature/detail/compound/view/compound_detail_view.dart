@@ -53,10 +53,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
     return AppBar(
       leading: TurkceSozlukIconButton(
         onPressed: () => Navigator.pop(context),
-        child: SvgWidget(
-          icon: SvgNameEnum.left.icon,
-          color: context.colorScheme.background,
-        ),
+        child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
       title: Text(TabBarPageEnum.compound.name.tr()),
     );
@@ -73,14 +70,23 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
               itemCount: context.read<CompoundViewModel>().detailList?[0].word?.length ?? 1,
               word: context.read<CompoundViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
             ),
+            child: SvgWidget(
+              icon: context.read<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)
+                  ? SvgNameEnum.savedSolid.icon
+                  : SvgNameEnum.saved.icon,
+              color: context.colorScheme.onSecondary,
+            ),
             onVoice: () =>
                 context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
-            onFav: () {
+            onSaved: () {
               if (context.read<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)) {
                 context.read<SavedViewModel>().savedWordBox.delete(CompoundViewModel.word);
                 return;
               }
-              context.read<SavedViewModel>().savedWordBox.put(CompoundViewModel.word, CompoundViewModel.word ?? '');
+              context
+                  .read<SavedViewModel>()
+                  .savedWordBox
+                  .put(CompoundViewModel.word, CompoundViewModel.word ?? TurkceSozlukStringConstants.empty);
             },
           );
   }

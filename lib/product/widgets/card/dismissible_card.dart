@@ -37,14 +37,15 @@ class _DismissibleBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: context.colorScheme.error,
+      decoration: BoxDecoration(color: context.colorScheme.error, borderRadius: context.lowBorderRadius),
+      margin: context.horizontalPaddingLow,
       padding: context.horizontalPaddingNormal,
       child: Row(
         mainAxisAlignment: direction ?? MainAxisAlignment.start,
         children: [
           SvgWidget(
             icon: SvgNameEnum.trash.icon,
-            color: context.colorScheme.background,
+            color: context.colorScheme.onPrimary,
           ),
         ],
       ),

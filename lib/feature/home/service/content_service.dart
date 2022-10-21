@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+
 import '../model/content_model.dart';
 
 import '../../../product/constants/enums/service_enum.dart';
@@ -11,12 +13,16 @@ class ContentService extends IContentService {
 
   @override
   Future<ContentModel?> fetchContentModel() async {
-    final response = await dio.get(ServiceEnum.icerik.withSlash);
-    if (response.statusCode == HttpStatus.ok) {
-      final jsonBody = jsonDecode(response.data);
-      if (jsonBody is Map<String, dynamic>) {
-        return ContentModel.fromJson(jsonBody);
+    try {
+      final response = await dio.get(ServiceEnum.icerik.withSlash);
+      if (response.statusCode == HttpStatus.ok) {
+        final jsonBody = jsonDecode(response.data);
+        if (jsonBody is Map<String, dynamic>) {
+          return ContentModel.fromJson(jsonBody);
+        }
       }
+    } on DioError catch (e) {
+      return throw Exception(e.message);
     }
     return null;
   }

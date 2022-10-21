@@ -7,28 +7,31 @@ import '../button/normal_elevated_button.dart';
 
 mixin TurkceSozlukShowDialog {
   Future<T?> showTurkceSozlukShowDialog<T>(BuildContext context,
-      {required String title, required String content, required VoidCallback yesButton}) async {
+      {required String title, required String content, required VoidCallback yesButton, VoidCallback? noButton}) async {
     return showDialog(
       context: context,
-      builder: (context) => _TurkceSozlukShowDialog(
+      builder: (context) => TurkceSozlukAlertDialog(
         title: title,
         content: content,
         yesButton: yesButton,
+        noButton: noButton,
       ),
     );
   }
 }
 
-class _TurkceSozlukShowDialog extends StatelessWidget {
-  const _TurkceSozlukShowDialog({
+class TurkceSozlukAlertDialog extends StatelessWidget {
+  const TurkceSozlukAlertDialog({
     Key? key,
     required this.title,
     required this.content,
     required this.yesButton,
+    this.noButton,
   }) : super(key: key);
   final String title;
   final String content;
   final VoidCallback yesButton;
+  final VoidCallback? noButton;
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +46,8 @@ class _TurkceSozlukShowDialog extends StatelessWidget {
       ),
       actions: [
         TurkceSozlukNormalElevatedButton(
+          onPressed: noButton ?? () => context.pop(),
           child: Text(LocaleKeys.button_no.tr()),
-          onPressed: () => context.pop(),
         ),
         TurkceSozlukNormalElevatedButton(
           onPressed: yesButton,
