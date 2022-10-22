@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 
+import '../constants/enums/string/string_constants.dart';
+
 class ProjectNetworkManager {
   ProjectNetworkManager._() {
-    var baseUrl = 'https://sozluk.gov.tr';
-    _dio = Dio(BaseOptions(baseUrl: baseUrl));
+    _dio = Dio(BaseOptions(baseUrl: TurkceSozlukStringConstants.baseUrl));
   }
   late final Dio _dio;
 

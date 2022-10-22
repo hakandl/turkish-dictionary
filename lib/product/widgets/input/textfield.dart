@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 
 class NormalTextField extends TextField {
   NormalTextField(
@@ -25,7 +26,8 @@ class NormalTextField extends TextField {
             suffixIcon: suffixIcon,
             filled: true,
             fillColor: fillColor,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius ?? 0), borderSide: BorderSide.none),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(radius ?? SizeEnum.zero.value), borderSide: BorderSide.none),
           ),
         );
 }

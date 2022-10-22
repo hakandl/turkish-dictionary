@@ -47,12 +47,7 @@ class _MyAppState extends State<MyApp> {
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          // theme: Hive.box(TurkceSozlukStringConstants.settings).get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
-          // theme: context.watch<ThemeNotifier>().currentTheme,
           theme: box.get('darkMode', defaultValue: false) ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
-          /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)
-                ? AppThemeDark.instance.theme
-                : AppThemeLight.instance.theme, */
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
@@ -63,25 +58,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-/* ValueListenableBuilder<Box>(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.settings).listenable(),
-      builder: (context, box, child) {
-        return MaterialApp.router(
-          builder: MainBuild.build,
-          routerDelegate: _appRouter.delegate(),
-          routeInformationParser: _appRouter.defaultRouteParser(),
-          // theme: Hive.box(TurkceSozlukStringConstants.settings).get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
-          // theme: context.watch<ThemeNotifier>().currentTheme,
-          theme: box.get('darkMode') ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
-          /* theme: Hive.box('theme').get('dark_mode', defaultValue: false)
-                ? AppThemeDark.instance.theme
-                : AppThemeLight.instance.theme, */
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          debugShowCheckedModeBanner: false,
-          title: ApplicationConstants.APP_NAME,
-        );
-      },
-    ); */

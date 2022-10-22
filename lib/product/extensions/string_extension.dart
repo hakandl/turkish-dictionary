@@ -1,3 +1,5 @@
+import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+
 import '../constants/enums/string_enum.dart';
 
 extension SignLanguageExtension on String {
@@ -12,6 +14,6 @@ extension SignLanguageExtension on String {
 
 extension DetailWordExtension on String {
   String detailWordColon() {
-    return replaceAll(RegExp("[:]"), '').toLowerCase();
+    return replaceAll(RegExp("[:]"), TurkceSozlukStringConstants.empty).toLowerCase();
   }
 }

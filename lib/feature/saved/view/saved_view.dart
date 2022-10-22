@@ -108,11 +108,3 @@ class _SavedList extends StatelessWidget {
     );
   }
 }
-/* ValueListenableBuilder(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
-      builder: (context, value, child) {
-        return Scaffold(
-            appBar: _appBar(context),
-            body: context.watch<SavedViewModel>().savedWordBox.length >= 1 ? const _SavedList() : _emptySavedView());
-      },
-    ); */

@@ -60,17 +60,13 @@ class _HomeViewState extends State<HomeView> {
                   textStyle: TextStyle(
                     color: context.colorScheme.background,
                   ),
-                  // onTap: context.read<ThemeNotifier>().themeChange,
                   onTap: () async {
                     model.themeChangeBox.put('darkMode', !model.themeChangeBox.get('darkMode'));
                     context.read<ThemeNotifier>().changeTheme();
                   },
                   child: Text(
                     LocaleKeys.button_changeTheme.tr(),
-                  )
-                  /* () => Hive.box(TurkceSozlukStringConstants.settings)
-                    .put('dark_mode', !Hive.box(TurkceSozlukStringConstants.settings).get('dark_mode', defaultValue: false)), */
-                  ),
+                  )),
             ];
           },
         )
@@ -156,9 +152,6 @@ class _HomeViewState extends State<HomeView> {
     return _HomeInfoCard(
         isLink: true,
         title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
-        /* onTap: () => context
-          .read<HomeViewModel>()
-          .openUrl(context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty), */
         onTap: () => context.navigateToPage(ARuleWebView(
             title: model.rule?[0].name ?? LocaleKeys.info_notFound.tr(),
             url: model.rule?[0].url ?? TurkceSozlukStringConstants.empty)));

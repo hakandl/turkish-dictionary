@@ -34,6 +34,11 @@ class DetailTopViewShimmer extends StatelessWidget {
                 backgroundColor: context.colorScheme.primary,
                 radius: radius,
               ),
+              context.emptySizedWidthBoxLow3x,
+              CircleAvatar(
+                backgroundColor: context.colorScheme.primary,
+                radius: radius,
+              ),
               const Spacer(),
               Container(
                 height: SizeEnum.fortyEight.value,
