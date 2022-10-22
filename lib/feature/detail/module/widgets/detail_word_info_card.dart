@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
+part of '../../view/detail_view.dart';
 
-import '../../constants/enums/size_enum.dart';
-
-class DetailWordInfoCard extends StatelessWidget {
-  const DetailWordInfoCard({
+class _DetailWordInfoCard extends StatelessWidget {
+  const _DetailWordInfoCard({
     Key? key,
     required this.meaningOrder,
     required this.featuresName,

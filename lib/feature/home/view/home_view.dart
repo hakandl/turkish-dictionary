@@ -1,22 +1,20 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/home/view/a_rule_webview.dart';
+import 'package:turkce_sozluk/feature/home/view/subview/a_rule_webview.dart';
 import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/language/locale_keys.g.dart';
-import '../../../product/widgets/container/open_container.dart';
 
 import '../../../core/base/view/base_view.dart';
 import '../../../core/init/notifier/theme_notifier.dart';
 import '../../../product/constants/enums/size_enum.dart';
 import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/service/project_network_manager.dart';
-import '../../../product/widgets/card/home_info_card.dart';
 import '../../../product/widgets/card/intrinsic_height_card.dart';
+import '../../../product/widgets/container/open_container.dart';
 import '../../../product/widgets/shimmer/home_card_shimmer.dart';
 import '../../../product/widgets/string/info_card_text.dart';
 import '../../../product/widgets/svg.dart';
@@ -28,6 +26,7 @@ import '../../../product/extensions/string_extension.dart';
 
 part '../module/widgets/search_card.dart';
 part '../module/widgets/syyd_card.dart';
+part '../module/widgets/home_info_card.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -41,16 +40,16 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return BaseView(
       viewModel: HomeViewModel(ContentService(ProjectNetworkManager.instance.service)),
-      onPageBuilder: (context, value) {
+      onPageBuilder: (context, HomeViewModel model) {
         return Scaffold(
-          appBar: _appBar(context),
-          body: _body(context),
+          appBar: _appBar(context, model),
+          body: _body(context, model),
         );
       },
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  AppBar _appBar(BuildContext context, HomeViewModel model) {
     return AppBar(
       backgroundColor: context.colorScheme.onError,
       actions: [
@@ -63,15 +62,14 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   // onTap: context.read<ThemeNotifier>().themeChange,
                   onTap: () async {
-                    Box kutu = Hive.box('settings');
-                    kutu.put('darkMode', !kutu.get('darkMode', defaultValue: false));
+                    model.themeChangeBox.put('darkMode', !model.themeChangeBox.get('darkMode'));
                     context.read<ThemeNotifier>().changeTheme();
                   },
                   child: Text(
                     LocaleKeys.button_changeTheme.tr(),
                   )
-                  /* () => Hive.box('settings')
-                    .put('dark_mode', !Hive.box('settings').get('dark_mode', defaultValue: false)), */
+                  /* () => Hive.box(TurkceSozlukStringConstants.settings)
+                    .put('dark_mode', !Hive.box(TurkceSozlukStringConstants.settings).get('dark_mode', defaultValue: false)), */
                   ),
             ];
           },
@@ -84,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
     return ColoredBox(color: context.colorScheme.onError, child: const SizedBox.shrink());
   }
 
-  SafeArea _body(BuildContext context) {
+  SafeArea _body(BuildContext context, HomeViewModel model) {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,50 +104,25 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Expanded(
-            child: _bodyScrollView(context),
+            child: _bodyScrollView(context, model),
           )
         ],
       ),
     );
   }
 
-  /* Future<dynamic> _openModalSheet(BuildContext context) {
-    return showTurkceSozlukModalSheet(
-      height: 0.2,
-      context,
-      Padding(
-        padding: context.onlyTopPaddingMedium,
-        child: TurkceSozlukCircleElevatedButton(
-          child: Text(
-            LocaleKeys.button_changeTheme.tr(),
-            style: TextStyle(
-              color: context.colorScheme.background,
-            ),
-          ),
-          onPressed: () {
-            // context.read<ThemeNotifier>().changeTheme();
-            // Box kutu = Hive.box('theme');
-            Hive.box('theme').put('dark_mode', !Hive.box('theme').get('dark_mode', defaultValue: false));
-            context.read<ThemeNotifier>().changeIcon();
-            // context.pop();
-          },
-        ),
-      ),
-    );
-  } */
-
-  SingleChildScrollView _bodyScrollView(BuildContext context) {
+  SingleChildScrollView _bodyScrollView(BuildContext context, HomeViewModel model) {
     return SingleChildScrollView(
       padding: context.paddingNormal,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InfoCardText(title: LocaleKeys.home_aWord.tr()),
-          _wordCard(context),
+          _wordCard(context, model),
           InfoCardText(title: LocaleKeys.home_aProverb.tr()),
-          _proverbCard(context),
+          _proverbCard(context, model),
           InfoCardText(title: LocaleKeys.home_aRule.tr()),
-          _aRuleCard(context),
+          _aRuleCard(context, model),
           InfoCardText(title: LocaleKeys.home_syyd.tr()),
           const _SyydCard(),
         ],
@@ -157,37 +130,37 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  HomeInfoCard _wordCard(BuildContext context) {
-    return HomeInfoCard(
-      title: context.watch<HomeViewModel>().word?[0].word ?? LocaleKeys.info_notFound.tr(),
-      subtitle: context.watch<HomeViewModel>().word?[0].meaning ?? LocaleKeys.info_notFound.tr(),
+  _HomeInfoCard _wordCard(BuildContext context, HomeViewModel model) {
+    return _HomeInfoCard(
+      title: model.word?[0].word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: model.word?[0].meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
-        DetailViewModel.word = context.read<HomeViewModel>().word?[0].word;
+        DetailViewModel.word = model.word?[0].word;
         context.router.navigate(const DetailTabBarRoute());
       },
     );
   }
 
-  HomeInfoCard _proverbCard(BuildContext context) {
-    return HomeInfoCard(
-      title: context.watch<HomeViewModel>().proverb?[0].word ?? LocaleKeys.info_notFound.tr(),
-      subtitle: context.watch<HomeViewModel>().proverb?[0].meaning ?? LocaleKeys.info_notFound.tr(),
+  _HomeInfoCard _proverbCard(BuildContext context, HomeViewModel model) {
+    return _HomeInfoCard(
+      title: model.proverb?[0].word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: model.proverb?[0].meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
-        DetailViewModel.word = context.read<HomeViewModel>().proverb?[0].word;
+        DetailViewModel.word = model.proverb?[0].word;
         context.router.navigate(const DetailTabBarRoute());
       },
     );
   }
 
-  HomeInfoCard _aRuleCard(BuildContext context) {
-    return HomeInfoCard(
+  _HomeInfoCard _aRuleCard(BuildContext context, HomeViewModel model) {
+    return _HomeInfoCard(
         isLink: true,
         title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
         /* onTap: () => context
           .read<HomeViewModel>()
           .openUrl(context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty), */
         onTap: () => context.navigateToPage(ARuleWebView(
-            title: context.read<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
-            url: context.read<HomeViewModel>().rule?[0].url ?? TurkceSozlukStringConstants.empty)));
+            title: model.rule?[0].name ?? LocaleKeys.info_notFound.tr(),
+            url: model.rule?[0].url ?? TurkceSozlukStringConstants.empty)));
   }
 }

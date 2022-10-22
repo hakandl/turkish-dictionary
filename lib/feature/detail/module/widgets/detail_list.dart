@@ -63,8 +63,8 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  DetailWordInfoCard _meaningsDetailCard(MeaningsList? detail) {
-    return DetailWordInfoCard(
+  _DetailWordInfoCard _meaningsDetailCard(MeaningsList? detail) {
+    return _DetailWordInfoCard(
       meaningOrder: detail?.orderMeaning ?? TurkceSozlukStringConstants.empty,
       featuresName: detail?.featuresList?.map((e) => e.fullName).join(TurkceSozlukStringConstants.comma) ??
           TurkceSozlukStringConstants.detailListDefaultExample,

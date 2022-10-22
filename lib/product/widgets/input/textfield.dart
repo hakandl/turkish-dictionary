@@ -9,6 +9,7 @@ class NormalTextField extends TextField {
       Widget? icon,
       Widget? suffixIcon,
       double? radius,
+      Color? fillColor,
       void Function(String)? onChanged,
       bool autofocus = true})
       : super(
@@ -23,6 +24,7 @@ class NormalTextField extends TextField {
             prefixIcon: icon,
             suffixIcon: suffixIcon,
             filled: true,
+            fillColor: fillColor,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(radius ?? 0), borderSide: BorderSide.none),
           ),
         );

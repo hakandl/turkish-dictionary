@@ -19,7 +19,7 @@ class _LastSearchList extends StatelessWidget {
                   style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
                 ),
               )
-            : DetailWordCard(
+            : WordCard(
                 title: context.watch<HistoryViewModel>().historyWordBox.getAt(index - 1),
                 onTap: () {
                   DetailViewModel.word =

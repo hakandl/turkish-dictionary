@@ -8,6 +8,7 @@ import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import 'package:turkce_sozluk/product/widgets/dialog/show_dialog.dart';
 
+import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/init/navigator/app_router.dart';
 import '../../../product/widgets/button/circle_elevated_button.dart';
@@ -28,7 +29,7 @@ class _HistoryViewState extends State<HistoryView> with TurkceSozlukShowDialog {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box('history').listenable(),
+      valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
       builder: (context, value, child) {
         return Scaffold(
             appBar: _appBar(context),
@@ -91,7 +92,7 @@ class _HistoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box('history').listenable(),
+      valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
       builder: (context, value, child) {
         return ListView.builder(
           padding: context.paddingLow,
@@ -99,7 +100,7 @@ class _HistoryList extends StatelessWidget {
           itemBuilder: (context, index) {
             return DismissibleWidget(
               dismissibleKey: context.watch<HistoryViewModel>().historyWordBox.getAt(index),
-              title: context.watch<HistoryViewModel>().historyWordBox.getAt(index) ?? '',
+              title: context.watch<HistoryViewModel>().historyWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
               onDismissed: (direction) => context.read<HistoryViewModel>().historyWordBox.deleteAt(index),
               onTap: () {
                 DetailViewModel.word = context.read<HistoryViewModel>().historyWordBox.getAt(index);

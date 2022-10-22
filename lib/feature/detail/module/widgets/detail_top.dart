@@ -118,12 +118,16 @@ class _SavedButtonState extends State<_SavedButton> {
             setState(() {
               if (context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)) {
                 context.read<SavedViewModel>().savedWordBox.delete(DetailViewModel.word);
-                ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(content: 'Silindi', context));
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBarCard(content: LocaleKeys.info_savedRemove.tr(), context));
 
                 return;
               }
-              context.read<SavedViewModel>().savedWordBox.put(DetailViewModel.word, DetailViewModel.word ?? '');
-              ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(content: 'eklendi', context));
+              context
+                  .read<SavedViewModel>()
+                  .savedWordBox
+                  .put(DetailViewModel.word, DetailViewModel.word ?? TurkceSozlukStringConstants.empty);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(content: LocaleKeys.info_savedAdd.tr(), context));
             });
           },
       child: widget.child ??
@@ -136,10 +140,6 @@ class _SavedButtonState extends State<_SavedButton> {
     );
   }
 }
-
-/* context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)
-            ? SvgNameEnum.savedSolid.icon
-            :  */
 
 class _ModalSheetList extends StatelessWidget {
   const _ModalSheetList({

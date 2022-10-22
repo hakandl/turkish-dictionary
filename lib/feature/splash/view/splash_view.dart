@@ -33,7 +33,11 @@ class _SplashViewState extends State<SplashView> {
                     child: AnimatedScale(
                         scale: context.watch<SplashViewModel>().isFirstInit ? 0 : 1.5,
                         duration: context.durationLow,
-                        child: SvgWidget(icon: SvgNameEnum.splash.icon, height: SizeEnum.oneHundredTwentyEight.value)),
+                        child: SvgWidget(
+                          icon: SvgNameEnum.splash.icon,
+                          height: SizeEnum.oneHundredTwentyEight.value,
+                          color: context.colorScheme.onPrimary,
+                        )),
                   ),
                 );
               });

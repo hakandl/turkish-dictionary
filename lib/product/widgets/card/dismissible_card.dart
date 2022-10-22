@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../constants/enums/svg_enum.dart';
-import 'detail_word_card.dart';
+import 'word_card.dart';
 import '../svg.dart';
 
 class DismissibleWidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class DismissibleWidget extends StatelessWidget {
         background: const _DismissibleBackground(),
         secondaryBackground: const _DismissibleBackground(direction: MainAxisAlignment.end),
         onDismissed: onDismissed,
-        child: DetailWordCard(
+        child: WordCard(
           title: title,
           onTap: onTap,
         ));

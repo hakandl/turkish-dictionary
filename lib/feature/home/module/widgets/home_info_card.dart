@@ -1,16 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
-import 'intrinsic_height_card.dart';
-import '../shimmer/home_card_shimmer.dart';
-import '../svg.dart';
+part of '../../../home/view/home_view.dart';
 
-import '../../../feature/home/viewmodel/home_viewmodel.dart';
-import '../../constants/enums/svg_enum.dart';
-
-class HomeInfoCard extends StatelessWidget {
-  const HomeInfoCard({super.key, required this.title, this.subtitle, this.isLink = false, this.onTap});
+class _HomeInfoCard extends StatelessWidget {
+  const _HomeInfoCard({required this.title, this.subtitle, this.isLink = false, this.onTap});
   final String title;
   final String? subtitle;
   final bool isLink;

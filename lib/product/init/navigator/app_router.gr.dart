@@ -21,14 +21,6 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SplashView());
     },
-    HomeRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HomeView());
-    },
-    HistoryRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(
-          routeData: routeData, child: const HistoryView());
-    },
     WrapperRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const WrapperView());
@@ -55,6 +47,14 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SavedView());
     },
+    HomeRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomeView());
+    },
+    HistoryRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HistoryView());
+    },
     DetailRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const DetailView());
@@ -72,8 +72,6 @@ class _$AppRouter extends RootStackRouter {
   @override
   List<RouteConfig> get routes => [
         RouteConfig(SplashRoute.name, path: '/'),
-        RouteConfig(HomeRoute.name, path: 'home'),
-        RouteConfig(HistoryRoute.name, path: 'history'),
         RouteConfig(WrapperRoute.name, path: 'wrapper', children: [
           RouteConfig('#redirect',
               path: '',
@@ -110,22 +108,6 @@ class SplashRoute extends PageRouteInfo<void> {
   const SplashRoute() : super(SplashRoute.name, path: '/');
 
   static const String name = 'SplashRoute';
-}
-
-/// generated route for
-/// [HomeView]
-class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(HomeRoute.name, path: 'home');
-
-  static const String name = 'HomeRoute';
-}
-
-/// generated route for
-/// [HistoryView]
-class HistoryRoute extends PageRouteInfo<void> {
-  const HistoryRoute() : super(HistoryRoute.name, path: 'history');
-
-  static const String name = 'HistoryRoute';
 }
 
 /// generated route for
@@ -201,6 +183,22 @@ class SavedRoute extends PageRouteInfo<void> {
   const SavedRoute() : super(SavedRoute.name, path: 'saved');
 
   static const String name = 'SavedRoute';
+}
+
+/// generated route for
+/// [HomeView]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute() : super(HomeRoute.name, path: 'home');
+
+  static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [HistoryView]
+class HistoryRoute extends PageRouteInfo<void> {
+  const HistoryRoute() : super(HistoryRoute.name, path: 'history');
+
+  static const String name = 'HistoryRoute';
 }
 
 /// generated route for

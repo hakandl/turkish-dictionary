@@ -6,8 +6,8 @@ import 'package:turkce_sozluk/product/constants/enums/string/string_constants.da
 import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
 
-class DetailWordCard extends StatelessWidget {
-  const DetailWordCard({
+class WordCard extends StatelessWidget {
+  const WordCard({
     Key? key,
     this.child,
     this.onTap,

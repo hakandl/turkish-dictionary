@@ -13,6 +13,7 @@ class OpenContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
+        transitionDuration: context.durationLow,
         closedElevation: closedElevation ?? SizeEnum.zero.value,
         openColor: context.colorScheme.primary,
         closedColor: Colors.transparent,

@@ -12,7 +12,7 @@ class _WordCardList extends StatelessWidget {
       shrinkWrap: true,
       itemCount: context.watch<SearchViewModel>().filteredData.length,
       itemBuilder: (BuildContext context, int index) {
-        return DetailWordCard(
+        return WordCard(
           child: RichText(
             text: TextSpan(
               text: context
@@ -42,7 +42,10 @@ class _WordCardList extends StatelessWidget {
             context.router.navigate(
               const DetailTabBarRoute(),
             );
-            context.read<HistoryViewModel>().historyWordBox.put(index, DetailViewModel.word ?? '');
+            context
+                .read<HistoryViewModel>()
+                .historyWordBox
+                .put(index, DetailViewModel.word ?? TurkceSozlukStringConstants.empty);
           },
         );
       },

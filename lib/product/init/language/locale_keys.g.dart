@@ -41,9 +41,12 @@ abstract class LocaleKeys {
   static const button_yes = 'button.yes';
   static const button_no = 'button.no';
   static const button_cancel = 'button.cancel';
+  static const button_ok = 'button.ok';
   static const button = 'button';
   static const info_anErrorOccured = 'info.anErrorOccured';
   static const info_notFound = 'info.notFound';
   static const info_deleteAll = 'info.deleteAll';
+  static const info_savedAdd = 'info.savedAdd';
+  static const info_savedRemove = 'info.savedRemove';
   static const info = 'info';
 }

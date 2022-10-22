@@ -12,6 +12,7 @@ import 'package:turkce_sozluk/product/widgets/container/icon_text_info_widget.da
 import 'package:turkce_sozluk/product/widgets/dialog/show_dialog.dart';
 import 'package:turkce_sozluk/product/widgets/svg.dart';
 
+import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/navigator/app_router.dart';
 import '../../../product/widgets/card/dismissible_card.dart';
 import '../../detail/viewmodel/detail_viewmodel.dart';
@@ -28,7 +29,7 @@ class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box('saved').listenable(),
+      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
       builder: (context, value, child) {
         return Scaffold(
             appBar: _appBar(context),
@@ -86,7 +87,7 @@ class _SavedList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Hive.box('saved').listenable(),
+      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
       builder: (context, value, child) {
         return ListView.builder(
           padding: context.paddingLow,
@@ -94,7 +95,7 @@ class _SavedList extends StatelessWidget {
           itemBuilder: (context, index) {
             return DismissibleWidget(
               dismissibleKey: context.watch<SavedViewModel>().savedWordBox.getAt(index),
-              title: context.watch<SavedViewModel>().savedWordBox.getAt(index) ?? '',
+              title: context.watch<SavedViewModel>().savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
               onDismissed: (direction) => context.read<SavedViewModel>().savedWordBox.deleteAt(index),
               onTap: () {
                 DetailViewModel.word = context.read<SavedViewModel>().savedWordBox.getAt(index);
@@ -108,7 +109,7 @@ class _SavedList extends StatelessWidget {
   }
 }
 /* ValueListenableBuilder(
-      valueListenable: Hive.box('saved').listenable(),
+      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
       builder: (context, value, child) {
         return Scaffold(
             appBar: _appBar(context),

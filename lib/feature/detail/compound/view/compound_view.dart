@@ -4,9 +4,8 @@ import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import '../../../../product/constants/enums/string/string_constants.dart';
-import '../../../saved/viewmodel/saved_viewmodel.dart';
 import '../viewmodel/compound_viewmodel.dart';
-import '../../../../product/widgets/card/detail_word_card.dart';
+import '../../../../product/widgets/card/word_card.dart';
 import '../../../../product/widgets/container/icon_text_info_widget.dart';
 import '../../../../product/widgets/container/open_container.dart';
 
@@ -79,7 +78,7 @@ class DetailWordList extends StatelessWidget {
         );
       },
       closedBuilder: (BuildContext _, VoidCallback openContainer) {
-        return DetailWordCard(title: word, onTap: openContainer);
+        return WordCard(title: word, onTap: openContainer);
       },
     );
   }

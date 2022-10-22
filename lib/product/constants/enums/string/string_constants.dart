@@ -1,4 +1,5 @@
 class TurkceSozlukStringConstants {
+  static const searchListJsonResponse = 'assets/data/autocomplete.json';
   static const signLanguageUrl = 'https://sozluk.gov.tr/assets/img/isaret/';
 
   static const detailListDefaultExample = 'isim';
@@ -6,4 +7,9 @@ class TurkceSozlukStringConstants {
   static const dash = ' - ';
   static const comma = ', ';
   static const empty = '';
+
+  //  hive boxs
+  static const settings = 'settings';
+  static const saved = 'saved';
+  static const history = 'history';
 }

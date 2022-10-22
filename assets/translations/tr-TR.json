@@ -21,7 +21,7 @@
         "searchInTurkishDictionary": "Türkçe Sözlük'te Ara",
         "searchForSomething": "Bir şeyler ara",
         "lastSearch": "Son Arananlar",
-        "wordNotFound": "Aradığınız sözcük bulunamadı"
+        "wordNotFound": "Aradığınız sözcük bulunamadı."
     },
     "detail": {
         "detailViews": {
@@ -43,11 +43,14 @@
         "turkishSignLanguage": "Türk İşaret Dili",
         "yes": "Evet",
         "no": "Hayır",
-        "cancel": "Vazgeç"
+        "cancel": "Vazgeç",
+        "ok": "Tamam"
     },
     "info": {
-        "anErrorOccured": "Bir sorun oluştu",
+        "anErrorOccured": "Bir sorun oluştu.",
         "notFound": "Değer bulunamadı.",
-        "deleteAll": "Tümünü sil"
+        "deleteAll": "Tümünü sil",
+        "savedAdd": "Kaydedilenlere eklendi.",
+        "savedRemove": "Kaydedilenlerden kaldırıldı."
     }
 }

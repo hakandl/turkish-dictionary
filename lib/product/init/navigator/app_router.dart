@@ -19,8 +19,6 @@ part 'app_router.gr.dart';
   replaceInRouteName: 'View,Route',
   routes: <AutoRoute>[
     AutoRoute(page: SplashView, path: '/', initial: true),
-    AutoRoute(page: HomeView, path: 'home', initial: true),
-    AutoRoute(page: HistoryView, path: 'history'),
     AutoRoute(page: WrapperView, path: 'wrapper', children: [
       AutoRoute(page: SavedView, path: 'saved'),
       AutoRoute(page: HomeView, path: 'home', initial: true),
