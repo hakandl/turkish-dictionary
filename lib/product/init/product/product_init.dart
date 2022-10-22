@@ -4,15 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:turkce_sozluk/feature/saved/viewmodel/saved_viewmodel.dart';
 import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
-import '../../feature/search/viewmodel/search_viewmodel.dart';
-import 'localization_init.dart';
+import '../../../feature/search/viewmodel/search_viewmodel.dart';
+import '../language/localization_init.dart';
 
-import '../../core/init/notifier/theme_notifier.dart';
-import '../../feature/detail/service/detail_service.dart';
-import '../../feature/detail/viewmodel/detail_viewmodel.dart';
-import '../../feature/home/service/content_service.dart';
-import '../../feature/home/viewmodel/home_viewmodel.dart';
-import '../service/project_network_manager.dart';
+import '../../../core/init/notifier/theme_notifier.dart';
+import '../../../feature/detail/service/detail_service.dart';
+import '../../../feature/detail/viewmodel/detail_viewmodel.dart';
+import '../../../feature/home/service/content_service.dart';
+import '../../../feature/home/viewmodel/home_viewmodel.dart';
+import '../../service/project_network_manager.dart';
 
 class ProductInit {
   final localizationInit = LocalizationInit();

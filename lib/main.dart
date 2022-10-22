@@ -8,9 +8,9 @@ import 'core/constants/app/app_constants.dart';
 import 'core/init/theme/dark/app_theme_dark.dart';
 import 'core/init/theme/light/app_theme_light.dart';
 import 'product/init/navigator/app_router.dart';
-import 'product/init/product_init.dart';
+import 'product/init/product/product_init.dart';
 
-import 'core/init/main_build.dart';
+import 'product/init/build/main_build.dart';
 
 Future<void> main() async {
   await SplashViewModel().hiveInit();
