@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import '../../constants/enums/network/network_result_enum.dart';
 import '../../service/network/network_manager.dart';
 
@@ -43,8 +45,9 @@ class _NoNetworkContainerState extends State<NoNetworkContainer> with StateMixin
         color: context.colorScheme.error,
         child: Center(
           child: Text(
-            'internet yok',
-            style: context.textTheme.titleLarge,
+            LocaleKeys.info_noNetwork.tr(),
+            style: context.textTheme.titleMedium
+                ?.copyWith(color: context.colorScheme.background, fontWeight: FontWeight.bold),
           ),
         ),
       ),

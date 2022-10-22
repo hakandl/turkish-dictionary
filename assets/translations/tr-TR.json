@@ -51,6 +51,7 @@
         "notFound": "Değer bulunamadı.",
         "deleteAll": "Tümünü sil",
         "savedAdd": "Kaydedilenlere eklendi.",
-        "savedRemove": "Kaydedilenlerden kaldırıldı."
+        "savedRemove": "Kaydedilenlerden kaldırıldı.",
+        "noNetwork": "İnternet bağlantısı yok."
     }
 }

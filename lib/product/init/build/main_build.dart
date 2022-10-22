@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 
-import '../../widgets/container/network_container.dart';
+import '../../widgets/container/no_network_container.dart';
 
 class MainBuild {
   MainBuild._();

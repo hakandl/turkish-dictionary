@@ -48,5 +48,6 @@ abstract class LocaleKeys {
   static const info_deleteAll = 'info.deleteAll';
   static const info_savedAdd = 'info.savedAdd';
   static const info_savedRemove = 'info.savedRemove';
+  static const info_noNetwork = 'info.noNetwork';
   static const info = 'info';
 }
