@@ -47,7 +47,9 @@ class _MyAppState extends State<MyApp> {
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          theme: box.get('darkMode', defaultValue: false) ? AppThemeDark.instance.theme : AppThemeLight.instance.theme,
+          theme: box.get(TurkceSozlukStringConstants.settingsDarkMode, defaultValue: false)
+              ? AppThemeDark.instance.theme
+              : AppThemeLight.instance.theme,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,

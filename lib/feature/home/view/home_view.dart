@@ -61,7 +61,8 @@ class _HomeViewState extends State<HomeView> {
                     color: context.colorScheme.background,
                   ),
                   onTap: () async {
-                    model.themeChangeBox.put('darkMode', !model.themeChangeBox.get('darkMode'));
+                    model.themeChangeBox.put(TurkceSozlukStringConstants.settingsDarkMode,
+                        !model.themeChangeBox.get(TurkceSozlukStringConstants.settingsDarkMode));
                     context.read<ThemeNotifier>().changeTheme();
                   },
                   child: Text(

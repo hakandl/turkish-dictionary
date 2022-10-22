@@ -9,8 +9,10 @@ class TurkceSozlukStringConstants {
   static const comma = ', ';
   static const empty = '';
 
-  //  hive boxs
+  //  hive
   static const settings = 'settings';
   static const saved = 'saved';
   static const history = 'history';
+
+  static const settingsDarkMode = 'darkMode';
 }
