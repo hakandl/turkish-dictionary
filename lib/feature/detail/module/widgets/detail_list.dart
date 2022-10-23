@@ -10,23 +10,19 @@ class DetailWordList extends StatelessWidget {
     return context.watch<DetailViewModel>().isLoading ? const DetailMeaningsListShimmer() : detailMeaningsList(context);
   }
 
-  ClipRRect detailMeaningsList(BuildContext context) {
+  Widget detailMeaningsList(BuildContext context) {
     return ClipRRect(
       borderRadius: context.lowBorderRadius,
-      child: _detailsList(context),
-    );
-  }
-
-  ListView _detailsList(BuildContext context) {
-    return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: context.watch<DetailViewModel>().detailList?.length,
-      itemBuilder: (_, detailIndex) {
-        return Column(
-          children: [_detailsListWord(context, detailIndex), _meaningsList(context, detailIndex)],
-        );
-      },
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: context.watch<DetailViewModel>().detailList?.length,
+        itemBuilder: (_, detailIndex) {
+          return Column(
+            children: [_detailsListWord(context, detailIndex), _meaningList(context, detailIndex)],
+          );
+        },
+      ),
     );
   }
 
@@ -46,7 +42,7 @@ class DetailWordList extends StatelessWidget {
     );
   }
 
-  ListView _meaningsList(BuildContext context, int detailIndex) {
+  Widget _meaningList(BuildContext context, int detailIndex) {
     return ListView.separated(
       padding: context.onlyBottomPaddingNormal,
       physics: const NeverScrollableScrollPhysics(),
@@ -73,7 +69,7 @@ class DetailWordList extends StatelessWidget {
           TurkceSozlukStringConstants.empty,
       authorName: detail?.examplesList == null
           ? TurkceSozlukStringConstants.empty
-          : detail?.examplesList?[0].authorId == '0'
+          : detail?.examplesList?[0].authorId == TurkceSozlukStringConstants.zero
               ? TurkceSozlukStringConstants.empty
               : '${TurkceSozlukStringConstants.dash} ${detail?.examplesList?[0].author?[0].fullName}',
     );

@@ -1,6 +1,6 @@
 part of '../../view/detail_view.dart';
 
-class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
+class DetailTop extends StatelessWidget {
   const DetailTop({
     Key? key,
     this.title,
@@ -26,49 +26,46 @@ class DetailTop extends StatelessWidget with TurkceSozlukModalSheet {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title ?? context.watch<DetailViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
-                style: context.textTheme.headlineLarge?.copyWith(
-                  color: context.colorScheme.background,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                subtitle ??
-                    '${context.watch<DetailViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<DetailViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}',
-                style: context.textTheme.bodyMedium
-                    ?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w500),
-              ),
-              Padding(
-                padding: context.verticalPaddingNormal,
-                child: Row(
-                  children: [
-                    _VoiceButton(onVoice: onVoice),
-                    context.emptySizedWidthBoxLow3x,
-                    _SavedButton(
-                      onSaved: onSaved,
-                      child: child,
-                    ),
-                    const Spacer(),
-                    _signLanguageButton(context)
-                  ],
-                ),
-              ),
+              _title(context),
+              _subtitle(context),
+              _buttons(context),
             ],
           );
   }
 
-  TurkceSozlukIconTextButton _signLanguageButton(BuildContext context) {
-    return TurkceSozlukIconTextButton(
-      text: LocaleKeys.button_turkishSignLanguage.tr(),
-      textStyle: TextStyle(color: context.colorScheme.onSecondary),
-      icon: SvgWidget(
-        icon: SvgNameEnum.hand.icon,
-        color: context.colorScheme.onSecondary,
+  Text _title(BuildContext context) {
+    return Text(
+      title ?? context.watch<DetailViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+      style: context.textTheme.headlineLarge?.copyWith(
+        color: context.colorScheme.background,
+        fontWeight: FontWeight.w700,
       ),
-      onPressed: () => showTurkceSozlukModalSheet(
-        context,
-        Expanded(child: _ModalSheetList(signLanguageWidget: signLanguageWidget)),
+    );
+  }
+
+  Text _subtitle(BuildContext context) {
+    return Text(
+      subtitle ??
+          '${context.watch<DetailViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<DetailViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}',
+      style:
+          context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w500),
+    );
+  }
+
+  Padding _buttons(BuildContext context) {
+    return Padding(
+      padding: context.verticalPaddingNormal,
+      child: Row(
+        children: [
+          _VoiceButton(onVoice: onVoice),
+          context.emptySizedWidthBoxLow3x,
+          _SavedButton(
+            onSaved: onSaved,
+            child: child,
+          ),
+          const Spacer(),
+          _SignLanguageButton(signLanguageWidget: signLanguageWidget)
+        ],
       ),
     );
   }
@@ -120,7 +117,6 @@ class _SavedButtonState extends State<_SavedButton> {
                 context.read<SavedViewModel>().savedWordBox.delete(DetailViewModel.word);
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBarCard(content: LocaleKeys.info_savedRemove.tr(), context));
-
                 return;
               }
               context
@@ -130,13 +126,37 @@ class _SavedButtonState extends State<_SavedButton> {
               ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(content: LocaleKeys.info_savedAdd.tr(), context));
             });
           },
-      child: widget.child ??
-          SvgWidget(
-            icon: context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)
-                ? SvgNameEnum.savedSolid.icon
-                : SvgNameEnum.saved.icon,
-            color: context.colorScheme.onSecondary,
-          ),
+      child: widget.child ?? _savedIcon(context),
+    );
+  }
+
+  SvgWidget _savedIcon(BuildContext context) {
+    return SvgWidget(
+      icon: context.read<SavedViewModel>().savedWordBox.containsKey(DetailViewModel.word)
+          ? SvgNameEnum.savedSolid.icon
+          : SvgNameEnum.saved.icon,
+      color: context.colorScheme.onSecondary,
+    );
+  }
+}
+
+class _SignLanguageButton extends StatelessWidget with TurkceSozlukModalSheet {
+  const _SignLanguageButton({this.signLanguageWidget});
+  final Widget? signLanguageWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    return TurkceSozlukIconTextButton(
+      text: LocaleKeys.button_turkishSignLanguage.tr(),
+      textStyle: TextStyle(color: context.colorScheme.onSecondary),
+      icon: SvgWidget(
+        icon: SvgNameEnum.hand.icon,
+        color: context.colorScheme.onSecondary,
+      ),
+      onPressed: () => showTurkceSozlukModalSheet(
+        context,
+        Expanded(child: _ModalSheetList(signLanguageWidget: signLanguageWidget)),
+      ),
     );
   }
 }

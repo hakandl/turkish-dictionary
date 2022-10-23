@@ -13,16 +13,24 @@ class ARuleWebView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: TurkceSozlukIconButton(
-          onPressed: () => Navigator.pop(context),
-          child: SvgWidget(icon: SvgNameEnum.left.icon),
-        ),
-        title: Text(title),
-      ),
+      appBar: _appBar(context),
       body: WebView(
         initialUrl: url,
       ),
+    );
+  }
+
+  AppBar _appBar(BuildContext context) {
+    return AppBar(
+      leading: _backButton(context),
+      title: Text(title),
+    );
+  }
+
+  TurkceSozlukIconButton _backButton(BuildContext context) {
+    return TurkceSozlukIconButton(
+      onPressed: () => Navigator.pop(context),
+      child: SvgWidget(icon: SvgNameEnum.left.icon),
     );
   }
 }

@@ -33,7 +33,7 @@ class _ProverbViewState extends State<ProverbView> {
         child: Column(
           children: const [
             DetailTop(),
-            DetailWordList(),
+            _ProverbWordList(),
           ],
         ),
       ),
@@ -41,8 +41,8 @@ class _ProverbViewState extends State<ProverbView> {
   }
 }
 
-class DetailWordList extends StatelessWidget {
-  const DetailWordList({
+class _ProverbWordList extends StatelessWidget {
+  const _ProverbWordList({
     Key? key,
   }) : super(key: key);
 
@@ -55,10 +55,10 @@ class DetailWordList extends StatelessWidget {
                 text:
                     '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_proverbAndIdioms_nothing.tr()}',
               )
-            : detailList(context);
+            : _proverbList(context);
   }
 
-  ListView detailList(BuildContext context) {
+  ListView _proverbList(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -66,12 +66,12 @@ class DetailWordList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         String word =
             context.watch<DetailViewModel>().detailList?[0].proverb?[index].word ?? TurkceSozlukStringConstants.empty;
-        return proverbCard(word, context);
+        return _proverbCard(word, context);
       },
     );
   }
 
-  Widget proverbCard(String word, BuildContext context) {
+  Widget _proverbCard(String word, BuildContext context) {
     return OpenContainerWidget(
       openBuilder: (BuildContext context, VoidCallback openContainer) {
         return ProverbDetailView(

@@ -52,26 +52,26 @@ class _HomeViewState extends State<HomeView> {
   AppBar _appBar(BuildContext context, HomeViewModel model) {
     return AppBar(
       backgroundColor: context.colorScheme.onError,
-      actions: [
-        PopupMenuButton(
-          itemBuilder: (context) {
-            return [
-              PopupMenuItem(
-                  textStyle: TextStyle(
-                    color: context.colorScheme.background,
-                  ),
-                  onTap: () async {
-                    model.themeChangeBox.put(TurkceSozlukStringConstants.settingsDarkMode,
-                        !model.themeChangeBox.get(TurkceSozlukStringConstants.settingsDarkMode));
-                    context.read<ThemeNotifier>().changeTheme();
-                  },
-                  child: Text(
-                    LocaleKeys.button_changeTheme.tr(),
-                  )),
-            ];
-          },
-        )
-      ],
+      actions: [_themeChangeButton(model)],
+    );
+  }
+
+  PopupMenuButton<dynamic> _themeChangeButton(HomeViewModel model) {
+    return PopupMenuButton(
+      itemBuilder: (context) {
+        return [
+          PopupMenuItem(
+              textStyle: context.textTheme.titleSmall?.copyWith(color: context.colorScheme.background),
+              onTap: () async {
+                model.themeChangeBox.put(TurkceSozlukStringConstants.settingsDarkMode,
+                    !model.themeChangeBox.get(TurkceSozlukStringConstants.settingsDarkMode, defaultValue: false));
+                context.read<ThemeNotifier>().changeTheme();
+              },
+              child: Text(
+                LocaleKeys.button_changeTheme.tr(),
+              )),
+        ];
+      },
     );
   }
 

@@ -35,20 +35,24 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: ChangeNotifierProvider.value(
-        value: ProverbViewModel(ProverbService(ProjectNetworkManager.instance.service)),
-        builder: (context, child) {
-          return Padding(
-            padding: context.paddingNormal,
-            child: Column(
-              children: [
-                _detailTop(context),
-                _proverbDetailWord(context),
-              ],
-            ),
-          );
-        },
-      ),
+      body: _body(),
+    );
+  }
+
+  ChangeNotifierProvider<ProverbViewModel> _body() {
+    return ChangeNotifierProvider.value(
+      value: ProverbViewModel(ProverbService(ProjectNetworkManager.instance.service)),
+      builder: (context, child) {
+        return Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            children: [
+              _detailTop(context),
+              _proverbDetailWord(context),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -95,34 +99,47 @@ class _ProverbDetailTopState extends State<_ProverbDetailTop> {
   Widget build(BuildContext context) {
     return DetailTop(
       title: widget.widget.title,
-      subtitle:
-          '${context.watch<ProverbViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}',
-      signLanguageWidget: SignLanguageListView(
-        itemCount: context.read<ProverbViewModel>().detailList?[0].word?.length ?? 1,
-        word: context.read<ProverbViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
-      ),
-      child: SvgWidget(
-        icon: context.watch<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)
-            ? SvgNameEnum.savedSolid.icon
-            : SvgNameEnum.saved.icon,
-        color: context.colorScheme.onSecondary,
-      ),
+      subtitle: _subtitle(context),
+      signLanguageWidget: _signLanguageWidget(context),
+      child: _icon(context),
       onVoice: () => context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
       onSaved: () {
-        setState(() {
-          if (context.read<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)) {
-            context.read<SavedViewModel>().savedWordBox.delete(ProverbViewModel.word);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedRemove.tr()));
-            return;
-          }
-          context
-              .read<SavedViewModel>()
-              .savedWordBox
-              .put(ProverbViewModel.word, ProverbViewModel.word ?? TurkceSozlukStringConstants.empty);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
-        });
+        _proverbSavedButton(context);
       },
     );
+  }
+
+  String _subtitle(BuildContext context) =>
+      '${context.watch<ProverbViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}';
+
+  SignLanguageListView _signLanguageWidget(BuildContext context) {
+    return SignLanguageListView(
+      itemCount: context.read<ProverbViewModel>().detailList?[0].word?.length ?? 1,
+      word: context.read<ProverbViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+    );
+  }
+
+  SvgWidget _icon(BuildContext context) {
+    return SvgWidget(
+      icon: context.watch<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)
+          ? SvgNameEnum.savedSolid.icon
+          : SvgNameEnum.saved.icon,
+      color: context.colorScheme.onSecondary,
+    );
+  }
+
+  void _proverbSavedButton(BuildContext context) {
+    setState(() {
+      if (context.read<SavedViewModel>().savedWordBox.containsKey(ProverbViewModel.word)) {
+        context.read<SavedViewModel>().savedWordBox.delete(ProverbViewModel.word);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedRemove.tr()));
+        return;
+      }
+      context
+          .read<SavedViewModel>()
+          .savedWordBox
+          .put(ProverbViewModel.word, ProverbViewModel.word ?? TurkceSozlukStringConstants.empty);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
+    });
   }
 }

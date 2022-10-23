@@ -32,8 +32,9 @@ class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
       valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
       builder: (context, value, child) {
         return Scaffold(
-            appBar: _appBar(context),
-            body: context.watch<SavedViewModel>().savedWordBox.length >= 1 ? const _SavedList() : _emptySavedView());
+          appBar: _appBar(context),
+          body: context.watch<SavedViewModel>().savedWordBox.length >= 1 ? const _SavedList() : _emptySavedView(),
+        );
       },
     );
   }
@@ -49,15 +50,13 @@ class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
     return TurkceSozlukCircleElevatedButton(
       backgroundColor: Colors.transparent,
       elevation: SizeEnum.zero.value,
-      onPressed: context.read<SavedViewModel>().savedWordBox.isNotEmpty
-          ? () {
-              showTurkceSozlukShowDialog(context,
-                  title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.saved_deleteAllSaved.tr(), yesButton: () {
-                context.read<SavedViewModel>().savedWordBox.clear();
-                context.pop();
-              });
-            }
-          : null,
+      onPressed: () {
+        showTurkceSozlukShowDialog(context,
+            title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.saved_deleteAllSaved.tr(), yesButton: () {
+          context.read<SavedViewModel>().savedWordBox.clear();
+          context.pop();
+        });
+      },
       child: context.read<SavedViewModel>().savedWordBox.isNotEmpty ? _trashIcon(context) : const SizedBox.shrink(),
     );
   }
@@ -89,19 +88,23 @@ class _SavedList extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
       builder: (context, value, child) {
-        return ListView.builder(
-          padding: context.paddingLow,
-          itemCount: context.watch<SavedViewModel>().savedWordBox.length,
-          itemBuilder: (context, index) {
-            return DismissibleWidget(
-              dismissibleKey: context.watch<SavedViewModel>().savedWordBox.getAt(index),
-              title: context.watch<SavedViewModel>().savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
-              onDismissed: (direction) => context.read<SavedViewModel>().savedWordBox.deleteAt(index),
-              onTap: () {
-                DetailViewModel.word = context.read<SavedViewModel>().savedWordBox.getAt(index);
-                context.router.navigate(const DetailTabBarRoute());
-              },
-            );
+        return _list(context);
+      },
+    );
+  }
+
+  ListView _list(BuildContext context) {
+    return ListView.builder(
+      padding: context.paddingLow,
+      itemCount: context.watch<SavedViewModel>().savedWordBox.length,
+      itemBuilder: (context, index) {
+        return DismissibleWidget(
+          dismissibleKey: context.watch<SavedViewModel>().savedWordBox.getAt(index),
+          title: context.watch<SavedViewModel>().savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
+          onDismissed: (direction) => context.read<SavedViewModel>().savedWordBox.deleteAt(index),
+          onTap: () {
+            DetailViewModel.word = context.read<SavedViewModel>().savedWordBox.getAt(index);
+            context.router.navigate(const DetailTabBarRoute());
           },
         );
       },

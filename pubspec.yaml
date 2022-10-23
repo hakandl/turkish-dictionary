@@ -33,12 +33,11 @@ dependencies:
   kartal: ^2.4.3
   flutter_svg: ^1.1.5
   shimmer: ^2.0.0
-  url_launcher: ^6.1.5
+  webview_flutter: ^3.0.4
   flutter_tts: ^3.5.3
 
   # JSON
   json_annotation: ^4.6.0
-  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

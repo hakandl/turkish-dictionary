@@ -34,20 +34,24 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: ChangeNotifierProvider.value(
-        value: CompoundViewModel(CompoundService(ProjectNetworkManager.instance.service)),
-        builder: (context, child) {
-          return Padding(
-            padding: context.paddingNormal,
-            child: Column(
-              children: [
-                _detailTop(context),
-                _compoundDetailWord(context),
-              ],
-            ),
-          );
-        },
-      ),
+      body: _body(),
+    );
+  }
+
+  ChangeNotifierProvider<CompoundViewModel> _body() {
+    return ChangeNotifierProvider.value(
+      value: CompoundViewModel(CompoundService(ProjectNetworkManager.instance.service)),
+      builder: (context, child) {
+        return Padding(
+          padding: context.paddingNormal,
+          child: Column(
+            children: [
+              _detailTop(context),
+              _compoundDetailWord(context),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -94,34 +98,47 @@ class _CompoundDetailTopState extends State<_CompoundDetailTop> {
   Widget build(BuildContext context) {
     return DetailTop(
       title: widget.widget.title,
-      subtitle:
-          '${context.watch<CompoundViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<CompoundViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}',
-      signLanguageWidget: SignLanguageListView(
-        itemCount: context.read<CompoundViewModel>().detailList?[0].word?.length ?? 1,
-        word: context.read<CompoundViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
-      ),
-      child: SvgWidget(
-        icon: context.watch<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)
-            ? SvgNameEnum.savedSolid.icon
-            : SvgNameEnum.saved.icon,
-        color: context.colorScheme.onSecondary,
-      ),
+      subtitle: _subtitle(context),
+      signLanguageWidget: _signLanguageWidget(context),
+      child: _icon(context),
       onVoice: () => context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
       onSaved: () {
-        setState(() {
-          if (context.read<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)) {
-            context.read<SavedViewModel>().savedWordBox.delete(CompoundViewModel.word);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedRemove.tr()));
-            return;
-          }
-          context
-              .read<SavedViewModel>()
-              .savedWordBox
-              .put(CompoundViewModel.word, CompoundViewModel.word ?? TurkceSozlukStringConstants.empty);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
-        });
+        _compoundSavedButton(context);
       },
     );
+  }
+
+  String _subtitle(BuildContext context) =>
+      '${context.watch<CompoundViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<CompoundViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}';
+
+  SignLanguageListView _signLanguageWidget(BuildContext context) {
+    return SignLanguageListView(
+      itemCount: context.read<CompoundViewModel>().detailList?[0].word?.length ?? 1,
+      word: context.read<CompoundViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+    );
+  }
+
+  SvgWidget _icon(BuildContext context) {
+    return SvgWidget(
+      icon: context.watch<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)
+          ? SvgNameEnum.savedSolid.icon
+          : SvgNameEnum.saved.icon,
+      color: context.colorScheme.onSecondary,
+    );
+  }
+
+  void _compoundSavedButton(BuildContext context) {
+    setState(() {
+      if (context.read<SavedViewModel>().savedWordBox.containsKey(CompoundViewModel.word)) {
+        context.read<SavedViewModel>().savedWordBox.delete(CompoundViewModel.word);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedRemove.tr()));
+        return;
+      }
+      context
+          .read<SavedViewModel>()
+          .savedWordBox
+          .put(CompoundViewModel.word, CompoundViewModel.word ?? TurkceSozlukStringConstants.empty);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
+    });
   }
 }

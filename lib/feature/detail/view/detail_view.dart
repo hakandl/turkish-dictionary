@@ -39,13 +39,14 @@ class _DetailViewState extends State<DetailView> {
     return ChangeNotifierProvider.value(
       value: DetailViewModel(DetailService(ProjectNetworkManager.instance.service)),
       child: SingleChildScrollView(
-          padding: context.paddingNormal,
-          child: Column(
-            children: const [
-              DetailTop(),
-              DetailWordList(),
-            ],
-          )),
+        padding: context.paddingNormal,
+        child: Column(
+          children: const [
+            DetailTop(),
+            DetailWordList(),
+          ],
+        ),
+      ),
     );
   }
 }

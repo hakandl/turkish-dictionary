@@ -25,64 +25,76 @@ class _DetailWordInfoCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: context.paddingNormal,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: context.onlyRightPaddingLow,
-                    child: Text(
-                      meaningOrder,
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        color: context.colorScheme.onSecondary,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    featuresName,
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.colorScheme.onSecondary,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ],
+            meaningOrderAndFeaturesNameRow(context),
+            _meaning(context),
+            _exampleAndAuthorNameText(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget meaningOrderAndFeaturesNameRow(BuildContext context) {
+    return Padding(
+      padding: context.paddingNormal,
+      child: Row(
+        children: [
+          Padding(
+            padding: context.onlyRightPaddingLow,
+            child: Text(
+              meaningOrder,
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: context.colorScheme.onSecondary,
+                fontWeight: FontWeight.w400,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: context.paddingNormal.left,
-                right: context.paddingNormal.right,
-                bottom: context.paddingLow.bottom,
-              ),
-              child: Text(
-                meaning,
-                style: context.textTheme.bodyMedium?.copyWith(
-                  color: context.colorScheme.background,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+          ),
+          Text(
+            featuresName,
+            style: context.textTheme.bodySmall?.copyWith(
+              color: context.colorScheme.onSecondary,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: context.paddingMedium.left,
-                right: context.paddingMedium.right,
-                bottom: context.paddingLow.bottom,
-              ),
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    color: context.colorScheme.onSecondary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  children: [
-                    TextSpan(text: exampleName),
-                    TextSpan(text: authorName, style: const TextStyle(fontWeight: FontWeight.w700)),
-                  ],
-                ),
-              ),
-            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _meaning(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: context.paddingNormal.left,
+        right: context.paddingNormal.right,
+        bottom: context.paddingLow.bottom,
+      ),
+      child: Text(
+        meaning,
+        style: context.textTheme.bodyMedium?.copyWith(
+          color: context.colorScheme.background,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _exampleAndAuthorNameText(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        left: context.paddingMedium.left,
+        right: context.paddingMedium.right,
+        bottom: context.paddingLow.bottom,
+      ),
+      child: RichText(
+        text: TextSpan(
+          style: TextStyle(
+            color: context.colorScheme.onSecondary,
+            fontWeight: FontWeight.w500,
+          ),
+          children: [
+            TextSpan(text: exampleName),
+            TextSpan(text: authorName, style: const TextStyle(fontWeight: FontWeight.w700)),
           ],
         ),
       ),

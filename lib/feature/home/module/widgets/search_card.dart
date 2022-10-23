@@ -9,10 +9,10 @@ class _SearchCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return OpenContainerWidget(
       closedElevation: SizeEnum.four.value,
-      openBuilder: (BuildContext context, VoidCallback openContainer) {
+      openBuilder: (_, VoidCallback openContainer) {
         return const SearchView();
       },
-      closedBuilder: (BuildContext context, VoidCallback openContainer) {
+      closedBuilder: (_, VoidCallback openContainer) {
         return _card(context);
       },
     );
@@ -27,19 +27,27 @@ class _SearchCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: context.horizontalPaddingNormal,
-              child: SvgWidget(icon: SvgNameEnum.search.icon),
-            ),
-            Text(
-              LocaleKeys.search_searchInTurkishDictionary.tr(),
-              style: context.textTheme.titleMedium?.copyWith(
-                color: context.colorScheme.background,
-                fontWeight: FontWeight.w400,
-              ),
-            )
+            _searchIcon(context),
+            _searchInTurkishDictionaryText(context),
           ],
         ),
+      ),
+    );
+  }
+
+  Padding _searchIcon(BuildContext context) {
+    return Padding(
+      padding: context.horizontalPaddingNormal,
+      child: SvgWidget(icon: SvgNameEnum.search.icon),
+    );
+  }
+
+  Text _searchInTurkishDictionaryText(BuildContext context) {
+    return Text(
+      LocaleKeys.search_searchInTurkishDictionary.tr(),
+      style: context.textTheme.titleMedium?.copyWith(
+        color: context.colorScheme.background,
+        fontWeight: FontWeight.w400,
       ),
     );
   }

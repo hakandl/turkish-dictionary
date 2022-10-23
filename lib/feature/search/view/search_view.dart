@@ -20,6 +20,7 @@ import '../../../product/constants/enums/svg_enum.dart';
 import '../../../product/widgets/button/text_button.dart';
 import '../viewmodel/search_viewmodel.dart';
 
+part '../module/widgets/search_textfield_container.dart';
 part '../module/widgets/word_card_list.dart';
 part '../module/widgets/last_search_list.dart';
 part '../module/widgets/search_for_something.dart';
@@ -36,36 +37,41 @@ class _SearchViewState extends State<SearchView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: context.onlyTopPaddingNormal,
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: SearchTextFieldContainer(),
-                  ),
-                  TurkceSozlukTextButton(
-                    text: LocaleKeys.button_cancel.tr(),
-                    textStyle: context.textTheme.titleMedium,
-                    onPressed: () => context.pop(),
-                  )
-                ],
-              ),
-            ),
-            _specialWordContainer(context),
-            Expanded(
-              child: context.watch<SearchViewModel>().searchTextField.text.isNotEmpty &&
-                      context.watch<SearchViewModel>().filteredData.isEmpty
-                  ? _nonWord(context)
-                  : context.watch<SearchViewModel>().searchTextField.text.isEmpty
-                      ? context.watch<HistoryViewModel>().historyWordBox.length >= 1
-                          ? const _LastSearchList()
-                          : const _SearchForSomething()
-                      : const _WordCardList(),
-            ),
-          ],
+        body: _body(context),
+      ),
+    );
+  }
+
+  Column _body(BuildContext context) {
+    return Column(
+      children: [
+        _textFieldAndCancelButton(context),
+        _specialWordContainer(context),
+        Expanded(
+          child: _textFieldEmpty(context)
+              ? _historyWordBoxLengthOneAndOver(context)
+                  ? const _LastSearchList()
+                  : const _SearchForSomething()
+              : const _WordCardList(),
         ),
+      ],
+    );
+  }
+
+  Padding _textFieldAndCancelButton(BuildContext context) {
+    return Padding(
+      padding: context.onlyTopPaddingNormal,
+      child: Row(
+        children: [
+          const Expanded(
+            child: _SearchTextFieldContainer(),
+          ),
+          TurkceSozlukTextButton(
+            text: LocaleKeys.button_cancel.tr(),
+            textStyle: context.textTheme.titleMedium,
+            onPressed: () => context.pop(),
+          )
+        ],
       ),
     );
   }
@@ -93,53 +99,8 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  Widget _nonWord(BuildContext context) {
-    return IconAndTextInfoWidget(text: LocaleKeys.search_wordNotFound.tr());
-  }
-}
+  bool _textFieldEmpty(BuildContext context) => context.watch<SearchViewModel>().searchTextField.text.isEmpty;
 
-class SearchTextFieldContainer extends StatelessWidget {
-  const SearchTextFieldContainer({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: SizeEnum.fifty.value,
-      padding: context.onlyLeftPaddingNormal,
-      child: NormalTextField(
-        title: LocaleKeys.search_searchInTurkishDictionary.tr(),
-        fillColor: context.colorScheme.secondary,
-        style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
-        controller: context.watch<SearchViewModel>().searchTextField,
-        radius: context.lowRadius.x,
-        icon: _searchIcon(context),
-        suffixIcon: context.watch<SearchViewModel>().searchTextField.text.isNotEmpty
-            ? _textClearButton(context)
-            : const SizedBox.shrink(),
-        onChanged: (value) => context.read<SearchViewModel>().wordFilter(value),
-      ),
-    );
-  }
-
-  Padding _searchIcon(BuildContext context) {
-    return Padding(
-      padding: context.paddingNormal,
-      child: SvgWidget(
-        icon: SvgNameEnum.search.icon,
-      ),
-    );
-  }
-
-  TurkceSozlukCircleElevatedButton _textClearButton(BuildContext context) {
-    return TurkceSozlukCircleElevatedButton(
-      backgroundColor: Colors.transparent,
-      elevation: SizeEnum.zero.value,
-      child: SvgWidget(
-        icon: SvgNameEnum.x.icon,
-      ),
-      onPressed: () => context.read<SearchViewModel>().clearText(),
-    );
-  }
+  bool _historyWordBoxLengthOneAndOver(BuildContext context) =>
+      context.watch<HistoryViewModel>().historyWordBox.length >= 1;
 }

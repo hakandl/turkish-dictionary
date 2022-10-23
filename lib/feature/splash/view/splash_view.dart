@@ -18,29 +18,36 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SplashViewModel>(
-        onModelReady: (model) {
-          model.setContext(context);
-          model.init();
-        },
-        viewModel: SplashViewModel(),
-        onPageBuilder: (context, value) {
-          return ChangeNotifierProvider(
-              create: (context) => value,
-              builder: (context, child) {
-                return Scaffold(
-                  backgroundColor: context.colorScheme.error,
-                  body: Center(
-                    child: AnimatedScale(
-                        scale: context.watch<SplashViewModel>().isFirstInit ? 0 : 1.5,
-                        duration: context.durationLow,
-                        child: SvgWidget(
-                          icon: SvgNameEnum.splash.icon,
-                          height: SizeEnum.oneHundredTwentyEight.value,
-                          color: context.colorScheme.onPrimary,
-                        )),
-                  ),
-                );
-              });
-        });
+      onModelReady: (model) {
+        model.setContext(context);
+        model.init();
+      },
+      viewModel: SplashViewModel(),
+      onPageBuilder: (context, value) {
+        return ChangeNotifierProvider(
+          create: (context) => value,
+          builder: (context, child) {
+            return Scaffold(
+              backgroundColor: context.colorScheme.error,
+              body: _body(context),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  Center _body(BuildContext context) {
+    return Center(
+      child: AnimatedScale(
+        scale: context.watch<SplashViewModel>().isFirstInit ? 0 : 1.5,
+        duration: context.durationLow,
+        child: SvgWidget(
+          icon: SvgNameEnum.splash.icon,
+          height: SizeEnum.oneHundredTwentyEight.value,
+          color: context.colorScheme.onPrimary,
+        ),
+      ),
+    );
   }
 }

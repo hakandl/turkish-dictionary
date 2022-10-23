@@ -4,6 +4,8 @@ class TurkceSozlukStringConstants {
   static const signLanguageUrl = 'https://sozluk.gov.tr/assets/img/isaret/';
 
   static const detailListDefaultExample = 'isim';
+  static const zero = '0';
+  static const space = '%20';
   static const separator = '\n';
   static const dash = ' - ';
   static const comma = ', ';

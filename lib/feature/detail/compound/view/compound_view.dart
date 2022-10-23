@@ -33,7 +33,7 @@ class _CompoundViewState extends State<CompoundView> {
         child: Column(
           children: const [
             DetailTop(),
-            DetailWordList(),
+            _CompoundWordList(),
           ],
         ),
       ),
@@ -41,8 +41,8 @@ class _CompoundViewState extends State<CompoundView> {
   }
 }
 
-class DetailWordList extends StatelessWidget {
-  const DetailWordList({
+class _CompoundWordList extends StatelessWidget {
+  const _CompoundWordList({
     Key? key,
   }) : super(key: key);
 
@@ -54,10 +54,10 @@ class DetailWordList extends StatelessWidget {
             ? IconAndTextInfoWidget(
                 text: '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_compoundWord_nothing.tr()}',
               )
-            : compoundList(context);
+            : _compoundList(context);
   }
 
-  ListView compoundList(BuildContext context) {
+  ListView _compoundList(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -65,12 +65,12 @@ class DetailWordList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         String word = context.watch<DetailViewModel>().detailList?[0].compoundList?[index].trim() ??
             TurkceSozlukStringConstants.empty;
-        return compoundCard(word, context);
+        return _compoundCard(word, context);
       },
     );
   }
 
-  Widget compoundCard(String word, BuildContext context) {
+  Widget _compoundCard(String word, BuildContext context) {
     return OpenContainerWidget(
       openBuilder: (BuildContext _, VoidCallback openContainer) {
         return CompoundDetailView(

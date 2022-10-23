@@ -20,33 +20,42 @@ class DetailTabBarView extends StatelessWidget {
       routes: const [DetailRoute(), ProverbRoute(), CompoundRoute()],
       builder: (context, child, tabController) {
         return Scaffold(
-            appBar: AppBar(
-              leading: TurkceSozlukIconButton(
-                onPressed: () => Navigator.pop(context),
-                child: SvgWidget(
-                  icon: SvgNameEnum.left.icon,
-                  color: context.colorScheme.background,
-                ),
-              ),
-              title: Text(DetailViewModel.word ?? LocaleKeys.info_notFound.tr()),
-              bottom: TabBar(
-                controller: tabController,
-                isScrollable: true,
-                tabs: [
-                  Tab(
-                    text: TabBarPageEnum.detail.name.tr(),
-                  ),
-                  Tab(
-                    text: TabBarPageEnum.proverb.name.tr(),
-                  ),
-                  Tab(
-                    text: TabBarPageEnum.compound.name.tr(),
-                  ),
-                ],
-              ),
-            ),
-            body: child);
+          appBar: _appBar(context, tabController),
+          body: child,
+        );
       },
+    );
+  }
+
+  AppBar _appBar(BuildContext context, TabController tabController) {
+    return AppBar(
+      leading: TurkceSozlukIconButton(
+        onPressed: () => Navigator.pop(context),
+        child: SvgWidget(
+          icon: SvgNameEnum.left.icon,
+          color: context.colorScheme.background,
+        ),
+      ),
+      title: Text(DetailViewModel.word ?? LocaleKeys.info_notFound.tr()),
+      bottom: _tabBar(tabController),
+    );
+  }
+
+  TabBar _tabBar(TabController tabController) {
+    return TabBar(
+      controller: tabController,
+      isScrollable: true,
+      tabs: [
+        Tab(
+          text: TabBarPageEnum.detail.name.tr(),
+        ),
+        Tab(
+          text: TabBarPageEnum.proverb.name.tr(),
+        ),
+        Tab(
+          text: TabBarPageEnum.compound.name.tr(),
+        ),
+      ],
     );
   }
 }
