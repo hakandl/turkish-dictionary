@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/core/base/view/base_view.dart';
 import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
 import 'package:turkce_sozluk/product/widgets/dialog/show_dialog.dart';
@@ -28,40 +28,43 @@ class HistoryView extends StatefulWidget {
 class _HistoryViewState extends State<HistoryView> with TurkceSozlukShowDialog {
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
-      builder: (context, value, child) {
-        return Scaffold(
-          appBar: _appBar(context),
-          body:
-              context.watch<HistoryViewModel>().historyWordBox.length >= 1 ? const _HistoryList() : _emptyHistoryList(),
+    return BaseView<HistoryViewModel>(
+      viewModel: HistoryViewModel(),
+      onPageBuilder: (context, value) {
+        return ValueListenableBuilder(
+          valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
+          builder: (context, _, __) {
+            return Scaffold(
+              appBar: _appBar(context, value),
+              body: value.historyWordBox.length >= 1 ? const _HistoryList() : _emptyHistoryList(),
+            );
+          },
         );
       },
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  AppBar _appBar(BuildContext context, HistoryViewModel value) {
     return AppBar(
       title: Text(LocaleKeys.history_history.tr()),
       actions: [
-        _deleteButton(context),
+        _deleteButton(context, value),
       ],
     );
   }
 
-  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context) {
+  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context, HistoryViewModel value) {
     return TurkceSozlukCircleElevatedButton(
         backgroundColor: Colors.transparent,
         elevation: SizeEnum.zero.value,
         onPressed: () {
           showTurkceSozlukShowDialog(context,
               title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.history_deleteAllHistory.tr(), yesButton: () {
-            context.read<HistoryViewModel>().historyWordBox.clear();
+            value.historyWordBox.clear();
             context.pop();
           });
         },
-        child:
-            context.read<HistoryViewModel>().historyWordBox.isNotEmpty ? _trashIcon(context) : const SizedBox.shrink());
+        child: value.historyWordBox.isNotEmpty ? _trashIcon(context) : const SizedBox.shrink());
   }
 
   Padding _trashIcon(BuildContext context) {
@@ -88,25 +91,30 @@ class _HistoryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
-      builder: (context, value, child) {
-        return _list(context);
+    return BaseView<HistoryViewModel>(
+      viewModel: HistoryViewModel(),
+      onPageBuilder: (context, value) {
+        return ValueListenableBuilder(
+          valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
+          builder: (context, _, __) {
+            return _list(context, value);
+          },
+        );
       },
     );
   }
 
-  ListView _list(BuildContext context) {
+  ListView _list(BuildContext context, HistoryViewModel value) {
     return ListView.builder(
       padding: context.paddingLow,
-      itemCount: context.watch<HistoryViewModel>().historyWordBox.length,
+      itemCount: value.historyWordBox.length,
       itemBuilder: (context, index) {
         return DismissibleWidget(
-          dismissibleKey: context.watch<HistoryViewModel>().historyWordBox.getAt(index),
-          title: context.watch<HistoryViewModel>().historyWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
-          onDismissed: (direction) => context.read<HistoryViewModel>().historyWordBox.deleteAt(index),
+          dismissibleKey: value.historyWordBox.getAt(index),
+          title: value.historyWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
+          onDismissed: (direction) => value.historyWordBox.deleteAt(index),
           onTap: () {
-            DetailViewModel.word = context.read<HistoryViewModel>().historyWordBox.getAt(index);
+            DetailViewModel.word = value.historyWordBox.getAt(index);
             context.router.navigate(const DetailTabBarRoute());
           },
         );

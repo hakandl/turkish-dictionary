@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/core/base/view/base_view.dart';
 import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
 import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
 import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
@@ -28,36 +28,41 @@ class SavedView extends StatefulWidget {
 class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
-      builder: (context, value, child) {
-        return Scaffold(
-          appBar: _appBar(context),
-          body: context.watch<SavedViewModel>().savedWordBox.length >= 1 ? const _SavedList() : _emptySavedView(),
+    return BaseView<SavedViewModel>(
+      viewModel: SavedViewModel(),
+      onPageBuilder: (context, value) {
+        return ValueListenableBuilder(
+          valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
+          builder: (context, _, __) {
+            return Scaffold(
+              appBar: _appBar(context, value),
+              body: value.savedWordBox.length >= 1 ? const _SavedList() : _emptySavedView(),
+            );
+          },
         );
       },
     );
   }
 
-  AppBar _appBar(BuildContext context) {
+  AppBar _appBar(BuildContext context, SavedViewModel value) {
     return AppBar(
       title: Text(LocaleKeys.saved_saved.tr()),
-      actions: [_deleteButton(context)],
+      actions: [_deleteButton(context, value)],
     );
   }
 
-  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context) {
+  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context, SavedViewModel value) {
     return TurkceSozlukCircleElevatedButton(
       backgroundColor: Colors.transparent,
       elevation: SizeEnum.zero.value,
       onPressed: () {
         showTurkceSozlukShowDialog(context,
             title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.saved_deleteAllSaved.tr(), yesButton: () {
-          context.read<SavedViewModel>().savedWordBox.clear();
+          value.savedWordBox.clear();
           context.pop();
         });
       },
-      child: context.read<SavedViewModel>().savedWordBox.isNotEmpty ? _trashIcon(context) : const SizedBox.shrink(),
+      child: value.savedWordBox.isNotEmpty ? _trashIcon(context) : const SizedBox.shrink(),
     );
   }
 
@@ -85,25 +90,30 @@ class _SavedList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
-      builder: (context, value, child) {
-        return _list(context);
+    return BaseView<SavedViewModel>(
+      viewModel: SavedViewModel(),
+      onPageBuilder: (context, value) {
+        return ValueListenableBuilder(
+          valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
+          builder: (context, _, __) {
+            return _list(context, value);
+          },
+        );
       },
     );
   }
 
-  ListView _list(BuildContext context) {
+  ListView _list(BuildContext context, SavedViewModel value) {
     return ListView.builder(
       padding: context.paddingLow,
-      itemCount: context.watch<SavedViewModel>().savedWordBox.length,
+      itemCount: value.savedWordBox.length,
       itemBuilder: (context, index) {
         return DismissibleWidget(
-          dismissibleKey: context.watch<SavedViewModel>().savedWordBox.getAt(index),
-          title: context.watch<SavedViewModel>().savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
-          onDismissed: (direction) => context.read<SavedViewModel>().savedWordBox.deleteAt(index),
+          dismissibleKey: value.savedWordBox.getAt(index),
+          title: value.savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
+          onDismissed: (direction) => value.savedWordBox.deleteAt(index),
           onTap: () {
-            DetailViewModel.word = context.read<SavedViewModel>().savedWordBox.getAt(index);
+            DetailViewModel.word = value.savedWordBox.getAt(index);
             context.router.navigate(const DetailTabBarRoute());
           },
         );
