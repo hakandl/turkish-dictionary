@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
+import 'package:turkce_sozluk/core/base/view/base_view.dart';
 import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
 import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
 import 'package:turkce_sozluk/product/widgets/card/word_card.dart';
@@ -35,18 +36,23 @@ class SearchView extends StatefulWidget {
 class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: _body(context),
-      ),
+    return BaseView<SearchViewModel>(
+      viewModel: SearchViewModel(),
+      onPageBuilder: (context, value) {
+        return SafeArea(
+          child: Scaffold(
+            body: _body(context, value),
+          ),
+        );
+      },
     );
   }
 
-  Column _body(BuildContext context) {
+  Column _body(BuildContext context, SearchViewModel value) {
     return Column(
       children: [
         _textFieldAndCancelButton(context),
-        _specialWordContainer(context),
+        _specialWordContainer(context, value),
         Expanded(
           child: _textFieldEmpty(context)
               ? _historyWordBoxLengthOneAndOver(context)
@@ -76,25 +82,25 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  Container _specialWordContainer(BuildContext context) {
+  Container _specialWordContainer(BuildContext context, SearchViewModel value) {
     return Container(
       margin: context.onlyTopPaddingNormal,
       color: context.colorScheme.secondary,
       height: SizeEnum.fortyEight.value,
       child: Row(
         children: [
-          for (int i = 0; i < SpecialWordEnum.values.length; i++) _specialWord(SpecialWordEnum.values[i].value),
+          for (int i = 0; i < SpecialWordEnum.values.length; i++) _specialWord(SpecialWordEnum.values[i].value, value),
         ],
       ),
     );
   }
 
-  Expanded _specialWord(String word) {
+  Expanded _specialWord(String word, SearchViewModel value) {
     return Expanded(
       child: TurkceSozlukTextButton(
         text: word,
         textStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
-        onPressed: () => context.read<SearchViewModel>().insertSpecialWord(word),
+        onPressed: () => value.insertSpecialWord(word),
       ),
     );
   }

@@ -5,12 +5,17 @@ class _LastSearchList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      padding: context.paddingLow,
-      itemCount: context.watch<HistoryViewModel>().historyWordBox.length + 1,
-      itemBuilder: (BuildContext context, int index) {
-        return index == 0 ? _lastSearchText(context) : _wordCard(context, index);
+    return BaseView<HistoryViewModel>(
+      viewModel: HistoryViewModel(),
+      onPageBuilder: (context, value) {
+        return ListView.builder(
+          shrinkWrap: true,
+          padding: context.paddingLow,
+          itemCount: context.watch<HistoryViewModel>().historyWordBox.length + 1,
+          itemBuilder: (BuildContext context, int index) {
+            return index == 0 ? _lastSearchText(context) : _wordCard(context, index, value);
+          },
+        );
       },
     );
   }
@@ -26,11 +31,11 @@ class _LastSearchList extends StatelessWidget {
     );
   }
 
-  WordCard _wordCard(BuildContext context, int index) {
+  WordCard _wordCard(BuildContext context, int index, HistoryViewModel value) {
     return WordCard(
-      title: context.watch<HistoryViewModel>().historyWordBox.getAt(index - 1),
+      title: value.historyWordBox.getAt(index - 1),
       onTap: () {
-        DetailViewModel.word = context.read<HistoryViewModel>().historyWordBox.getAt(index - 1)?.toLowerCase();
+        DetailViewModel.word = value.historyWordBox.getAt(index - 1)?.toLowerCase();
         context.router.navigate(
           const DetailTabBarRoute(),
         );
