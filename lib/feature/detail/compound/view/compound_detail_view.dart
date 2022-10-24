@@ -46,7 +46,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
           padding: context.paddingNormal,
           child: Column(
             children: [
-              _detailTop(context),
+              _CompoundDetailTop(widget: widget),
               _compoundDetailWord(context),
             ],
           ),
@@ -58,17 +58,11 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       leading: TurkceSozlukIconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => context.pop(),
         child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
       title: Text(TabBarPageEnum.compound.name.tr()),
     );
-  }
-
-  _detailTop(BuildContext context) {
-    return context.watch<CompoundViewModel>().isLoading
-        ? const DetailTopViewShimmer()
-        : _CompoundDetailTop(widget: widget);
   }
 
   _compoundDetailWord(BuildContext context) {
@@ -96,16 +90,19 @@ class _CompoundDetailTop extends StatefulWidget {
 class _CompoundDetailTopState extends State<_CompoundDetailTop> {
   @override
   Widget build(BuildContext context) {
-    return DetailTop(
-      title: widget.widget.title,
-      subtitle: _subtitle(context),
-      signLanguageWidget: _signLanguageWidget(context),
-      child: _icon(context),
-      onVoice: () => context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
-      onSaved: () {
-        _compoundSavedButton(context);
-      },
-    );
+    return context.watch<CompoundViewModel>().isLoading
+        ? const DetailTopViewShimmer()
+        : DetailTop(
+            title: widget.widget.title,
+            subtitle: _subtitle(context),
+            signLanguageWidget: _signLanguageWidget(context),
+            child: _icon(context),
+            onVoice: () =>
+                context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
+            onSaved: () {
+              _compoundSavedButton(context);
+            },
+          );
   }
 
   String _subtitle(BuildContext context) =>

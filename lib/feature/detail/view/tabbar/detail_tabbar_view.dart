@@ -30,7 +30,7 @@ class DetailTabBarView extends StatelessWidget {
   AppBar _appBar(BuildContext context, TabController tabController) {
     return AppBar(
       leading: TurkceSozlukIconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => context.pop(),
         child: SvgWidget(
           icon: SvgNameEnum.left.icon,
           color: context.colorScheme.background,

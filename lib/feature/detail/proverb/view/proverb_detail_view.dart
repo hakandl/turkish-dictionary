@@ -47,7 +47,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
           padding: context.paddingNormal,
           child: Column(
             children: [
-              _detailTop(context),
+              _ProverbDetailTop(widget: widget),
               _proverbDetailWord(context),
             ],
           ),
@@ -59,17 +59,11 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
   AppBar _appBar(BuildContext context) {
     return AppBar(
       leading: TurkceSozlukIconButton(
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => context.pop(),
         child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
       title: Text(TabBarPageEnum.proverb.name.tr()),
     );
-  }
-
-  Widget _detailTop(BuildContext context) {
-    return context.watch<ProverbViewModel>().isLoading
-        ? const DetailTopViewShimmer()
-        : _ProverbDetailTop(widget: widget);
   }
 
   Widget _proverbDetailWord(BuildContext context) {
@@ -97,16 +91,19 @@ class _ProverbDetailTop extends StatefulWidget {
 class _ProverbDetailTopState extends State<_ProverbDetailTop> {
   @override
   Widget build(BuildContext context) {
-    return DetailTop(
-      title: widget.widget.title,
-      subtitle: _subtitle(context),
-      signLanguageWidget: _signLanguageWidget(context),
-      child: _icon(context),
-      onVoice: () => context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
-      onSaved: () {
-        _proverbSavedButton(context);
-      },
-    );
+    return context.watch<ProverbViewModel>().isLoading
+        ? const DetailTopViewShimmer()
+        : DetailTop(
+            title: widget.widget.title,
+            subtitle: _subtitle(context),
+            signLanguageWidget: _signLanguageWidget(context),
+            child: _icon(context),
+            onVoice: () =>
+                context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
+            onSaved: () {
+              _proverbSavedButton(context);
+            },
+          );
   }
 
   String _subtitle(BuildContext context) =>

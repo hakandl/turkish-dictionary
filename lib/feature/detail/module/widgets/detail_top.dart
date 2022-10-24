@@ -6,14 +6,12 @@ class DetailTop extends StatelessWidget {
     this.title,
     this.subtitle,
     this.signLanguageWidget,
-    this.handTitle,
     this.onVoice,
     this.onSaved,
     this.child,
   }) : super(key: key);
   final String? title;
   final String? subtitle;
-  final String? handTitle;
   final VoidCallback? onVoice;
   final VoidCallback? onSaved;
   final Widget? signLanguageWidget;
