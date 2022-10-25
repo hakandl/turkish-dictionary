@@ -7,7 +7,7 @@ import '../service/content_service_interface.dart';
 
 class HomeViewModel extends LoadingStateful {
   final IContentService contentService;
-  late final Box themeChangeBox = Hive.box(TurkishDictionaryStringConstants.settings);
+  final Box themeChangeBox = Hive.box(TurkishDictionaryStringConstants.settings);
 
   List<Word>? word;
   List<Proverb>? proverb;
