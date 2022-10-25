@@ -70,7 +70,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
     return context.watch<ProverbViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
         : WordCard(
-            title: context.watch<ProverbViewModel>().detailList?[0].meaningsList?[0].meaning ??
+            title: context.watch<ProverbViewModel>().detailList?.firstOrNull?.meaningsList?.firstOrNull?.meaning ??
                 TurkceSozlukStringConstants.empty,
             isRight: false);
   }
@@ -107,12 +107,12 @@ class _ProverbDetailTopState extends State<_ProverbDetailTop> {
   }
 
   String _subtitle(BuildContext context) =>
-      '${context.watch<ProverbViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}';
+      '${context.watch<ProverbViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?.firstOrNull?.language ?? TurkceSozlukStringConstants.empty}';
 
   SignLanguageListView _signLanguageWidget(BuildContext context) {
     return SignLanguageListView(
-      itemCount: context.read<ProverbViewModel>().detailList?[0].word?.length ?? 1,
-      word: context.read<ProverbViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+      itemCount: context.read<ProverbViewModel>().detailList?.firstOrNull?.word?.length ?? 1,
+      word: context.read<ProverbViewModel>().detailList?.firstOrNull?.word ?? TurkceSozlukStringConstants.empty,
     );
   }
 

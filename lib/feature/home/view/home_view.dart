@@ -129,10 +129,10 @@ class _HomeViewState extends State<HomeView> {
 
   _HomeInfoCard _wordCard(BuildContext context, HomeViewModel model) {
     return _HomeInfoCard(
-      title: model.word?[0].word ?? LocaleKeys.info_notFound.tr(),
-      subtitle: model.word?[0].meaning ?? LocaleKeys.info_notFound.tr(),
+      title: model.word?.firstOrNull?.word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: model.word?.firstOrNull?.meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
-        DetailViewModel.word = model.word?[0].word;
+        DetailViewModel.word = model.word?.firstOrNull?.word;
         context.router.navigate(const DetailTabBarRoute());
       },
     );
@@ -140,10 +140,10 @@ class _HomeViewState extends State<HomeView> {
 
   _HomeInfoCard _proverbCard(BuildContext context, HomeViewModel model) {
     return _HomeInfoCard(
-      title: model.proverb?[0].word ?? LocaleKeys.info_notFound.tr(),
-      subtitle: model.proverb?[0].meaning ?? LocaleKeys.info_notFound.tr(),
+      title: model.proverb?.firstOrNull?.word ?? LocaleKeys.info_notFound.tr(),
+      subtitle: model.proverb?.firstOrNull?.meaning ?? LocaleKeys.info_notFound.tr(),
       onTap: () {
-        DetailViewModel.word = model.proverb?[0].word;
+        DetailViewModel.word = model.proverb?.firstOrNull?.word;
         context.router.navigate(const DetailTabBarRoute());
       },
     );
@@ -152,9 +152,9 @@ class _HomeViewState extends State<HomeView> {
   _HomeInfoCard _aRuleCard(BuildContext context, HomeViewModel model) {
     return _HomeInfoCard(
         isLink: true,
-        title: context.watch<HomeViewModel>().rule?[0].name ?? LocaleKeys.info_notFound.tr(),
+        title: context.watch<HomeViewModel>().rule?.firstOrNull?.name ?? LocaleKeys.info_notFound.tr(),
         onTap: () => context.navigateToPage(ARuleWebView(
-            title: model.rule?[0].name ?? LocaleKeys.info_notFound.tr(),
-            url: model.rule?[0].url ?? TurkceSozlukStringConstants.empty)));
+            title: model.rule?.firstOrNull?.name ?? LocaleKeys.info_notFound.tr(),
+            url: model.rule?.firstOrNull?.url ?? TurkceSozlukStringConstants.empty)));
   }
 }

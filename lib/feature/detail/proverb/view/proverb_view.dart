@@ -50,7 +50,7 @@ class _ProverbWordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.watch<DetailViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
-        : context.watch<DetailViewModel>().detailList?[0].proverb?.length == null
+        : context.watch<DetailViewModel>().detailList?.firstOrNull?.proverb?.length == null
             ? IconAndTextInfoWidget(
                 text:
                     '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_proverbAndIdioms_nothing.tr()}',
@@ -62,10 +62,10 @@ class _ProverbWordList extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: context.watch<DetailViewModel>().detailList?[0].proverb?.length ?? 0,
+      itemCount: context.watch<DetailViewModel>().detailList?.firstOrNull?.proverb?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        String word =
-            context.watch<DetailViewModel>().detailList?[0].proverb?[index].word ?? TurkceSozlukStringConstants.empty;
+        String word = context.watch<DetailViewModel>().detailList?.firstOrNull?.proverb?[index].word ??
+            TurkceSozlukStringConstants.empty;
         return _proverbCard(word, context);
       },
     );

@@ -50,7 +50,7 @@ class _CompoundWordList extends StatelessWidget {
   Widget build(BuildContext context) {
     return context.watch<DetailViewModel>().isLoading
         ? const ProverbAndCompoundCardListShimmer()
-        : context.watch<DetailViewModel>().detailList?[0].compound?.length == null
+        : context.watch<DetailViewModel>().detailList?.firstOrNull?.compound?.length == null
             ? IconAndTextInfoWidget(
                 text: '${DetailViewModel.word} ${LocaleKeys.detail_detailViews_detailTitle_compoundWord_nothing.tr()}',
               )
@@ -61,9 +61,9 @@ class _CompoundWordList extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: context.watch<DetailViewModel>().detailList?[0].compoundList?.length ?? 0,
+      itemCount: context.watch<DetailViewModel>().detailList?.firstOrNull?.compoundList?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
-        String word = context.watch<DetailViewModel>().detailList?[0].compoundList?[index].trim() ??
+        String word = context.watch<DetailViewModel>().detailList?.firstOrNull?.compoundList?[index].trim() ??
             TurkceSozlukStringConstants.empty;
         return _compoundCard(word, context);
       },

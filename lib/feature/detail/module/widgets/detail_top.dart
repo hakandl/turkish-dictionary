@@ -33,7 +33,7 @@ class DetailTop extends StatelessWidget {
 
   Text _title(BuildContext context) {
     return Text(
-      title ?? context.watch<DetailViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+      title ?? context.watch<DetailViewModel>().detailList?.firstOrNull?.word ?? TurkceSozlukStringConstants.empty,
       style: context.textTheme.headlineLarge?.copyWith(
         color: context.colorScheme.background,
         fontWeight: FontWeight.w700,
@@ -44,7 +44,7 @@ class DetailTop extends StatelessWidget {
   Text _subtitle(BuildContext context) {
     return Text(
       subtitle ??
-          '${context.watch<DetailViewModel>().detailList?[0].pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<DetailViewModel>().detailList?[0].language ?? TurkceSozlukStringConstants.empty}',
+          '${context.watch<DetailViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<DetailViewModel>().detailList?.firstOrNull?.language ?? TurkceSozlukStringConstants.empty}',
       style:
           context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w500),
     );
@@ -176,8 +176,9 @@ class _ModalSheetList extends StatelessWidget {
             ? const DetailModalSheetShimmer()
             : signLanguageWidget ??
                 SignLanguageListView(
-                  itemCount: context.read<DetailViewModel>().detailList?[0].word?.length ?? 1,
-                  word: context.read<DetailViewModel>().detailList?[0].word ?? TurkceSozlukStringConstants.empty,
+                  itemCount: context.read<DetailViewModel>().detailList?.firstOrNull?.word?.length ?? 1,
+                  word: context.read<DetailViewModel>().detailList?.firstOrNull?.word ??
+                      TurkceSozlukStringConstants.empty,
                 );
       },
     );

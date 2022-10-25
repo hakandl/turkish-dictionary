@@ -69,9 +69,9 @@ class DetailWordList extends StatelessWidget {
           TurkceSozlukStringConstants.empty,
       authorName: detail?.examplesList == null
           ? TurkceSozlukStringConstants.empty
-          : detail?.examplesList?[0].authorId == TurkceSozlukStringConstants.zero
+          : detail?.examplesList?.firstOrNull?.authorId == TurkceSozlukStringConstants.zero
               ? TurkceSozlukStringConstants.empty
-              : '${TurkceSozlukStringConstants.dash} ${detail?.examplesList?[0].author?[0].fullName}',
+              : '${TurkceSozlukStringConstants.dash} ${detail?.examplesList?.firstOrNull?.author?.firstOrNull?.fullName}',
     );
   }
 }
