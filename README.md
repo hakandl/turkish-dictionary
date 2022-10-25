@@ -1,16 +1,67 @@
-# turkce_sozluk
+# Turkish Dictionary
 
-A new Flutter project.
+It is a flutter app where you can see the meaning and details of a word.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- State Management: [Provider](https://pub.dev/packages/provider)
+- Network: [Dio](https://pub.dev/packages/dio)
+- Database: [Hive](https://pub.dev/packages/hive)
+- Navigation: [AutoRoute](https://pub.dev/packages/auto_route)
+- Localization: [EasyLocalization](https://pub.dev/packages/easy_localization)
+- MVVM Architecture
+- Light/dark mode toggle
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<table>
+  <tr align="center">
+    <th>Light Theme</th>
+    <th>Dark Theme</th>
+  </tr>
+  <tr align="center">
+    <td colspan="2">Home Screen</td>
+</tr>
+  <tr align="center">
+    <td><img src="screenshots/light/home.png" width="250"></td>
+    <td><img src="screenshots/dark/home.png" width="250"></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2">Search Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/light/search.png" width="250"></td>
+    <td><img src="screenshots/dark/search.png" width="250"></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2">Detail Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/light/detail.png" width="250"></td>
+    <td><img src="screenshots/dark/detail.png" width="250"></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2">Proverb & Compound Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/light/proverb.png" width="250"></td>
+    <td><img src="screenshots/dark/proverb.png" width="250"></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2">Saved Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/light/saved.png" width="250"></td>
+    <td><img src="screenshots/dark/saved.png" width="250"></td>
+  </tr>
+  <tr align="center">
+    <td colspan="2">History Screen</td>
+  </tr>
+  <tr align="center">
+    <td><img src="screenshots/light/history.png" width="250"></td>
+    <td><img src="screenshots/dark/history.png" width="250"></td>
+  </tr>
+ </table>
+ 
+ ## Design
+ https://www.figma.com/file/JqpfJNo6eEJzPpTOEi3Irt/TDK-Redesign
