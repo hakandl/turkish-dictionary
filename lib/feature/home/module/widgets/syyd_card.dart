@@ -12,21 +12,22 @@ class _SyydCard extends StatelessWidget {
         : IntrinsicHeightCard(
             child: SizedBox(
               height: context.dynamicHeight(SizeEnum.zTen.value),
-              child: const _SyydCardHorizontalList(),
+              child: _SyydCardHorizontalList(),
             ),
           );
   }
 }
 
 class _SyydCardHorizontalList extends StatelessWidget {
-  const _SyydCardHorizontalList({
+  _SyydCardHorizontalList({
     Key? key,
   }) : super(key: key);
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-      controller: HomeViewModel.pageController,
+      controller: _pageController,
       thumbVisibility: true,
       trackVisibility: true,
       interactive: true,
@@ -36,7 +37,7 @@ class _SyydCardHorizontalList extends StatelessWidget {
 
   PageView _list(BuildContext context) {
     return PageView.builder(
-      controller: HomeViewModel.pageController,
+      controller: _pageController,
       scrollDirection: Axis.horizontal,
       itemCount: context.watch<HomeViewModel>().syyd?.length ?? 0,
       itemBuilder: (context, index) {

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../model/content_model.dart';
@@ -9,7 +8,6 @@ import '../service/content_service_interface.dart';
 class HomeViewModel extends LoadingStateful {
   final IContentService contentService;
   late final Box themeChangeBox = Hive.box(TurkceSozlukStringConstants.settings);
-  static PageController? pageController = PageController();
 
   List<Word>? word;
   List<Proverb>? proverb;
