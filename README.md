@@ -2,15 +2,14 @@
 
 It is a flutter app where you can see the meaning and details of a word.
 
-## Features
+## Tech and Libraries
 
+- MVVM Architecture
 - State Management: [Provider](https://pub.dev/packages/provider)
 - Network: [Dio](https://pub.dev/packages/dio)
 - Database: [Hive](https://pub.dev/packages/hive)
 - Navigation: [AutoRoute](https://pub.dev/packages/auto_route)
 - Localization: [EasyLocalization](https://pub.dev/packages/easy_localization)
-- MVVM Architecture
-- Light/dark mode toggle
 
 ## Screenshots
 
@@ -64,4 +63,8 @@ It is a flutter app where you can see the meaning and details of a word.
  </table>
  
  ## Design
- https://www.figma.com/file/JqpfJNo6eEJzPpTOEi3Irt/TDK-Redesign
+ - [Feyza Nur Demirci](https://dribbble.com/feyzademirci)
+ - [Şahin Abut](https://dribbble.com/sahinabut)
+ 
+ ## Resources
+ [Figma File](https://www.figma.com/file/JqpfJNo6eEJzPpTOEi3Irt/TDK-Redesign)
