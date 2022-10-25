@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../../product/constants/enums/svg_enum.dart';
 import '../../../../product/widgets/button/icon_button.dart';
+import '../../../../product/widgets/svg.dart';
 
 class ARuleWebView extends StatelessWidget {
   const ARuleWebView({super.key, required this.title, required this.url});
@@ -28,8 +28,8 @@ class ARuleWebView extends StatelessWidget {
     );
   }
 
-  TurkceSozlukIconButton _backButton(BuildContext context) {
-    return TurkceSozlukIconButton(
+  TurkishDictionaryIconButton _backButton(BuildContext context) {
+    return TurkishDictionaryIconButton(
       onPressed: () => context.pop(),
       child: SvgWidget(icon: SvgNameEnum.left.icon),
     );

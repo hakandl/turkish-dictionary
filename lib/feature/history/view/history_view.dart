@@ -3,10 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/core/base/view/base_view.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
-import 'package:turkce_sozluk/product/widgets/dialog/show_dialog.dart';
+import '../../../core/base/view/base_view.dart';
+import '../../../product/constants/enums/size_enum.dart';
+import '../../../product/init/language/locale_keys.g.dart';
+import '../../../product/widgets/dialog/show_dialog.dart';
 
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/constants/enums/svg_enum.dart';
@@ -25,14 +25,14 @@ class HistoryView extends StatefulWidget {
   State<HistoryView> createState() => _HistoryViewState();
 }
 
-class _HistoryViewState extends State<HistoryView> with TurkceSozlukShowDialog {
+class _HistoryViewState extends State<HistoryView> with TurkishDictionaryShowDialog {
   @override
   Widget build(BuildContext context) {
     return BaseView<HistoryViewModel>(
       viewModel: HistoryViewModel(),
       onPageBuilder: (context, value) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
+          valueListenable: Hive.box(TurkishDictionaryStringConstants.history).listenable(),
           builder: (context, _, __) {
             return Scaffold(
               appBar: _appBar(context, value),
@@ -53,12 +53,12 @@ class _HistoryViewState extends State<HistoryView> with TurkceSozlukShowDialog {
     );
   }
 
-  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context, HistoryViewModel value) {
-    return TurkceSozlukCircleElevatedButton(
+  TurkishDictionaryCircleElevatedButton _deleteButton(BuildContext context, HistoryViewModel value) {
+    return TurkishDictionaryCircleElevatedButton(
         backgroundColor: Colors.transparent,
         elevation: SizeEnum.zero.value,
         onPressed: () {
-          showTurkceSozlukShowDialog(context,
+          showTurkishDictionaryShowDialog(context,
               title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.history_deleteAllHistory.tr(), yesButton: () {
             value.historyWordBox.clear();
             context.pop();
@@ -95,7 +95,7 @@ class _HistoryList extends StatelessWidget {
       viewModel: HistoryViewModel(),
       onPageBuilder: (context, value) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(TurkceSozlukStringConstants.history).listenable(),
+          valueListenable: Hive.box(TurkishDictionaryStringConstants.history).listenable(),
           builder: (context, _, __) {
             return _list(context, value);
           },
@@ -111,7 +111,7 @@ class _HistoryList extends StatelessWidget {
       itemBuilder: (context, index) {
         return DismissibleWidget(
           dismissibleKey: value.historyWordBox.getAt(index),
-          title: value.historyWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
+          title: value.historyWordBox.getAt(index) ?? TurkishDictionaryStringConstants.empty,
           onDismissed: (direction) => value.historyWordBox.deleteAt(index),
           onTap: () {
             DetailViewModel.word = value.historyWordBox.getAt(index);

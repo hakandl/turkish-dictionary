@@ -3,11 +3,10 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import 'proverb_service_interface.dart';
-
 import '../../../../product/constants/enums/service_enum.dart';
 import '../../model/detail_model.dart';
 import '../viewmodel/proverb_viewmodel.dart';
+import 'proverb_service_interface.dart';
 
 class ProverbService extends IProverbService {
   ProverbService(super.dio);
@@ -16,7 +15,7 @@ class ProverbService extends IProverbService {
   Future<List<DetailModel>?> fetchProverbData() async {
     try {
       final response =
-          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.ara.withQuestionMark}${ProverbViewModel.word}');
+          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.search.withQuestionMark}${ProverbViewModel.word}');
       if (response.statusCode == HttpStatus.ok) {
         final jsonBody = jsonDecode(response.data);
         if (jsonBody is List) {

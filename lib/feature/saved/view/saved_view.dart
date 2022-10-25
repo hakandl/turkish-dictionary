@@ -3,14 +3,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/core/base/view/base_view.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
-import 'package:turkce_sozluk/product/constants/enums/svg_enum.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
-import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
-import 'package:turkce_sozluk/product/widgets/container/icon_text_info_widget.dart';
-import 'package:turkce_sozluk/product/widgets/dialog/show_dialog.dart';
-import 'package:turkce_sozluk/product/widgets/svg.dart';
+import '../../../core/base/view/base_view.dart';
+import '../../../product/constants/enums/size_enum.dart';
+import '../../../product/constants/enums/svg_enum.dart';
+import '../../../product/init/language/locale_keys.g.dart';
+import '../../../product/widgets/button/circle_elevated_button.dart';
+import '../../../product/widgets/container/icon_text_info_widget.dart';
+import '../../../product/widgets/dialog/show_dialog.dart';
+import '../../../product/widgets/svg.dart';
 
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/navigator/app_router.dart';
@@ -25,14 +25,14 @@ class SavedView extends StatefulWidget {
   State<SavedView> createState() => _SavedViewState();
 }
 
-class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
+class _SavedViewState extends State<SavedView> with TurkishDictionaryShowDialog {
   @override
   Widget build(BuildContext context) {
     return BaseView<SavedViewModel>(
       viewModel: SavedViewModel(),
       onPageBuilder: (context, value) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
+          valueListenable: Hive.box(TurkishDictionaryStringConstants.saved).listenable(),
           builder: (context, _, __) {
             return Scaffold(
               appBar: _appBar(context, value),
@@ -51,12 +51,12 @@ class _SavedViewState extends State<SavedView> with TurkceSozlukShowDialog {
     );
   }
 
-  TurkceSozlukCircleElevatedButton _deleteButton(BuildContext context, SavedViewModel value) {
-    return TurkceSozlukCircleElevatedButton(
+  TurkishDictionaryCircleElevatedButton _deleteButton(BuildContext context, SavedViewModel value) {
+    return TurkishDictionaryCircleElevatedButton(
       backgroundColor: Colors.transparent,
       elevation: SizeEnum.zero.value,
       onPressed: () {
-        showTurkceSozlukShowDialog(context,
+        showTurkishDictionaryShowDialog(context,
             title: LocaleKeys.info_deleteAll.tr(), content: LocaleKeys.saved_deleteAllSaved.tr(), yesButton: () {
           value.savedWordBox.clear();
           context.pop();
@@ -94,7 +94,7 @@ class _SavedList extends StatelessWidget {
       viewModel: SavedViewModel(),
       onPageBuilder: (context, value) {
         return ValueListenableBuilder(
-          valueListenable: Hive.box(TurkceSozlukStringConstants.saved).listenable(),
+          valueListenable: Hive.box(TurkishDictionaryStringConstants.saved).listenable(),
           builder: (context, _, __) {
             return _list(context, value);
           },
@@ -110,7 +110,7 @@ class _SavedList extends StatelessWidget {
       itemBuilder: (context, index) {
         return DismissibleWidget(
           dismissibleKey: value.savedWordBox.getAt(index),
-          title: value.savedWordBox.getAt(index) ?? TurkceSozlukStringConstants.empty,
+          title: value.savedWordBox.getAt(index) ?? TurkishDictionaryStringConstants.empty,
           onDismissed: (direction) => value.savedWordBox.deleteAt(index),
           onTap: () {
             DetailViewModel.word = value.savedWordBox.getAt(index);

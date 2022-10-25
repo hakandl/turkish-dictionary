@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/feature/saved/view/saved_view.dart';
+import '../../../feature/saved/view/saved_view.dart';
 
 import '../../../feature/detail/compound/view/compound_detail_view.dart';
 import '../../../feature/detail/compound/view/compound_view.dart';

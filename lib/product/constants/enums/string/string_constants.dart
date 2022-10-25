@@ -1,4 +1,4 @@
-class TurkceSozlukStringConstants {
+class TurkishDictionaryStringConstants {
   static const searchListJsonResponse = 'assets/data/autocomplete.json';
   static const baseUrl = 'https://sozluk.gov.tr';
   static const signLanguageUrl = 'https://sozluk.gov.tr/assets/img/isaret/';

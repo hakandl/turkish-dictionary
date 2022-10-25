@@ -1,5 +1,4 @@
 import '../../../../product/utils/loading.dart';
-
 import '../../model/detail_model.dart';
 import '../service/proverb_service_interface.dart';
 

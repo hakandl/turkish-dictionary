@@ -61,17 +61,17 @@ class DetailWordList extends StatelessWidget {
 
   _DetailWordInfoCard _meaningsDetailCard(MeaningsList? detail) {
     return _DetailWordInfoCard(
-      meaningOrder: detail?.orderMeaning ?? TurkceSozlukStringConstants.empty,
-      featuresName: detail?.featuresList?.map((e) => e.fullName).join(TurkceSozlukStringConstants.comma) ??
-          TurkceSozlukStringConstants.detailListDefaultExample,
-      meaning: detail?.meaning ?? TurkceSozlukStringConstants.empty,
-      exampleName: detail?.examplesList?.map((e) => e.example).join(TurkceSozlukStringConstants.separator) ??
-          TurkceSozlukStringConstants.empty,
+      meaningOrder: detail?.orderMeaning ?? TurkishDictionaryStringConstants.empty,
+      featuresName: detail?.featuresList?.map((e) => e.fullName).join(TurkishDictionaryStringConstants.comma) ??
+          TurkishDictionaryStringConstants.detailListDefaultExample,
+      meaning: detail?.meaning ?? TurkishDictionaryStringConstants.empty,
+      exampleName: detail?.examplesList?.map((e) => e.example).join(TurkishDictionaryStringConstants.separator) ??
+          TurkishDictionaryStringConstants.empty,
       authorName: detail?.examplesList == null
-          ? TurkceSozlukStringConstants.empty
-          : detail?.examplesList?.firstOrNull?.authorId == TurkceSozlukStringConstants.zero
-              ? TurkceSozlukStringConstants.empty
-              : '${TurkceSozlukStringConstants.dash} ${detail?.examplesList?.firstOrNull?.author?.firstOrNull?.fullName}',
+          ? TurkishDictionaryStringConstants.empty
+          : detail?.examplesList?.firstOrNull?.authorId == TurkishDictionaryStringConstants.zero
+              ? TurkishDictionaryStringConstants.empty
+              : '${TurkishDictionaryStringConstants.dash} ${detail?.examplesList?.firstOrNull?.author?.firstOrNull?.fullName}',
     );
   }
 }

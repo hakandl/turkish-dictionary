@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+import '../../constants/enums/size_enum.dart';
+import '../../constants/enums/string/string_constants.dart';
 
 import '../../constants/enums/svg_enum.dart';
 import '../svg.dart';
@@ -29,7 +29,7 @@ class WordCard extends StatelessWidget {
       child: ListTile(
         title: child ??
             Text(
-              title ?? TurkceSozlukStringConstants.empty,
+              title ?? TurkishDictionaryStringConstants.empty,
               style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
             ),
         trailing: isRight

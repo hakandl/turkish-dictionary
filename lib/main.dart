@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/splash/viewmodel/splash_viewmodel.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+import 'feature/splash/viewmodel/splash_viewmodel.dart';
+import 'product/constants/enums/string/string_constants.dart';
 import 'core/constants/app/app_constants.dart';
 import 'core/init/theme/dark/app_theme_dark.dart';
 import 'core/init/theme/light/app_theme_light.dart';
@@ -41,13 +41,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<Box>(
-      valueListenable: Hive.box(TurkceSozlukStringConstants.settings).listenable(),
+      valueListenable: Hive.box(TurkishDictionaryStringConstants.settings).listenable(),
       builder: (context, box, child) {
         return MaterialApp.router(
           builder: MainBuild.build,
           routerDelegate: _appRouter.delegate(),
           routeInformationParser: _appRouter.defaultRouteParser(),
-          theme: box.get(TurkceSozlukStringConstants.settingsDarkMode, defaultValue: false)
+          theme: box.get(TurkishDictionaryStringConstants.settingsDarkMode, defaultValue: false)
               ? AppThemeDark.instance.theme
               : AppThemeLight.instance.theme,
           localizationsDelegates: context.localizationDelegates,

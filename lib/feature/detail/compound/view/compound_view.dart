@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
+import '../../../../product/init/language/locale_keys.g.dart';
 import '../../../../product/constants/enums/string/string_constants.dart';
 import '../viewmodel/compound_viewmodel.dart';
 import '../../../../product/widgets/card/word_card.dart';
@@ -64,7 +64,7 @@ class _CompoundWordList extends StatelessWidget {
       itemCount: context.watch<DetailViewModel>().detailList?.firstOrNull?.compoundList?.length ?? 0,
       itemBuilder: (BuildContext context, int index) {
         String word = context.watch<DetailViewModel>().detailList?.firstOrNull?.compoundList?[index].trim() ??
-            TurkceSozlukStringConstants.empty;
+            TurkishDictionaryStringConstants.empty;
         return _compoundCard(word, context);
       },
     );

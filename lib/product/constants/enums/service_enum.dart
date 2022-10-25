@@ -1,10 +1,13 @@
 enum ServiceEnum {
-  icerik,
-  gts,
-  ara,
-  gif;
+  content('icerik'),
+  gts('gts'),
+  search('ara'),
+  gif('gif');
 
-  String get withSlash => '/$name';
-  String get withQuestionMark => '?$name=';
+  const ServiceEnum(this.value);
+  final String value;
+
+  String get withSlash => '/$value';
+  String get withQuestionMark => '?$value=';
   String get withDot => '.$name';
 }

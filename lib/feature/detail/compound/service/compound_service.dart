@@ -15,7 +15,7 @@ class CompoundService extends ICompoundService {
   Future<List<DetailModel>?> fetchCompoundData() async {
     try {
       final response =
-          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.ara.withQuestionMark}${CompoundViewModel.word}');
+          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.search.withQuestionMark}${CompoundViewModel.word}');
       if (response.statusCode == HttpStatus.ok) {
         final jsonBody = jsonDecode(response.data);
         if (jsonBody is List) {

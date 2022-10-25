@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../../model/detail_model.dart';
 
 abstract class IProverbService {

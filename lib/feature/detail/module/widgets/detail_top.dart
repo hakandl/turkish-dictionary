@@ -33,7 +33,7 @@ class DetailTop extends StatelessWidget {
 
   Text _title(BuildContext context) {
     return Text(
-      title ?? context.watch<DetailViewModel>().detailList?.firstOrNull?.word ?? TurkceSozlukStringConstants.empty,
+      title ?? context.watch<DetailViewModel>().detailList?.firstOrNull?.word ?? TurkishDictionaryStringConstants.empty,
       style: context.textTheme.headlineLarge?.copyWith(
         color: context.colorScheme.background,
         fontWeight: FontWeight.w700,
@@ -44,7 +44,7 @@ class DetailTop extends StatelessWidget {
   Text _subtitle(BuildContext context) {
     return Text(
       subtitle ??
-          '${context.watch<DetailViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<DetailViewModel>().detailList?.firstOrNull?.language ?? TurkceSozlukStringConstants.empty}',
+          '${context.watch<DetailViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkishDictionaryStringConstants.empty} ${context.watch<DetailViewModel>().detailList?.firstOrNull?.language ?? TurkishDictionaryStringConstants.empty}',
       style:
           context.textTheme.bodyMedium?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w500),
     );
@@ -79,9 +79,9 @@ class _VoiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TurkceSozlukCircleElevatedButton(
+    return TurkishDictionaryCircleElevatedButton(
       onPressed: onVoice ??
-          () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkceSozlukStringConstants.empty),
+          () => context.read<DetailViewModel>().speak(DetailViewModel.word ?? TurkishDictionaryStringConstants.empty),
       child: SvgWidget(
         icon: SvgNameEnum.voice.icon,
         color: context.colorScheme.onSecondary,
@@ -107,7 +107,7 @@ class _SavedButton extends StatefulWidget {
 class _SavedButtonState extends State<_SavedButton> {
   @override
   Widget build(BuildContext context) {
-    return TurkceSozlukCircleElevatedButton(
+    return TurkishDictionaryCircleElevatedButton(
       onPressed: widget.onSaved ??
           () {
             setState(() {
@@ -120,7 +120,7 @@ class _SavedButtonState extends State<_SavedButton> {
               context
                   .read<SavedViewModel>()
                   .savedWordBox
-                  .put(DetailViewModel.word, DetailViewModel.word ?? TurkceSozlukStringConstants.empty);
+                  .put(DetailViewModel.word, DetailViewModel.word ?? TurkishDictionaryStringConstants.empty);
               ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(content: LocaleKeys.info_savedAdd.tr(), context));
             });
           },
@@ -138,20 +138,20 @@ class _SavedButtonState extends State<_SavedButton> {
   }
 }
 
-class _SignLanguageButton extends StatelessWidget with TurkceSozlukModalSheet {
+class _SignLanguageButton extends StatelessWidget with TurkishDictionaryModalSheet {
   const _SignLanguageButton({this.signLanguageWidget});
   final Widget? signLanguageWidget;
 
   @override
   Widget build(BuildContext context) {
-    return TurkceSozlukIconTextButton(
+    return TurkishDictionaryIconTextButton(
       text: LocaleKeys.button_turkishSignLanguage.tr(),
       textStyle: TextStyle(color: context.colorScheme.onSecondary),
       icon: SvgWidget(
         icon: SvgNameEnum.hand.icon,
         color: context.colorScheme.onSecondary,
       ),
-      onPressed: () => showTurkceSozlukModalSheet(
+      onPressed: () => showTurkishDictionaryModalSheet(
         context,
         Expanded(child: _ModalSheetList(signLanguageWidget: signLanguageWidget)),
       ),
@@ -178,7 +178,7 @@ class _ModalSheetList extends StatelessWidget {
                 SignLanguageListView(
                   itemCount: context.read<DetailViewModel>().detailList?.firstOrNull?.word?.length ?? 1,
                   word: context.read<DetailViewModel>().detailList?.firstOrNull?.word ??
-                      TurkceSozlukStringConstants.empty,
+                      TurkishDictionaryStringConstants.empty,
                 );
       },
     );

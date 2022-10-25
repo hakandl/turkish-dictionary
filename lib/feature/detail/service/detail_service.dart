@@ -3,10 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../viewmodel/detail_viewmodel.dart';
-
 import '../../../product/constants/enums/service_enum.dart';
 import '../model/detail_model.dart';
+import '../viewmodel/detail_viewmodel.dart';
 import 'detail_service_interface.dart';
 
 class DetailService extends IDetailService {
@@ -16,7 +15,7 @@ class DetailService extends IDetailService {
   Future<List<DetailModel>?> fetchDetailData() async {
     try {
       final response =
-          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.ara.withQuestionMark}${DetailViewModel.word}');
+          await dio.get('${ServiceEnum.gts.withSlash}${ServiceEnum.search.withQuestionMark}${DetailViewModel.word}');
       if (response.statusCode == HttpStatus.ok) {
         final jsonBody = jsonDecode(response.data);
         if (jsonBody is List) {

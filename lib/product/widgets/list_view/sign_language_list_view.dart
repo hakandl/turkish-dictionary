@@ -26,8 +26,9 @@ class SignLanguageListView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SignLanguageCard(
-                image:
-                    TurkceSozlukStringConstants.signLanguageUrl + word[index].signLanguage() + ServiceEnum.gif.withDot),
+                image: TurkishDictionaryStringConstants.signLanguageUrl +
+                    word[index].signLanguage() +
+                    ServiceEnum.gif.withDot),
             context.emptySizedHeightBoxLow3x,
             Text(
               word[index],

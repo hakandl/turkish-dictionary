@@ -34,8 +34,8 @@ class _SearchTextFieldContainer extends StatelessWidget {
     );
   }
 
-  TurkceSozlukCircleElevatedButton _textClearButton(BuildContext context) {
-    return TurkceSozlukCircleElevatedButton(
+  TurkishDictionaryCircleElevatedButton _textClearButton(BuildContext context) {
+    return TurkishDictionaryCircleElevatedButton(
       backgroundColor: Colors.transparent,
       elevation: SizeEnum.zero.value,
       child: SvgWidget(

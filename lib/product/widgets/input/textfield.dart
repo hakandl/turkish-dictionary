@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:turkce_sozluk/product/constants/enums/size_enum.dart';
+import '../../constants/enums/size_enum.dart';
 
 class NormalTextField extends TextField {
   NormalTextField(

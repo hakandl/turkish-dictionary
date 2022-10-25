@@ -7,6 +7,6 @@ class SavedViewModel extends ChangeNotifier {
   late final Box savedWordBox;
 
   SavedViewModel() {
-    savedWordBox = Hive.box(TurkceSozlukStringConstants.saved);
+    savedWordBox = Hive.box(TurkishDictionaryStringConstants.saved);
   }
 }

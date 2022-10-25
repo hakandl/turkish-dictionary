@@ -7,6 +7,6 @@ class HistoryViewModel extends ChangeNotifier {
   late final Box historyWordBox;
 
   HistoryViewModel() {
-    historyWordBox = Hive.box(TurkceSozlukStringConstants.history);
+    historyWordBox = Hive.box(TurkishDictionaryStringConstants.history);
   }
 }

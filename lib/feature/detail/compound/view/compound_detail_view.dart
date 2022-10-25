@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+import '../../../../product/constants/enums/string/string_constants.dart';
 import '../../../../product/init/language/locale_keys.g.dart';
 import '../../../../product/widgets/card/snackbar_card.dart';
 import '../../../saved/viewmodel/saved_viewmodel.dart';
@@ -57,7 +57,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      leading: TurkceSozlukIconButton(
+      leading: TurkishDictionaryIconButton(
         onPressed: () => context.pop(),
         child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
@@ -70,7 +70,7 @@ class _CompoundDetailViewState extends State<CompoundDetailView> {
         ? const ProverbAndCompoundCardListShimmer()
         : WordCard(
             title: context.watch<CompoundViewModel>().detailList?.firstOrNull?.meaningsList?.firstOrNull?.meaning ??
-                TurkceSozlukStringConstants.empty,
+                TurkishDictionaryStringConstants.empty,
             isRight: false);
   }
 }
@@ -98,7 +98,7 @@ class _CompoundDetailTopState extends State<_CompoundDetailTop> {
             signLanguageWidget: _signLanguageWidget(context),
             child: _icon(context),
             onVoice: () =>
-                context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkceSozlukStringConstants.empty),
+                context.read<DetailViewModel>().speak(CompoundViewModel.word ?? TurkishDictionaryStringConstants.empty),
             onSaved: () {
               _compoundSavedButton(context);
             },
@@ -106,12 +106,12 @@ class _CompoundDetailTopState extends State<_CompoundDetailTop> {
   }
 
   String _subtitle(BuildContext context) =>
-      '${context.watch<CompoundViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<CompoundViewModel>().detailList?.firstOrNull?.language ?? TurkceSozlukStringConstants.empty}';
+      '${context.watch<CompoundViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkishDictionaryStringConstants.empty} ${context.watch<CompoundViewModel>().detailList?.firstOrNull?.language ?? TurkishDictionaryStringConstants.empty}';
 
   SignLanguageListView _signLanguageWidget(BuildContext context) {
     return SignLanguageListView(
       itemCount: context.read<CompoundViewModel>().detailList?.firstOrNull?.word?.length ?? 1,
-      word: context.read<CompoundViewModel>().detailList?.firstOrNull?.word ?? TurkceSozlukStringConstants.empty,
+      word: context.read<CompoundViewModel>().detailList?.firstOrNull?.word ?? TurkishDictionaryStringConstants.empty,
     );
   }
 
@@ -134,7 +134,7 @@ class _CompoundDetailTopState extends State<_CompoundDetailTop> {
       context
           .read<SavedViewModel>()
           .savedWordBox
-          .put(CompoundViewModel.word, CompoundViewModel.word ?? TurkceSozlukStringConstants.empty);
+          .put(CompoundViewModel.word, CompoundViewModel.word ?? TurkishDictionaryStringConstants.empty);
       ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
     });
   }

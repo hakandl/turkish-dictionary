@@ -3,11 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/core/base/view/base_view.dart';
-import 'package:turkce_sozluk/feature/history/viewmodel/history_viewmodel.dart';
-import 'package:turkce_sozluk/product/widgets/button/circle_elevated_button.dart';
-import 'package:turkce_sozluk/product/widgets/card/word_card.dart';
-import 'package:turkce_sozluk/product/widgets/container/icon_text_info_widget.dart';
+import '../../../core/base/view/base_view.dart';
+import '../../history/viewmodel/history_viewmodel.dart';
+import '../../../product/widgets/button/circle_elevated_button.dart';
+import '../../../product/widgets/card/word_card.dart';
+import '../../../product/widgets/container/icon_text_info_widget.dart';
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../../detail/viewmodel/detail_viewmodel.dart';
 import '../../../product/constants/enums/size_enum.dart';
@@ -72,7 +72,7 @@ class _SearchViewState extends State<SearchView> {
           const Expanded(
             child: _SearchTextFieldContainer(),
           ),
-          TurkceSozlukTextButton(
+          TurkishDictionaryTextButton(
             text: LocaleKeys.button_cancel.tr(),
             textStyle: context.textTheme.titleMedium,
             onPressed: () => context.pop(),
@@ -97,7 +97,7 @@ class _SearchViewState extends State<SearchView> {
 
   Expanded _specialWord(String word, SearchViewModel value) {
     return Expanded(
-      child: TurkceSozlukTextButton(
+      child: TurkishDictionaryTextButton(
         text: word,
         textStyle: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
         onPressed: () => value.insertSpecialWord(word),

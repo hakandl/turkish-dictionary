@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/utils/loading.dart';
 
 import '../model/search_keyword_model.dart';
@@ -19,7 +19,7 @@ class SearchViewModel extends LoadingStateful {
   }
 
   Future<void> _loadWord() async {
-    final response = await rootBundle.loadString(TurkceSozlukStringConstants.searchListJsonResponse);
+    final response = await rootBundle.loadString(TurkishDictionaryStringConstants.searchListJsonResponse);
     final jsonResponse = await compute(jsonDecode, response) as List;
     data = jsonResponse.map((e) => WordModel.fromJson(e)).toList();
   }

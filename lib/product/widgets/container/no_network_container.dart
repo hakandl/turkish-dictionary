@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
-import '../../constants/enums/network/network_result_enum.dart';
-import '../../service/network/network_manager.dart';
 
+import '../../constants/enums/network/network_result_enum.dart';
 import '../../constants/enums/size_enum.dart';
+import '../../init/language/locale_keys.g.dart';
+import '../../service/network/network_manager.dart';
 import '../../service/network/network_manager_interface.dart';
 
 class NoNetworkContainer extends StatefulWidget {

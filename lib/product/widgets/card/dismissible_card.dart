@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
 import '../../constants/enums/svg_enum.dart';
-import 'word_card.dart';
 import '../svg.dart';
+import 'word_card.dart';
 
 class DismissibleWidget extends StatelessWidget {
   const DismissibleWidget(

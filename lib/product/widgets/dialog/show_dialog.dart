@@ -1,16 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/init/language/locale_keys.g.dart';
+import '../../init/language/locale_keys.g.dart';
 
 import '../button/normal_elevated_button.dart';
 
-mixin TurkceSozlukShowDialog {
-  Future<T?> showTurkceSozlukShowDialog<T>(BuildContext context,
+mixin TurkishDictionaryShowDialog {
+  Future<T?> showTurkishDictionaryShowDialog<T>(BuildContext context,
       {required String title, required String content, required VoidCallback yesButton}) async {
     return showDialog(
       context: context,
-      builder: (context) => TurkceSozlukAlertDialog(
+      builder: (context) => TurkishDictionaryAlertDialog(
         title: title,
         content: content,
         yesButton: yesButton,
@@ -19,8 +19,8 @@ mixin TurkceSozlukShowDialog {
   }
 }
 
-class TurkceSozlukAlertDialog extends StatelessWidget {
-  const TurkceSozlukAlertDialog({
+class TurkishDictionaryAlertDialog extends StatelessWidget {
+  const TurkishDictionaryAlertDialog({
     Key? key,
     required this.title,
     required this.content,
@@ -42,11 +42,11 @@ class TurkceSozlukAlertDialog extends StatelessWidget {
         style: context.textTheme.titleMedium?.copyWith(color: context.colorScheme.background),
       ),
       actions: [
-        TurkceSozlukNormalElevatedButton(
+        TurkishDictionaryNormalElevatedButton(
           onPressed: () => context.pop(),
           child: Text(LocaleKeys.button_no.tr()),
         ),
-        TurkceSozlukNormalElevatedButton(
+        TurkishDictionaryNormalElevatedButton(
           onPressed: yesButton,
           child: Text(LocaleKeys.button_yes.tr()),
         ),

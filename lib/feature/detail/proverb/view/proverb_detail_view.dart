@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/product/widgets/card/snackbar_card.dart';
+import '../../../../product/widgets/card/snackbar_card.dart';
 
 import '../../../../product/constants/enums/string/string_constants.dart';
 import '../../../../product/constants/enums/string_enum.dart';
@@ -58,7 +58,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
 
   AppBar _appBar(BuildContext context) {
     return AppBar(
-      leading: TurkceSozlukIconButton(
+      leading: TurkishDictionaryIconButton(
         onPressed: () => context.pop(),
         child: SvgWidget(icon: SvgNameEnum.left.icon),
       ),
@@ -71,7 +71,7 @@ class _ProverbDetailViewState extends State<ProverbDetailView> {
         ? const ProverbAndCompoundCardListShimmer()
         : WordCard(
             title: context.watch<ProverbViewModel>().detailList?.firstOrNull?.meaningsList?.firstOrNull?.meaning ??
-                TurkceSozlukStringConstants.empty,
+                TurkishDictionaryStringConstants.empty,
             isRight: false);
   }
 }
@@ -99,7 +99,7 @@ class _ProverbDetailTopState extends State<_ProverbDetailTop> {
             signLanguageWidget: _signLanguageWidget(context),
             child: _icon(context),
             onVoice: () =>
-                context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkceSozlukStringConstants.empty),
+                context.read<DetailViewModel>().speak(ProverbViewModel.word ?? TurkishDictionaryStringConstants.empty),
             onSaved: () {
               _proverbSavedButton(context);
             },
@@ -107,12 +107,12 @@ class _ProverbDetailTopState extends State<_ProverbDetailTop> {
   }
 
   String _subtitle(BuildContext context) =>
-      '${context.watch<ProverbViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkceSozlukStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?.firstOrNull?.language ?? TurkceSozlukStringConstants.empty}';
+      '${context.watch<ProverbViewModel>().detailList?.firstOrNull?.pronunciation ?? TurkishDictionaryStringConstants.empty} ${context.watch<ProverbViewModel>().detailList?.firstOrNull?.language ?? TurkishDictionaryStringConstants.empty}';
 
   SignLanguageListView _signLanguageWidget(BuildContext context) {
     return SignLanguageListView(
       itemCount: context.read<ProverbViewModel>().detailList?.firstOrNull?.word?.length ?? 1,
-      word: context.read<ProverbViewModel>().detailList?.firstOrNull?.word ?? TurkceSozlukStringConstants.empty,
+      word: context.read<ProverbViewModel>().detailList?.firstOrNull?.word ?? TurkishDictionaryStringConstants.empty,
     );
   }
 
@@ -135,7 +135,7 @@ class _ProverbDetailTopState extends State<_ProverbDetailTop> {
       context
           .read<SavedViewModel>()
           .savedWordBox
-          .put(ProverbViewModel.word, ProverbViewModel.word ?? TurkceSozlukStringConstants.empty);
+          .put(ProverbViewModel.word, ProverbViewModel.word ?? TurkishDictionaryStringConstants.empty);
       ScaffoldMessenger.of(context).showSnackBar(SnackBarCard(context, content: LocaleKeys.info_savedAdd.tr()));
     });
   }

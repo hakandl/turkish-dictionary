@@ -3,8 +3,8 @@ import 'package:kartal/kartal.dart';
 
 import '../../constants/enums/size_enum.dart';
 
-class TurkceSozlukIconTextButton extends StatelessWidget {
-  const TurkceSozlukIconTextButton({
+class TurkishDictionaryIconTextButton extends StatelessWidget {
+  const TurkishDictionaryIconTextButton({
     super.key,
     required this.icon,
     required this.text,

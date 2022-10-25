@@ -87,7 +87,7 @@ class _TextCard extends StatelessWidget {
 
   Text _subtitle(BuildContext context) {
     return Text(
-      subtitle ?? TurkceSozlukStringConstants.empty,
+      subtitle ?? TurkishDictionaryStringConstants.empty,
       style:
           context.textTheme.titleMedium?.copyWith(color: context.colorScheme.onBackground, fontWeight: FontWeight.w400),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TurkceSozlukCircleElevatedButton extends StatelessWidget {
-  const TurkceSozlukCircleElevatedButton(
+class TurkishDictionaryCircleElevatedButton extends StatelessWidget {
+  const TurkishDictionaryCircleElevatedButton(
       {super.key, required this.child, this.onPressed, this.backgroundColor, this.elevation});
   final VoidCallback? onPressed;
   final Color? backgroundColor;

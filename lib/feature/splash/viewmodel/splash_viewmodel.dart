@@ -2,8 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kartal/kartal.dart';
-import 'package:turkce_sozluk/product/constants/enums/string/string_constants.dart';
+
 import '../../../core/base/model/base_view_model.dart';
+import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/navigator/app_router.dart';
 
 class SplashViewModel extends ChangeNotifier with BaseViewModel {
@@ -22,9 +23,9 @@ class SplashViewModel extends ChangeNotifier with BaseViewModel {
 
   Future<void> hiveInit() async {
     await Hive.initFlutter();
-    await Hive.openBox(TurkceSozlukStringConstants.settings);
-    await Hive.openBox(TurkceSozlukStringConstants.saved);
-    await Hive.openBox(TurkceSozlukStringConstants.history);
+    await Hive.openBox(TurkishDictionaryStringConstants.settings);
+    await Hive.openBox(TurkishDictionaryStringConstants.saved);
+    await Hive.openBox(TurkishDictionaryStringConstants.history);
   }
 
   Future<void> startAnimationOnView() async {

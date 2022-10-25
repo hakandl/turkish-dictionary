@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../core/components/button/normal_text_button.dart';
 
-class TurkceSozlukTextButton extends StatelessWidget {
-  const TurkceSozlukTextButton({super.key, this.onPressed, required this.text, this.textStyle});
+class TurkishDictionaryTextButton extends StatelessWidget {
+  const TurkishDictionaryTextButton({super.key, this.onPressed, required this.text, this.textStyle});
   final VoidCallback? onPressed;
   final String text;
   final TextStyle? textStyle;

@@ -29,7 +29,7 @@ class _WordCardList extends StatelessWidget {
             context
                 .read<HistoryViewModel>()
                 .historyWordBox
-                .put(DetailViewModel.word, DetailViewModel.word ?? TurkceSozlukStringConstants.empty);
+                .put(DetailViewModel.word, DetailViewModel.word ?? TurkishDictionaryStringConstants.empty);
           },
         );
       },

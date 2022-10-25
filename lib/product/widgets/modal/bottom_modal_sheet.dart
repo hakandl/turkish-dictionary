@@ -3,14 +3,14 @@ import 'package:kartal/kartal.dart';
 
 import '../../constants/enums/size_enum.dart';
 
-mixin TurkceSozlukModalSheet {
-  Future<T?> showTurkceSozlukModalSheet<T>(BuildContext context, Widget child, {double? height}) async {
+mixin TurkishDictionaryModalSheet {
+  Future<T?> showTurkishDictionaryModalSheet<T>(BuildContext context, Widget child, {double? height}) async {
     return showModalBottomSheet(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.only(topLeft: context.normalRadius, topRight: context.normalRadius)),
         context: context,
         builder: (context) {
-          return _TurkceSozlukModalSheet(
+          return _TurkishDictionaryModalSheet(
             height: height,
             child: child,
           );
@@ -18,8 +18,8 @@ mixin TurkceSozlukModalSheet {
   }
 }
 
-class _TurkceSozlukModalSheet extends StatelessWidget {
-  const _TurkceSozlukModalSheet({
+class _TurkishDictionaryModalSheet extends StatelessWidget {
+  const _TurkishDictionaryModalSheet({
     Key? key,
     required this.child,
     this.height,

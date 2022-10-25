@@ -3,8 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:provider/provider.dart';
-import 'package:turkce_sozluk/feature/home/view/subview/a_rule_webview.dart';
-import 'package:turkce_sozluk/product/init/navigator/app_router.dart';
+import 'subview/a_rule_webview.dart';
+import '../../../product/init/navigator/app_router.dart';
 import '../../../product/constants/enums/string/string_constants.dart';
 import '../../../product/init/language/locale_keys.g.dart';
 
@@ -63,8 +63,8 @@ class _HomeViewState extends State<HomeView> {
           PopupMenuItem(
               textStyle: context.textTheme.titleSmall?.copyWith(color: context.colorScheme.background),
               onTap: () async {
-                model.themeChangeBox.put(TurkceSozlukStringConstants.settingsDarkMode,
-                    !model.themeChangeBox.get(TurkceSozlukStringConstants.settingsDarkMode, defaultValue: false));
+                model.themeChangeBox.put(TurkishDictionaryStringConstants.settingsDarkMode,
+                    !model.themeChangeBox.get(TurkishDictionaryStringConstants.settingsDarkMode, defaultValue: false));
                 context.read<ThemeNotifier>().changeTheme();
               },
               child: Text(
@@ -155,6 +155,6 @@ class _HomeViewState extends State<HomeView> {
         title: context.watch<HomeViewModel>().rule?.firstOrNull?.name ?? LocaleKeys.info_notFound.tr(),
         onTap: () => context.navigateToPage(ARuleWebView(
             title: model.rule?.firstOrNull?.name ?? LocaleKeys.info_notFound.tr(),
-            url: model.rule?.firstOrNull?.url ?? TurkceSozlukStringConstants.empty)));
+            url: model.rule?.firstOrNull?.url ?? TurkishDictionaryStringConstants.empty)));
   }
 }

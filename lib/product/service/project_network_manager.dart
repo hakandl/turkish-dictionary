@@ -4,7 +4,7 @@ import '../constants/enums/string/string_constants.dart';
 
 class ProjectNetworkManager {
   ProjectNetworkManager._() {
-    _dio = Dio(BaseOptions(baseUrl: TurkceSozlukStringConstants.baseUrl));
+    _dio = Dio(BaseOptions(baseUrl: TurkishDictionaryStringConstants.baseUrl));
   }
   late final Dio _dio;
 

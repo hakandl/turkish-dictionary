@@ -1,8 +1,9 @@
 import 'package:flutter_tts/flutter_tts.dart';
+
 import '../../../core/constants/enums/app_language_enums.dart';
+import '../../../product/utils/loading.dart';
 import '../model/detail_model.dart';
 import '../service/detail_service_interface.dart';
-import '../../../product/utils/loading.dart';
 
 class DetailViewModel extends LoadingStateful {
   final IDetailService detailService;
